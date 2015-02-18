@@ -26,6 +26,26 @@ TKTransducer TKFiltering(BOOL (^filterFunc)(id))
     };
 }
 
+
+TKTransducer TKIdentityTransducer() {
+    return ^TKReducer(TKReducer reducer) {
+        return reducer;
+    };
+}
+
+TKTransducer TKCompose(TKTransducer f, TKTransducer g)
+{
+    return ^TKReducer(TKReducer reducer) {
+        return g(f(reducer));
+    };
+}
+
+TKTransducer TKComposeArray(NSArray *transducers) {
+    return TKReduce(transducers.reverseObjectEnumerator, TKIdentityTransducer(), ^id(TKTransducer acc, TKTransducer val) {
+        return TKCompose(acc, val);
+    });
+}
+
 id TKReduce(NSEnumerator *source, id initial, TKReducer reducer)
 {
     id obj;

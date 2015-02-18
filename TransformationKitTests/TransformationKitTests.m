@@ -80,6 +80,35 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testComposeTwoTransducers
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6];
+    NSArray *expected = @[@6, @12, @18];
+    TKTransducer xform = TKCompose(
+            TKMapping(^id(NSNumber *number) { return @(number.intValue * 3); }),
+            TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; })
+    );
+
+    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testComposeArrayOfTransducers
+{
+    NSArray *array = @[@50, @500, @5000, @50000];
+    NSArray *expected = @[@50, @500];
+    NSArray *transducers = @[
+            TKMapping(^id(NSNumber *number) { return [NSString stringWithFormat:@"%@", number]; }),
+            TKFiltering(^BOOL(NSString *str) { return str.length < 4; }),
+            TKMapping(^id(NSString *str) { return @(str.intValue); })
+    ];
+    TKTransducer xform = TKComposeArray(transducers);
+    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

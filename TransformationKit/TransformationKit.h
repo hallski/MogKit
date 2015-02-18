@@ -15,10 +15,14 @@ typedef BOOL (^TKPredicate) (id);
 
 TKTransducer TKMapping(TKMapFunc);
 TKTransducer TKFiltering(TKPredicate);
-TKTransducer TKFlattening(void);
+TKTransducer TKIdentityTransducer();
+
+TKTransducer TKCompose(TKTransducer, TKTransducer);
+TKTransducer TKComposeArray(NSArray *transducers);
 
 id TKReduce(NSEnumerator *source, id initial, TKReducer reducer);
 id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);
+
 
 @protocol TKTransformable
 - (instancetype)tk_map:(TKMapFunc)mapFunc;

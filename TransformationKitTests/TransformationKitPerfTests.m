@@ -49,13 +49,13 @@
 
 - (void)testPerformanceComposing
 {
-    NSArray *array = [self testArrayWithInts:200000];
+    NSArray *array = [self testArrayWithInts:100000];
 
     [self measureBlock:^{
         NSArray *transducers = @[
                 TKMapping(^id(NSNumber *number) { return @(number.intValue + 100); }),
-                TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; }),
-                TKMapping(^id(NSNumber *number) { return [NSString stringWithFormat:@"%@", number]; })
+                TKFiltering(^BOOL(NSNumber *number) { return YES; }),
+                TKMapping(^id(NSNumber *number) { return @(number.intValue - 100); })
         ];
 
         TKTransducer xform = TKComposeTransducersArray(transducers);
@@ -67,24 +67,24 @@
         });
 
         NSArray *result = [mArray copy];
-        XCTAssertEqual(100000, [result count]);
+        XCTAssertEqualObjects(array, result);
     }];
 }
 
 - (void)testPerformanceChaining
 {
-    NSArray *array = [self testArrayWithInts:200000];
+    NSArray *array = [self testArrayWithInts:100000];
 
     [self measureBlock:^{
         NSArray *result = [[[array tk_map:^id(NSNumber *number) {
             return @(number.intValue + 100);
         }] tk_filter:^BOOL(NSNumber *number) {
-            return number.intValue % 2 == 0;
+            return YES;
         }] tk_map:^id(NSNumber *number) {
-            return [NSString stringWithFormat:@"%@", number];
+            return @(number.intValue - 100);
         }];
 
-        XCTAssertEqual(100000, [result count]);
+        XCTAssertEqualObjects(array, result);
     }];
 }
 

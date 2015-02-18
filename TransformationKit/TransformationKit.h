@@ -13,8 +13,8 @@ typedef TKReducer (^TKTransducer) (TKReducer);
 typedef id (^TKMapFunc) (id);
 typedef BOOL (^TKPredicate) (id);
 
-TKTransducer mapping(TKMapFunc);
-TKTransducer filtering(TKPredicate);
+TKTransducer TKMapping(TKMapFunc);
+TKTransducer TKFiltering(TKPredicate);
 
-id reduce(NSEnumerator *source, id initial, TKReducer reducer);
-id transduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);
+id TKReduce(NSEnumerator *source, id initial, TKReducer reducer);
+id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);

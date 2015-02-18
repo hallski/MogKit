@@ -11,12 +11,12 @@ TKReducer arrayAppendReducer(void) {
 
 - (NSArray *)tk_map:(TKMapFunc)mapFunc
 {
-    return transduce(self.objectEnumerator, @[], mapping(mapFunc), arrayAppendReducer());
+    return TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), arrayAppendReducer());
 }
 
 - (NSArray *)tk_filter:(TKPredicate)predicate
 {
-    return transduce(self.objectEnumerator, @[], filtering(predicate), arrayAppendReducer());
+    return TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), arrayAppendReducer());
 }
 
 @end

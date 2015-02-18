@@ -9,7 +9,7 @@
 #import "TransformationKit.h"
 
 
-TKTransducer mapping(id (^mapFunc)(id)) {
+TKTransducer TKMapping(id (^mapFunc)(id)) {
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
             return reducer(acc, mapFunc(val));
@@ -17,7 +17,7 @@ TKTransducer mapping(id (^mapFunc)(id)) {
     };
 }
 
-TKTransducer filtering(BOOL (^filterFunc)(id)) {
+TKTransducer TKFiltering(BOOL (^filterFunc)(id)) {
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
             return filterFunc(val) ? reducer(acc, val) : acc;
@@ -25,8 +25,7 @@ TKTransducer filtering(BOOL (^filterFunc)(id)) {
     };
 }
 
-
-id reduce(NSEnumerator *source, id initial, TKReducer reducer)
+id TKReduce(NSEnumerator *source, id initial, TKReducer reducer)
 {
     id obj;
     id acc = initial;
@@ -38,10 +37,8 @@ id reduce(NSEnumerator *source, id initial, TKReducer reducer)
     return acc;
 }
 
-
-
-id transduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer)
+id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer)
 {
-    return reduce(source, initial, transducer(reducer));
+    return TKReduce(source, initial, transducer(reducer));
 }
 

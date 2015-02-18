@@ -39,27 +39,9 @@ id reduce(NSEnumerator *source, id initial, TKReducer reducer)
 }
 
 
-TKReducer arrayAppendReducer(void) {
-    return ^id(NSArray *acc, id val) {
-        return [acc arrayByAddingObject:val];
-    };
-}
 
 id transduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer)
 {
     return reduce(source, initial, transducer(reducer));
 }
 
-@implementation NSArray (TransformKit)
-
-- (NSArray *)tk_map:(TKMapFunc)mapFunc
-{
-    return transduce(self.objectEnumerator, @[], mapping(mapFunc), arrayAppendReducer());
-}
-
-- (NSArray *)tk_filter:(TKPredicate)predicate
-{
-    return transduce(self.objectEnumerator, @[], filtering(predicate), arrayAppendReducer());
-}
-
-@end

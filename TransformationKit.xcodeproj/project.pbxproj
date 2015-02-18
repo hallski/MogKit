@@ -11,6 +11,8 @@
 		40B9A61F1A9524070062C693 /* TransformationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A61E1A9524070062C693 /* TransformationKit.m */; };
 		40B9A6251A9524070062C693 /* libTransformationKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6191A9524070062C693 /* libTransformationKit.a */; };
 		40B9A6341A95241C0062C693 /* TransformationKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* TransformationKitTests.m */; };
+		6313D628E31D6BB710C07E26 /* NSArray+TransformationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */; };
+		6313D6D876E83FBB57D4DF6C /* NSArray+TransformationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,8 @@
 		40B9A6241A9524070062C693 /* TransformationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransformationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B9A62A1A9524070062C693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40B9A6331A95241C0062C693 /* TransformationKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformationKitTests.m; sourceTree = "<group>"; };
+		6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TransformationKit.h"; sourceTree = "<group>"; };
+		6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TransformationKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			children = (
 				40B9A61C1A9524070062C693 /* TransformationKit.h */,
 				40B9A61E1A9524070062C693 /* TransformationKit.m */,
+				6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */,
+				6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */,
 			);
 			path = TransformationKit;
 			sourceTree = "<group>";
@@ -103,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40B9A61D1A9524070062C693 /* TransformationKit.h in Headers */,
+				6313D628E31D6BB710C07E26 /* NSArray+TransformationKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40B9A61F1A9524070062C693 /* TransformationKit.m in Sources */,
+				6313D6D876E83FBB57D4DF6C /* NSArray+TransformationKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

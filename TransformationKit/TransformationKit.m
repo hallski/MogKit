@@ -41,12 +41,12 @@ TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 }
 
 TKTransducer TKComposeTransducersArray(NSArray *transducers) {
-    return TKReduce(transducers.reverseObjectEnumerator, TKIdentityTransducer(), ^id(TKTransducer acc, TKTransducer val) {
-        return TKComposeTransducers(acc, val);
-    });
+    return TKReduce(^id(TKTransducer acc, TKTransducer val) {
+            return TKComposeTransducers(acc, val);
+        }, TKIdentityTransducer(), transducers.reverseObjectEnumerator);
 }
 
-id TKReduce(NSEnumerator *source, id initial, TKReducer reducer)
+id TKReduce(TKReducer reducer, id initial, NSEnumerator *source)
 {
     id obj;
     id acc = initial;
@@ -58,8 +58,8 @@ id TKReduce(NSEnumerator *source, id initial, TKReducer reducer)
     return acc;
 }
 
-id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer)
+id TKTransduce(TKTransducer transducer, TKReducer reducer, id initial, NSEnumerator *source)
 {
-    return TKReduce(source, initial, transducer(reducer));
+    return TKReduce(transducer(reducer), initial, source);
 }
 

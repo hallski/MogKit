@@ -60,13 +60,8 @@
 
         TKTransducer xform = TKComposeTransducersArray(transducers);
 
-        NSMutableArray *mArray = [NSMutableArray new];
-        TKTransduce(array.objectEnumerator, @[], xform, ^id(id acc, id val) {
-            [mArray addObject:val];
-            return mArray;
-        });
+        NSArray *result = TKTransduce(xform, TKMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
 
-        NSArray *result = [mArray copy];
         XCTAssertEqualObjects(array, result);
     }];
 }

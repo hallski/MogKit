@@ -89,7 +89,7 @@
             TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; })
     );
 
-    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());
+    NSArray *result = TKTransduce(xform, TKArrayAppendReducer(), @[], array.objectEnumerator);
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -104,7 +104,7 @@
             TKMapping(^id(NSString *str) { return @(str.intValue); })
     ];
     TKTransducer xform = TKComposeTransducersArray(transducers);
-    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());
+    NSArray *result = TKTransduce(xform, TKArrayAppendReducer(), @[], array.objectEnumerator);
 
     XCTAssertEqualObjects(expected, result);
 }

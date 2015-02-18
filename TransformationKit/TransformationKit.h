@@ -20,8 +20,8 @@ TKTransducer TKIdentityTransducer();
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
 TKTransducer TKComposeTransducersArray(NSArray *transducers);
 
-id TKReduce(NSEnumerator *source, id initial, TKReducer reducer);
-id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);
+id TKReduce(TKReducer reducer, id initial, NSEnumerator *source);
+id TKTransduce(TKTransducer transducer, TKReducer reducer, id initial, NSEnumerator *source);
 
 @protocol TKTransformable
 - (instancetype)tk_map:(TKMapFunc)mapFunc;

@@ -7,27 +7,45 @@ TKReducer TKArrayAppendReducer(void) {
     };
 }
 
-TKReducer TKArrayAppendArrayReducer(void) {
-    return ^id(NSArray *acc, id val) {
-        return [acc arrayByAddingObjectsFromArray:val];
-    };
-}
-
 @implementation NSArray (TransformationKit)
 
 - (instancetype)tk_map:(TKMapFunc)mapFunc
 {
-    return TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), TKArrayAppendReducer());
+    // Using a mutable array to collect is done as an optimization to avoid creating new arrays for
+    // each object.
+    NSMutableArray *mArray = [NSMutableArray new];
+    TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), ^id(id acc, id val) {
+        [mArray addObject:val];
+        return mArray;
+    });
+
+    return [mArray copy];
 }
 
 - (instancetype)tk_filter:(TKPredicate)predicate
 {
-    return TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), TKArrayAppendReducer());
+    // Using a mutable array to collect is done as an optimization to avoid creating new arrays for
+    // each object.
+    NSMutableArray *mArray = [NSMutableArray new];
+    TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), ^id(id acc, id val) {
+        [mArray addObject:val];
+        return mArray;
+    });
+
+    return [mArray copy];
 }
 
 - (instancetype)tk_concat
 {
-    return TKReduce(self.objectEnumerator, @[], TKArrayAppendArrayReducer());
+    // Using a mutable array to collect is done as an optimization to avoid creating new arrays for
+    // each object.
+    NSMutableArray *mArray = [NSMutableArray new];
+    TKReduce(self.objectEnumerator, @[], ^id(id acc, id val) {
+        [mArray addObjectsFromArray:val];
+        return mArray;
+    });
+
+    return [mArray copy];
 }
 
 @end

@@ -85,12 +85,8 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6];
     NSArray *expected = @[@6, @12, @18];
     TKTransducer xform = TKComposeTransducers(
-            TKMapping(^id(NSNumber *number) {
-                return @(number.intValue * 3);
-            }),
-            TKFiltering(^BOOL(NSNumber *number) {
-                return number.intValue % 2 == 0;
-            })
+            TKMapping(^id(NSNumber *number) { return @(number.intValue * 3); }),
+            TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; })
     );
 
     NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());

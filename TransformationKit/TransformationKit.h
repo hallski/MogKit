@@ -17,12 +17,11 @@ TKTransducer TKMapping(TKMapFunc);
 TKTransducer TKFiltering(TKPredicate);
 TKTransducer TKIdentityTransducer();
 
-TKTransducer TKCompose(TKTransducer, TKTransducer);
-TKTransducer TKComposeArray(NSArray *transducers);
+TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
+TKTransducer TKComposeTransducersArray(NSArray *transducers);
 
 id TKReduce(NSEnumerator *source, id initial, TKReducer reducer);
 id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);
-
 
 @protocol TKTransformable
 - (instancetype)tk_map:(TKMapFunc)mapFunc;

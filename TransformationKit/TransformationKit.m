@@ -33,16 +33,16 @@ TKTransducer TKIdentityTransducer() {
     };
 }
 
-TKTransducer TKCompose(TKTransducer f, TKTransducer g)
+TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 {
     return ^TKReducer(TKReducer reducer) {
         return g(f(reducer));
     };
 }
 
-TKTransducer TKComposeArray(NSArray *transducers) {
+TKTransducer TKComposeTransducersArray(NSArray *transducers) {
     return TKReduce(transducers.reverseObjectEnumerator, TKIdentityTransducer(), ^id(TKTransducer acc, TKTransducer val) {
-        return TKCompose(acc, val);
+        return TKComposeTransducers(acc, val);
     });
 }
 

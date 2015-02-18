@@ -84,9 +84,13 @@
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6];
     NSArray *expected = @[@6, @12, @18];
-    TKTransducer xform = TKCompose(
-            TKMapping(^id(NSNumber *number) { return @(number.intValue * 3); }),
-            TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; })
+    TKTransducer xform = TKComposeTransducers(
+            TKMapping(^id(NSNumber *number) {
+                return @(number.intValue * 3);
+            }),
+            TKFiltering(^BOOL(NSNumber *number) {
+                return number.intValue % 2 == 0;
+            })
     );
 
     NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
@@ -103,132 +107,10 @@
             TKFiltering(^BOOL(NSString *str) { return str.length < 4; }),
             TKMapping(^id(NSString *str) { return @(str.intValue); })
     ];
-    TKTransducer xform = TKComposeArray(transducers);
+    TKTransducer xform = TKComposeTransducersArray(transducers);
     NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
 
     XCTAssertEqualObjects(expected, result);
-}
-
-- (NSArray *)testArrayWithInts:(int)numberOfInts
-{
-    NSMutableArray *mArray = [NSMutableArray new];
-    for (int i = 1; i <= numberOfInts; ++i) {
-        [mArray addObject:@(i)];
-    }
-    return [mArray copy];
-}
-
-- (void)testPerformanceSmallArrayMap
-{
-    NSArray *array = [self testArrayWithInts:10];
-
-    // Measure performance of standard impl.
-    [self measureBlock:^{
-        NSArray *expected = array;
-        NSArray *result = [array tk_map:^id(id o) {
-            return o;
-        }];
-
-        XCTAssertEqualObjects(expected, result);
-    }];
-}
-
-- (void)testPerformanceSmallArrayWithMutableArray
-{
-    NSArray *array = [self testArrayWithInts:10];
-
-    // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
-    [self measureBlock:^{
-        NSArray *expected = array;
-
-        NSMutableArray *mArray = [NSMutableArray new];
-
-        TKTransduce(array.objectEnumerator, @[], TKMapping(^id(id val) {
-            return val;
-        }), ^id(id acc, id val) {
-            [mArray addObject:val];
-            return mArray;
-        });
-
-        NSArray *result = [mArray copy];
-
-        XCTAssertEqualObjects(expected, result);
-    }];
-}
-
-- (void)testPerformanceWithBigArrayMap
-{
-    NSArray *array = [self testArrayWithInts:10000];
-
-    // Measure performance of standard impl.
-    [self measureBlock:^{
-        NSArray *expected = array;
-        NSArray *result = [array tk_map:^id(id o) {
-            return o;
-        }];
-
-        XCTAssertEqualObjects(expected, result);
-    }];
-}
-
-- (void)testPerformanceWithBigArrayMutableArray
-{
-    NSArray *array = [self testArrayWithInts:10000];
-
-    // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
-    [self measureBlock:^{
-        NSArray *expected = array;
-
-        NSMutableArray *mArray = [NSMutableArray new];
-
-        TKTransduce(array.objectEnumerator, @[], TKMapping(^id(id val) {
-            return val;
-        }), ^id(id acc, id val) {
-            [mArray addObject:val];
-            return mArray;
-        });
-
-        NSArray *result = [mArray copy];
-
-        XCTAssertEqualObjects(expected, result);
-    }];
-}
-
-- (void)testPerformanceComposing
-{
-    NSArray *array = [self testArrayWithInts:10000];
-    [self measureBlock:^{
-        NSArray *transducers = @[
-                TKMapping(^id(NSNumber *number) {
-                    return [NSString stringWithFormat:@"%@", number];
-                }),
-                TKFiltering(^BOOL(NSString *str) {
-                    return str.length < 4;
-                }),
-                TKMapping(^id(NSString *str) {
-                    return @(str.intValue);
-                })
-        ];
-
-        TKTransducer xform = TKComposeArray(transducers);
-
-        TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
-    }];
-}
-
-- (void)testPerformanceChaining
-{
-    NSArray *array = [self testArrayWithInts:10000];
-
-    [self measureBlock:^{
-        [[[array tk_map:^id(NSNumber *number) {
-            return [NSString stringWithFormat:@"%@", number];
-        }] tk_filter:^BOOL(NSString *str) {
-            return str.length < 4;
-        }] tk_map:^id(NSString *str) {
-            return @(str.intValue);
-        }];
-    }];
 }
 
 

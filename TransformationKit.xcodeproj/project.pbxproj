@@ -13,6 +13,7 @@
 		40B9A6341A95241C0062C693 /* TransformationKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* TransformationKitTests.m */; };
 		6313D628E31D6BB710C07E26 /* NSArray+TransformationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */; };
 		6313D6D876E83FBB57D4DF6C /* NSArray+TransformationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */; };
+		6313DA623F53E34D1C7B7A5C /* TransformationKitPerfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		40B9A6331A95241C0062C693 /* TransformationKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformationKitTests.m; sourceTree = "<group>"; };
 		6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TransformationKit.h"; sourceTree = "<group>"; };
 		6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TransformationKit.m"; sourceTree = "<group>"; };
+		6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformationKitPerfTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			children = (
 				40B9A6291A9524070062C693 /* Supporting Files */,
 				40B9A6331A95241C0062C693 /* TransformationKitTests.m */,
+				6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */,
 			);
 			path = TransformationKitTests;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40B9A6341A95241C0062C693 /* TransformationKitTests.m in Sources */,
+				6313DA623F53E34D1C7B7A5C /* TransformationKitPerfTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

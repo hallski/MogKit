@@ -71,6 +71,15 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testArrayFlatten
+{
+    NSArray *array = @[@[@1, @2, @3], @[@4, @5, @6], @[@7, @8, @9]];
+    NSArray *expected = @[@1, @2, @3, @4, @5, @6, @7, @8, @9];
+    NSArray *result = [array tk_concat];
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

@@ -7,6 +7,7 @@
 
 
 TKReducer arrayAppendReducer(void);
+TKReducer arrayAppendArrayReducer(void);
 
 @interface NSArray (TransformationKit) <TKTransformable>
 @end

@@ -8,7 +8,8 @@
 #import "TransformationKit.h"
 
 
-TKTransducer TKMapping(id (^mapFunc)(id)) {
+TKTransducer TKMapping(id (^mapFunc)(id))
+{
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
             return reducer(acc, mapFunc(val));
@@ -16,7 +17,8 @@ TKTransducer TKMapping(id (^mapFunc)(id)) {
     };
 }
 
-TKTransducer TKFiltering(BOOL (^filterFunc)(id)) {
+TKTransducer TKFiltering(BOOL (^filterFunc)(id))
+{
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
             return filterFunc(val) ? reducer(acc, val) : acc;

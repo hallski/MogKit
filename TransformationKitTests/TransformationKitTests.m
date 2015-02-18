@@ -109,10 +109,88 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
+- (NSArray *)testArray
+{
+    NSMutableArray *mArray = [NSMutableArray new];
+    for (int i = 0; i < 10000; ++i) {
+        [mArray addObject:@(i)];
+    }
+    return [mArray copy];
+}
+
+- (void)testPerformanceSmallArrayMap
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+
+    // Measure performance of standard impl.
     [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+        NSArray *expected = array;
+        NSArray *result = [array tk_map:^id(id o) {
+            return o;
+        }];
+
+        XCTAssertEqualObjects(expected, result);
+    }];
+}
+
+- (void)testPerformanceSmallArrayWithMutableArray
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+
+    // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
+    [self measureBlock:^{
+        NSArray *expected = array;
+
+        NSMutableArray *mArray = [NSMutableArray new];
+
+        TKTransduce(array.objectEnumerator, @[], TKMapping(^id(id val) {
+            return val;
+        }), ^id(id acc, id val) {
+            [mArray addObject:val];
+            return mArray;
+        });
+
+        NSArray *result = [mArray copy];
+
+        XCTAssertEqualObjects(expected, result);
+    }];
+}
+
+- (void)testPerformanceWithBigArrayMap
+{
+    NSArray *array = [self testArray];
+
+    // Measure performance of standard impl.
+    [self measureBlock:^{
+        NSArray *expected = array;
+        NSArray *result = [array tk_map:^id(id o) {
+            return o;
+        }];
+
+        XCTAssertEqualObjects(expected, result);
+    }];
+}
+
+- (void)testPerformanceWithBigArrayMutableArray
+{
+    NSArray *array = [self testArray];
+
+    // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
+    [self measureBlock:^{
+        NSArray *expected = array;
+
+        NSMutableArray *mArray = [NSMutableArray new];
+
+        TKTransduce(array.objectEnumerator, @[], TKMapping(^id(id val) {
+            return val;
+        }), ^id(id acc, id val) {
+            [mArray addObject:val];
+            return mArray;
+        });
+
+        NSArray *result = [mArray copy];
+
+        XCTAssertEqualObjects(expected, result);
     }];
 }
 

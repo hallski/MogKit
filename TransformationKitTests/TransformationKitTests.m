@@ -37,6 +37,17 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testMappingEmptyArray
+{
+    NSArray *array = @[];
+    NSArray *expected = @[];
+    NSArray *result = [array tk_map:^id(id o) {
+        return o;
+    }];
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testFiltering
 {
     NSArray *array = @[@1, @10, @15, @20];
@@ -49,9 +60,15 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+- (void)testFilteringEmpty
+{
+    NSArray *array = @[];
+    NSArray *expected = @[];
+    NSArray *result = [array tk_filter:^BOOL(id o) {
+        return YES;
+    }];
+
+    XCTAssertEqualObjects(expected, result);
 }
 
 - (void)testPerformanceExample {

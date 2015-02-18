@@ -9,12 +9,12 @@ TKReducer arrayAppendReducer(void) {
 
 @implementation NSArray (TransformationKit)
 
-- (NSArray *)tk_map:(TKMapFunc)mapFunc
+- (instancetype)tk_map:(TKMapFunc)mapFunc
 {
     return TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), arrayAppendReducer());
 }
 
-- (NSArray *)tk_filter:(TKPredicate)predicate
+- (instancetype)tk_filter:(TKPredicate)predicate
 {
     return TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), arrayAppendReducer());
 }

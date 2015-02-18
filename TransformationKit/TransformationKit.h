@@ -18,3 +18,9 @@ TKTransducer TKFiltering(TKPredicate);
 
 id TKReduce(NSEnumerator *source, id initial, TKReducer reducer);
 id TKTransduce(NSEnumerator *source, id initial, TKTransducer transducer, TKReducer reducer);
+
+@protocol TKTransformable
+- (instancetype)tk_map:(TKMapFunc)mapFunc;
+- (instancetype)tk_filter:(TKPredicate)predicate;
+@end
+

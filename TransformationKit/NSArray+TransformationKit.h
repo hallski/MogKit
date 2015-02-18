@@ -8,9 +8,5 @@
 
 TKReducer arrayAppendReducer(void);
 
-@interface NSArray (TransformationKit)
-
-- (NSArray *)tk_map:(TKMapFunc)mapFunc;
-- (NSArray *)tk_filter:(TKPredicate)predicate;
-
+@interface NSArray (TransformationKit) <TKTransformable>
 @end

@@ -109,10 +109,10 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (NSArray *)testArray
+- (NSArray *)testArrayWithInts:(int)numberOfInts
 {
     NSMutableArray *mArray = [NSMutableArray new];
-    for (int i = 0; i < 10000; ++i) {
+    for (int i = 1; i <= numberOfInts; ++i) {
         [mArray addObject:@(i)];
     }
     return [mArray copy];
@@ -120,7 +120,7 @@
 
 - (void)testPerformanceSmallArrayMap
 {
-    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *array = [self testArrayWithInts:10];
 
     // Measure performance of standard impl.
     [self measureBlock:^{
@@ -135,7 +135,7 @@
 
 - (void)testPerformanceSmallArrayWithMutableArray
 {
-    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *array = [self testArrayWithInts:10];
 
     // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
     [self measureBlock:^{
@@ -158,7 +158,7 @@
 
 - (void)testPerformanceWithBigArrayMap
 {
-    NSArray *array = [self testArray];
+    NSArray *array = [self testArrayWithInts:10000];
 
     // Measure performance of standard impl.
     [self measureBlock:^{
@@ -173,7 +173,7 @@
 
 - (void)testPerformanceWithBigArrayMutableArray
 {
-    NSArray *array = [self testArray];
+    NSArray *array = [self testArrayWithInts:10000];
 
     // Measure as a possible optimization in NSArray::tk_map/NSArray::tk_filter.
     [self measureBlock:^{
@@ -193,5 +193,43 @@
         XCTAssertEqualObjects(expected, result);
     }];
 }
+
+- (void)testPerformanceComposing
+{
+    NSArray *array = [self testArrayWithInts:10000];
+    [self measureBlock:^{
+        NSArray *transducers = @[
+                TKMapping(^id(NSNumber *number) {
+                    return [NSString stringWithFormat:@"%@", number];
+                }),
+                TKFiltering(^BOOL(NSString *str) {
+                    return str.length < 4;
+                }),
+                TKMapping(^id(NSString *str) {
+                    return @(str.intValue);
+                })
+        ];
+
+        TKTransducer xform = TKComposeArray(transducers);
+
+        TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+    }];
+}
+
+- (void)testPerformanceChaining
+{
+    NSArray *array = [self testArrayWithInts:10000];
+
+    [self measureBlock:^{
+        [[[array tk_map:^id(NSNumber *number) {
+            return [NSString stringWithFormat:@"%@", number];
+        }] tk_filter:^BOOL(NSString *str) {
+            return str.length < 4;
+        }] tk_map:^id(NSString *str) {
+            return @(str.intValue);
+        }];
+    }];
+}
+
 
 @end

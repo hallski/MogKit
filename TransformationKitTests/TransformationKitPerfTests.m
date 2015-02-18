@@ -112,7 +112,7 @@
 
         TKTransducer xform = TKComposeTransducersArray(transducers);
 
-        TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+        TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());
     }];
 }
 

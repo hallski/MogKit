@@ -6,8 +6,8 @@
 #import "TransformationKit.h"
 
 
-TKReducer arrayAppendReducer(void);
-TKReducer arrayAppendArrayReducer(void);
+TKReducer TKArrayAppendReducer(void);
+TKReducer TKArrayAppendArrayReducer(void);
 
 @interface NSArray (TransformationKit) <TKTransformable>
 @end

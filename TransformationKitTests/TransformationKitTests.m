@@ -93,7 +93,7 @@
             })
     );
 
-    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -108,7 +108,7 @@
             TKMapping(^id(NSString *str) { return @(str.intValue); })
     ];
     TKTransducer xform = TKComposeTransducersArray(transducers);
-    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, arrayAppendReducer());
+    NSArray *result = TKTransduce(array.objectEnumerator, @[], xform, TKArrayAppendReducer());
 
     XCTAssertEqualObjects(expected, result);
 }

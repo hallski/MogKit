@@ -1,13 +1,13 @@
 #import "NSArray+TransformationKit.h"
 
 
-TKReducer arrayAppendReducer(void) {
+TKReducer TKArrayAppendReducer(void) {
     return ^id(NSArray *acc, id val) {
         return [acc arrayByAddingObject:val];
     };
 }
 
-TKReducer arrayAppendArrayReducer(void) {
+TKReducer TKArrayAppendArrayReducer(void) {
     return ^id(NSArray *acc, id val) {
         return [acc arrayByAddingObjectsFromArray:val];
     };
@@ -17,17 +17,17 @@ TKReducer arrayAppendArrayReducer(void) {
 
 - (instancetype)tk_map:(TKMapFunc)mapFunc
 {
-    return TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), arrayAppendReducer());
+    return TKTransduce(self.objectEnumerator, @[], TKMapping(mapFunc), TKArrayAppendReducer());
 }
 
 - (instancetype)tk_filter:(TKPredicate)predicate
 {
-    return TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), arrayAppendReducer());
+    return TKTransduce(self.objectEnumerator, @[], TKFiltering(predicate), TKArrayAppendReducer());
 }
 
 - (instancetype)tk_concat
 {
-    return TKReduce(self.objectEnumerator, @[], arrayAppendArrayReducer());
+    return TKReduce(self.objectEnumerator, @[], TKArrayAppendArrayReducer());
 }
 
 @end

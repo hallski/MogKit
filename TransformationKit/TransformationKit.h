@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TransformationKit : NSObject
+typedef id (^TKReducer) (id acc, id val);
+typedef TKReducer (^TKTransducer) (TKReducer);
+
+typedef id (^TKMapFunc) (id);
+typedef BOOL (^TKPredicate) (id);
+
+TKTransducer mapping(TKMapFunc);
+TKTransducer filtering(TKPredicate);
+
+id reduce(NSEnumerator *source, id initial, TKReducer reducer);
+
+TKReducer arrayAppendReducer(void);
+
+@interface NSArray (TransformKit)
+
+- (NSArray *)tk_map:(TKMapFunc)mapFunc;
+- (NSArray *)tk_filter:(TKPredicate)predicate;
 
 @end

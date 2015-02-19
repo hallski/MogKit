@@ -99,5 +99,29 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testTake
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
+
+    NSArray *result = TKTransduce(TKTaking(5), TKArrayAppendReducer(), @[], array.objectEnumerator);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testTakeReuseTransducer
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
+
+    TKTransducer takingFive = TKTaking(5);
+
+    NSArray *result = TKTransduce(takingFive, TKArrayAppendReducer(), @[], array.objectEnumerator);
+    XCTAssertEqualObjects(expected, result);
+
+    result = TKTransduce(takingFive, TKArrayAppendReducer(), @[], array.objectEnumerator);
+    XCTAssertEqualObjects(expected, result);
+}
+
 
 @end

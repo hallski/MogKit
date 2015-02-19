@@ -16,6 +16,7 @@ typedef BOOL (^TKPredicate) (id);
 TKTransducer TKMapping(TKMapFunc);
 TKTransducer TKFiltering(TKPredicate);
 TKTransducer TKIdentityTransducer();
+TKTransducer TKTaking(int n);
 
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
 TKTransducer TKComposeTransducersArray(NSArray *transducers);

@@ -33,6 +33,16 @@ TKTransducer TKIdentityTransducer() {
     };
 }
 
+TKTransducer TKTaking(int n)
+{
+    return ^TKReducer(TKReducer reducer) {
+        __block int left = n;
+        return ^id(id acc, id val) {
+            return left-- > 0 ? reducer(acc, val) : acc;
+        };
+    };
+}
+
 TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 {
     return ^TKReducer(TKReducer reducer) {

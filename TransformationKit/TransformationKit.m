@@ -43,6 +43,20 @@ TKTransducer TKTaking(int n)
     };
 }
 
+TKTransducer TKTakeWhile(TKPredicate predicate)
+{
+    return ^TKReducer(TKReducer reducer) {
+        __block BOOL keepTaking = YES;
+        return ^id(id acc, id val) {
+            if (keepTaking) {
+                keepTaking = predicate(val);
+            }
+
+            return keepTaking ? reducer(acc, val) : acc;
+        };
+    };
+}
+
 TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 {
     return ^TKReducer(TKReducer reducer) {

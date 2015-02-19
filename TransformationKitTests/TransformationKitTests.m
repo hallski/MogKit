@@ -123,5 +123,16 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testTakeWhileTransducer
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @4];
+
+    NSArray *result = TKTransduce(TKTakeWhile(^BOOL(NSNumber *number) {
+        return number.intValue % 5 != 0;
+    }), TKArrayAppendReducer(), @[], array.objectEnumerator);
+
+    XCTAssertEqualObjects(expected, result);
+}
 
 @end

@@ -18,20 +18,24 @@ TKReducer TKMutableArrayAppendReducer(void) {
 
 - (instancetype)tk_map:(TKMapFunc)mapFunc
 {
-    return [TKTransduce(TKMapping(mapFunc), TKMutableArrayAppendReducer(), [NSMutableArray new], self.objectEnumerator) copy];
+    return [[self.objectEnumerator tk_transduce:TKMapping(mapFunc)
+                                        reducer:TKMutableArrayAppendReducer()
+                                        initial:[NSMutableArray new]] copy];
 }
 
 - (instancetype)tk_filter:(TKPredicate)predicate
 {
-    return [TKTransduce(TKFiltering(predicate), TKMutableArrayAppendReducer(), [NSMutableArray new], self.objectEnumerator) copy];
+    return [[self.objectEnumerator tk_transduce:TKFiltering(predicate)
+                                        reducer:TKMutableArrayAppendReducer()
+                                        initial:[NSMutableArray new]] copy];
 }
 
 - (instancetype)tk_concat
 {
-    return [TKReduce(^id(NSMutableArray *acc, id val) {
+    return [[self.objectEnumerator tk_reduce:^id(NSMutableArray *acc, id val) {
         [acc addObjectsFromArray:val];
         return acc;
-    }, [NSMutableArray new], self.objectEnumerator) copy];
+    } initial:[NSMutableArray new]] copy];
 }
 
 @end

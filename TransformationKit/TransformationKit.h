@@ -7,6 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol TKEnumerable <NSObject>
+- (id)tk_nextValue;
+@end
+
 typedef id (^TKReducer) (id acc, id val);
 typedef TKReducer (^TKTransducer) (TKReducer);
 
@@ -21,8 +25,16 @@ TKTransducer TKTaking(int n);
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
 TKTransducer TKComposeTransducersArray(NSArray *transducers);
 
-id TKReduce(TKReducer reducer, id initial, NSEnumerator *source);
-id TKTransduce(TKTransducer transducer, TKReducer reducer, id initial, NSEnumerator *source);
+id TKReduce(TKReducer reducer, id initial, id<TKEnumerable> source);
+id TKTransduce(TKTransducer transducer, TKReducer reducer, id initial, id<TKEnumerable> source);
+
+
+@interface NSEnumerator (TKTransformable) <TKEnumerable>
+
+- (id)tk_reduce:(TKReducer)reducer initial:(id)initial;
+- (id)tk_transduce:(TKTransducer)transducer reducer:(TKReducer)reducer initial:(id)initial;
+
+@end
 
 @protocol TKTransformable
 - (instancetype)tk_map:(TKMapFunc)mapFunc;

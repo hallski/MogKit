@@ -15,13 +15,23 @@ typedef id (^TKReducer) (id acc, id val);
 typedef TKReducer (^TKTransducer) (TKReducer);
 
 typedef id (^TKMapFunc) (id);
+typedef id (^TKIndexedMapFunc) (int, id);
 typedef BOOL (^TKPredicate) (id);
 
-TKTransducer TKMap(TKMapFunc);
-TKTransducer TKFilter(TKPredicate);
-TKTransducer TKIdentityTransducer();
+TKTransducer TKIdentity();
+
+TKTransducer TKMap(TKMapFunc mapFunc);
+TKTransducer TKFilter(TKPredicate predicate);
+TKTransducer TKRemove(TKPredicate predicate); // Reversed TKFilter
 TKTransducer TKTake(int n);
-TKTransducer TKTakeWhile(TKPredicate);
+TKTransducer TKTakeWhile(TKPredicate predicate);
+TKTransducer TKTakeNth(int n);
+TKTransducer TKDrop(int n);
+TKTransducer TKDropWhile(TKPredicate predicate);
+TKTransducer TKReplace(NSDictionary *replacements);
+TKTransducer TKKeep(TKMapFunc func);
+TKTransducer TKKeepIndexed(TKIndexedMapFunc indexMapFunc);
+TKTransducer TKUnique(void);
 
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
 TKTransducer TKComposeTransducersArray(NSArray *transducers);

@@ -17,17 +17,25 @@ TKTransducer TKMap(id (^mapFunc)(id))
     };
 }
 
-TKTransducer TKFilter(BOOL (^filterFunc)(id))
+TKTransducer TKFilter(TKPredicate predicate)
 {
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
-            return filterFunc(val) ? reducer(acc, val) : acc;
+            return predicate(val) ? reducer(acc, val) : acc;
         };
     };
 }
 
 
-TKTransducer TKIdentityTransducer() {
+TKTransducer TKRemove(TKPredicate predicate) {
+    return ^TKReducer(TKReducer reducer) {
+        return ^id(id acc, id val) {
+            return predicate(val) ? acc : reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKIdentity() {
     return ^TKReducer(TKReducer reducer) {
         return reducer;
     };
@@ -57,6 +65,84 @@ TKTransducer TKTakeWhile(TKPredicate predicate)
     };
 }
 
+TKTransducer TKTakeNth(int n) {
+    return ^TKReducer(TKReducer reducer) {
+        __block int i = 0;
+        return ^id(id acc, id val) {
+            return (i++ % n == 0) ? reducer(acc, val) : acc;
+        };
+    };
+}
+
+TKTransducer TKDrop(int n) {
+    return ^TKReducer(TKReducer reducer) {
+        __block int dropped = 0;
+        return ^id(id acc, id val) {
+            if (dropped < n) {
+                dropped++;
+                return acc;
+            }
+
+            return reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKDropWhile(TKPredicate predicate) {
+    return ^TKReducer(TKReducer reducer) {
+        __block BOOL keepDropping = YES;
+        return ^id(id acc, id val) {
+            if (keepDropping) {
+                keepDropping = predicate(val);
+            }
+            return keepDropping ? acc : reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKReplace(NSDictionary *replacements) {
+    return ^TKReducer(TKReducer reducer) {
+        return ^id(id acc, id val) {
+            val = replacements[val] ?: val;
+
+            return reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKKeep(TKMapFunc func) {
+    return ^TKReducer(TKReducer reducer) {
+        return ^id(id acc, id val) {
+            return func(val) == nil ? acc : reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKKeepIndexed(TKIndexedMapFunc indexedMapFunc) {
+    return ^TKReducer(TKReducer reducer) {
+        __block int index = 0;
+        return ^id(id acc, id val) {
+            return indexedMapFunc(index++, val) == nil ? acc : reducer(acc, val);
+        };
+    };
+}
+
+TKTransducer TKUnique(void) {
+    return ^TKReducer(TKReducer reducer) {
+        NSMutableSet *inTheFinal = [NSMutableSet new];
+
+        return ^id(id acc, id val) {
+            if ([inTheFinal containsObject:val]) {
+                return acc;
+            }
+
+            [inTheFinal addObject:val];
+            return reducer(acc, val);
+        };
+    };
+}
+
+#pragma mark - Transducer Composition
 TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 {
     return ^TKReducer(TKReducer reducer) {
@@ -67,7 +153,7 @@ TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 TKTransducer TKComposeTransducersArray(NSArray *transducers) {
     return [transducers.reverseObjectEnumerator tk_reduce:^id(TKTransducer acc, TKTransducer val) {
         return TKComposeTransducers(acc, val);
-    } initial:TKIdentityTransducer()];
+    } initial:TKIdentity()];
 }
 
 id TKReduce(TKReducer reducer, id initial, id<TKEnumerable> source)

@@ -116,7 +116,7 @@ MOGTransducer MOGDrop(int n);
  *
  * @param predicate the predicate function deciding whether to keep dropping values.
  *
- * @return a transducer that drops all values until the predicate functino returns YES.
+ * @return a transducer that drops all values until the predicate function returns YES.
  *
  * @see MOGTakeWhile
  */

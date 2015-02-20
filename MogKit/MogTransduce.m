@@ -116,11 +116,11 @@ MOGTransducer MOGKeep(MOGMapFunc func) {
     };
 }
 
-MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc indexedMapFunc) {
+MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
         __block int index = 0;
         return ^id(id acc, id val) {
-            return indexedMapFunc(index++, val) == nil ? acc : reducer(acc, val);
+            return func(index++, val) == nil ? acc : reducer(acc, val);
         };
     };
 }

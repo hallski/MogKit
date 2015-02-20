@@ -5,7 +5,5 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MogTypes.h"
-#import "MogTransducers.h"
-#import "MOGOperations.h"
-#import "MOGReducers.h"
+#import "MogReduce.h"
+#import "MogTransduce.h"

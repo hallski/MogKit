@@ -4,8 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
-#import "MOGReducers.h"
-
+#import "MogReduce.h"
 
 MOGReducer MOGArrayAppendReducer(void) {
     return ^id(NSArray *acc, id val) {
@@ -27,3 +26,12 @@ MOGReducer MOGLastValueReducer(void)
     };
 }
 
+id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial)
+{
+    id acc = initial;
+    for (id val in source) {
+        acc = reducer(acc, val);
+    }
+
+    return acc;
+}

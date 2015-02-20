@@ -4,8 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
-#import "MogTransducers.h"
-#import "MOGOperations.h"
+#import "MogTransduce.h"
 
 
 MOGTransducer MOGIdentity(void) {
@@ -176,4 +175,9 @@ MOGTransducer MOGComposeArray(NSArray *transducers) {
     return MOGReduce(transducers.reverseObjectEnumerator, ^id(MOGTransducer acc, MOGTransducer val) {
         return MOGCompose(acc, val);
     }, MOGIdentity());
+}
+
+id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)
+{
+    return MOGReduce(source, transducer(reducer), initial);
 }

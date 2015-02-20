@@ -6,7 +6,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MogTypes.h"
+#import "MogReduce.h"
+
+
+typedef MOGReducer (^MOGTransducer) (MOGReducer);
+
+typedef id (^MOGMapFunc) (id);
+typedef id (^MOGIndexedMapFunc) (int, id);
+typedef BOOL (^MOGPredicate) (id);
 
 MOGTransducer MOGIdentity(void);
 
@@ -27,3 +34,4 @@ MOGTransducer MOGWindowed(int length);
 MOGTransducer MOGCompose(MOGTransducer, MOGTransducer);
 MOGTransducer MOGComposeArray(NSArray *transducers);
 
+id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer);

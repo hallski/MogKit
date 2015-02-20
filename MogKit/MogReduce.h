@@ -6,8 +6,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MogTypes.h"
 
+
+typedef id (^MOGReducer) (id acc, id val);
+
+MOGReducer MOGArrayAppendReducer(void);
+MOGReducer MOGMutableArrayAppendReducer(void);
+
+MOGReducer MOGLastValueReducer(void);
 
 id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial);
-id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer);

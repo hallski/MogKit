@@ -7,32 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40B9A61D1A9524070062C693 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; };
-		40B9A6251A9524070062C693 /* libMogKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6191A9524070062C693 /* libMogKit.a */; };
-		40B9A6341A95241C0062C693 /* MogKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* MogKitTests.m */; };
-		6313D2B5BF0106865159DF6B /* MogTransduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransduce.h */; };
-		6313D65BD3933D03436CB52A /* MogReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MogReduce.m */; };
-		6313D712E40D08B9C9CB36BB /* MogReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MogReduce.h */; };
-		6313DA623F53E34D1C7B7A5C /* MogKitPerfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */; };
-		6313DBC0B3E097428A752DEB /* MogTransduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransduce.m */; };
+		40B9A6B21A97EAE90062C693 /* MogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6A71A97EAE90062C693 /* MogKit.framework */; };
+		40B9A6D01A97EAFD0062C693 /* MogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6C51A97EAFD0062C693 /* MogKit.framework */; };
+		40B9A6DE1A97EC680062C693 /* MogTransduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransduce.m */; };
+		40B9A6DF1A97EC680062C693 /* MogReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MogReduce.m */; };
+		40B9A6E01A97EC690062C693 /* MogTransduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransduce.m */; };
+		40B9A6E11A97EC690062C693 /* MogReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MogReduce.m */; };
+		40B9A6E21A97EC750062C693 /* MogKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* MogKitTests.m */; };
+		40B9A6E41A97EC760062C693 /* MogKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* MogKitTests.m */; };
+		40B9A6E61A97EEC80062C693 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40B9A6E71A97EEC80062C693 /* MogTransduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40B9A6E81A97EEC80062C693 /* MogReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MogReduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40B9A6E91A97EEEB0062C693 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40B9A6EA1A97EEEB0062C693 /* MogTransduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40B9A6EB1A97EEEB0062C693 /* MogReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MogReduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		40B9A6261A9524070062C693 /* PBXContainerItemProxy */ = {
+		40B9A6B31A97EAE90062C693 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40B9A6111A9524070062C693 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 40B9A6181A9524070062C693;
-			remoteInfo = TransformationKit;
+			remoteGlobalIDString = 40B9A6A61A97EAE90062C693;
+			remoteInfo = "MogKit-iOS";
+		};
+		40B9A6D11A97EAFD0062C693 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40B9A6111A9524070062C693 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40B9A6C41A97EAFD0062C693;
+			remoteInfo = "MogKit-OSX";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		40B9A6191A9524070062C693 /* libMogKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMogKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B9A61C1A9524070062C693 /* MogKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MogKit.h; sourceTree = "<group>"; };
-		40B9A6241A9524070062C693 /* MogKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MogKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B9A62A1A9524070062C693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40B9A6331A95241C0062C693 /* MogKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitTests.m; sourceTree = "<group>"; };
+		40B9A6A71A97EAE90062C693 /* MogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40B9A6B11A97EAE90062C693 /* MogKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MogKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40B9A6C51A97EAFD0062C693 /* MogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40B9A6CF1A97EAFD0062C693 /* MogKit-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MogKit-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6313D18DDF2E3A5ED92D8280 /* MogTransduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogTransduce.m; sourceTree = "<group>"; };
 		6313D4F60D39DC6032BEF249 /* MogReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogReduce.m; sourceTree = "<group>"; };
 		6313D6FC822B6EB4294F42B4 /* MogReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MogReduce.h; sourceTree = "<group>"; };
@@ -41,18 +56,33 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		40B9A6161A9524070062C693 /* Frameworks */ = {
+		40B9A6A31A97EAE90062C693 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		40B9A6211A9524070062C693 /* Frameworks */ = {
+		40B9A6AE1A97EAE90062C693 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A6251A9524070062C693 /* libMogKit.a in Frameworks */,
+				40B9A6B21A97EAE90062C693 /* MogKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6C11A97EAFD0062C693 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6CC1A97EAFD0062C693 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B9A6D01A97EAFD0062C693 /* MogKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +101,10 @@
 		40B9A61A1A9524070062C693 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40B9A6191A9524070062C693 /* libMogKit.a */,
-				40B9A6241A9524070062C693 /* MogKitTests.xctest */,
+				40B9A6A71A97EAE90062C693 /* MogKit.framework */,
+				40B9A6B11A97EAE90062C693 /* MogKit-iOSTests.xctest */,
+				40B9A6C51A97EAFD0062C693 /* MogKit.framework */,
+				40B9A6CF1A97EAFD0062C693 /* MogKit-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,52 +142,99 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		40B9A6171A9524070062C693 /* Headers */ = {
+		40B9A6A41A97EAE90062C693 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A61D1A9524070062C693 /* MogKit.h in Headers */,
-				6313D2B5BF0106865159DF6B /* MogTransduce.h in Headers */,
-				6313D712E40D08B9C9CB36BB /* MogReduce.h in Headers */,
+				40B9A6E91A97EEEB0062C693 /* MogKit.h in Headers */,
+				40B9A6EA1A97EEEB0062C693 /* MogTransduce.h in Headers */,
+				40B9A6EB1A97EEEB0062C693 /* MogReduce.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6C21A97EAFD0062C693 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B9A6E61A97EEC80062C693 /* MogKit.h in Headers */,
+				40B9A6E71A97EEC80062C693 /* MogTransduce.h in Headers */,
+				40B9A6E81A97EEC80062C693 /* MogReduce.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		40B9A6181A9524070062C693 /* MogKit */ = {
+		40B9A6A61A97EAE90062C693 /* MogKit-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKit" */;
+			buildConfigurationList = 40B9A6BA1A97EAE90062C693 /* Build configuration list for PBXNativeTarget "MogKit-iOS" */;
 			buildPhases = (
-				40B9A6151A9524070062C693 /* Sources */,
-				40B9A6161A9524070062C693 /* Frameworks */,
-				40B9A6171A9524070062C693 /* Headers */,
+				40B9A6A21A97EAE90062C693 /* Sources */,
+				40B9A6A31A97EAE90062C693 /* Frameworks */,
+				40B9A6A41A97EAE90062C693 /* Headers */,
+				40B9A6A51A97EAE90062C693 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MogKit;
-			productName = TransformationKit;
-			productReference = 40B9A6191A9524070062C693 /* libMogKit.a */;
-			productType = "com.apple.product-type.library.static";
+			name = "MogKit-iOS";
+			productName = "MogKit-iOS";
+			productReference = 40B9A6A71A97EAE90062C693 /* MogKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		40B9A6231A9524070062C693 /* MogKitTests */ = {
+		40B9A6B01A97EAE90062C693 /* MogKit-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKitTests" */;
+			buildConfigurationList = 40B9A6BD1A97EAE90062C693 /* Build configuration list for PBXNativeTarget "MogKit-iOSTests" */;
 			buildPhases = (
-				40B9A6201A9524070062C693 /* Sources */,
-				40B9A6211A9524070062C693 /* Frameworks */,
-				40B9A6221A9524070062C693 /* Resources */,
+				40B9A6AD1A97EAE90062C693 /* Sources */,
+				40B9A6AE1A97EAE90062C693 /* Frameworks */,
+				40B9A6AF1A97EAE90062C693 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				40B9A6271A9524070062C693 /* PBXTargetDependency */,
+				40B9A6B41A97EAE90062C693 /* PBXTargetDependency */,
 			);
-			name = MogKitTests;
-			productName = TransformationKitTests;
-			productReference = 40B9A6241A9524070062C693 /* MogKitTests.xctest */;
+			name = "MogKit-iOSTests";
+			productName = "MogKit-iOSTests";
+			productReference = 40B9A6B11A97EAE90062C693 /* MogKit-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		40B9A6C41A97EAFD0062C693 /* MogKit-Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40B9A6D81A97EAFD0062C693 /* Build configuration list for PBXNativeTarget "MogKit-Mac" */;
+			buildPhases = (
+				40B9A6C01A97EAFD0062C693 /* Sources */,
+				40B9A6C11A97EAFD0062C693 /* Frameworks */,
+				40B9A6C21A97EAFD0062C693 /* Headers */,
+				40B9A6C31A97EAFD0062C693 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MogKit-Mac";
+			productName = "MogKit-OSX";
+			productReference = 40B9A6C51A97EAFD0062C693 /* MogKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		40B9A6CE1A97EAFD0062C693 /* MogKit-MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40B9A6DB1A97EAFD0062C693 /* Build configuration list for PBXNativeTarget "MogKit-MacTests" */;
+			buildPhases = (
+				40B9A6CB1A97EAFD0062C693 /* Sources */,
+				40B9A6CC1A97EAFD0062C693 /* Frameworks */,
+				40B9A6CD1A97EAFD0062C693 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40B9A6D21A97EAFD0062C693 /* PBXTargetDependency */,
+			);
+			name = "MogKit-MacTests";
+			productName = "MogKit-OSXTests";
+			productReference = 40B9A6CF1A97EAFD0062C693 /* MogKit-OSXTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -167,10 +246,16 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Mikael Hallendal";
 				TargetAttributes = {
-					40B9A6181A9524070062C693 = {
+					40B9A6A61A97EAE90062C693 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
-					40B9A6231A9524070062C693 = {
+					40B9A6B01A97EAE90062C693 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					40B9A6C41A97EAFD0062C693 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					40B9A6CE1A97EAFD0062C693 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
@@ -187,14 +272,37 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				40B9A6181A9524070062C693 /* MogKit */,
-				40B9A6231A9524070062C693 /* MogKitTests */,
+				40B9A6C41A97EAFD0062C693 /* MogKit-Mac */,
+				40B9A6CE1A97EAFD0062C693 /* MogKit-MacTests */,
+				40B9A6A61A97EAE90062C693 /* MogKit-iOS */,
+				40B9A6B01A97EAE90062C693 /* MogKit-iOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		40B9A6221A9524070062C693 /* Resources */ = {
+		40B9A6A51A97EAE90062C693 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6AF1A97EAE90062C693 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6C31A97EAFD0062C693 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6CD1A97EAFD0062C693 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -204,31 +312,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		40B9A6151A9524070062C693 /* Sources */ = {
+		40B9A6A21A97EAE90062C693 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6313DBC0B3E097428A752DEB /* MogTransduce.m in Sources */,
-				6313D65BD3933D03436CB52A /* MogReduce.m in Sources */,
+				40B9A6DE1A97EC680062C693 /* MogTransduce.m in Sources */,
+				40B9A6DF1A97EC680062C693 /* MogReduce.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		40B9A6201A9524070062C693 /* Sources */ = {
+		40B9A6AD1A97EAE90062C693 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A6341A95241C0062C693 /* MogKitTests.m in Sources */,
-				6313DA623F53E34D1C7B7A5C /* MogKitPerfTests.m in Sources */,
+				40B9A6E21A97EC750062C693 /* MogKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6C01A97EAFD0062C693 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B9A6E01A97EC690062C693 /* MogTransduce.m in Sources */,
+				40B9A6E11A97EC690062C693 /* MogReduce.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40B9A6CB1A97EAFD0062C693 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B9A6E41A97EC760062C693 /* MogKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		40B9A6271A9524070062C693 /* PBXTargetDependency */ = {
+		40B9A6B41A97EAE90062C693 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 40B9A6181A9524070062C693 /* MogKit */;
-			targetProxy = 40B9A6261A9524070062C693 /* PBXContainerItemProxy */;
+			target = 40B9A6A61A97EAE90062C693 /* MogKit-iOS */;
+			targetProxy = 40B9A6B31A97EAE90062C693 /* PBXContainerItemProxy */;
+		};
+		40B9A6D21A97EAFD0062C693 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40B9A6C41A97EAFD0062C693 /* MogKit-Mac */;
+			targetProxy = 40B9A6D11A97EAFD0062C693 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -266,7 +395,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -301,31 +431,142 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		40B9A62E1A9524070062C693 /* Debug */ = {
+		40B9A6BB1A97EAE90062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				OTHER_LDFLAGS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MogKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MogKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		40B9A62F1A9524070062C693 /* Release */ = {
+		40B9A6BC1A97EAE90062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				OTHER_LDFLAGS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MogKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MogKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		40B9A6311A9524070062C693 /* Debug */ = {
+		40B9A6BE1A97EAE90062C693 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MogKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		40B9A6BF1A97EAE90062C693 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MogKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40B9A6D91A97EAFD0062C693 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MogKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = MogKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		40B9A6DA1A97EAFD0062C693 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = MogKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = MogKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		40B9A6DC1A97EAFD0062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -339,15 +580,11 @@
 				);
 				INFOPLIST_FILE = MogKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"$(OTHER_LDFLAGS)",
-					"-ObjC",
-				);
-				PRODUCT_NAME = MogKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		40B9A6321A9524070062C693 /* Release */ = {
+		40B9A6DD1A97EAFD0062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -357,11 +594,7 @@
 				);
 				INFOPLIST_FILE = MogKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"$(OTHER_LDFLAGS)",
-					"-ObjC",
-				);
-				PRODUCT_NAME = MogKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -377,23 +610,37 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKit" */ = {
+		40B9A6BA1A97EAE90062C693 /* Build configuration list for PBXNativeTarget "MogKit-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				40B9A62E1A9524070062C693 /* Debug */,
-				40B9A62F1A9524070062C693 /* Release */,
+				40B9A6BB1A97EAE90062C693 /* Debug */,
+				40B9A6BC1A97EAE90062C693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKitTests" */ = {
+		40B9A6BD1A97EAE90062C693 /* Build configuration list for PBXNativeTarget "MogKit-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				40B9A6311A9524070062C693 /* Debug */,
-				40B9A6321A9524070062C693 /* Release */,
+				40B9A6BE1A97EAE90062C693 /* Debug */,
+				40B9A6BF1A97EAE90062C693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+		};
+		40B9A6D81A97EAFD0062C693 /* Build configuration list for PBXNativeTarget "MogKit-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40B9A6D91A97EAFD0062C693 /* Debug */,
+				40B9A6DA1A97EAFD0062C693 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		40B9A6DB1A97EAFD0062C693 /* Build configuration list for PBXNativeTarget "MogKit-MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40B9A6DC1A97EAFD0062C693 /* Debug */,
+				40B9A6DD1A97EAFD0062C693 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

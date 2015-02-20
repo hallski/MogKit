@@ -71,7 +71,7 @@
                 })
         ];
 
-        MOGTransducer xform = MOGComposeTransducersArray(transducers);
+        MOGTransducer xform = MOGComposeArray(transducers);
 
         NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
                                        xform);

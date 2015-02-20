@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 typedef id (^MOGReducer) (id acc, id val);
 typedef MOGReducer (^MOGTransducer) (MOGReducer);
 

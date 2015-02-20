@@ -226,7 +226,7 @@
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6];
     NSArray *expected = @[@6, @12, @18];
-    MOGTransducer xform = MOGComposeTransducers(
+    MOGTransducer xform = MOGCompose(
             MOGMap(^id(NSNumber *number) {
                 return @(number.intValue * 3);
             }),
@@ -255,7 +255,7 @@
                 return @(str.intValue);
             })
     ];
-    MOGTransducer xform = MOGComposeTransducersArray(transducers);
+    MOGTransducer xform = MOGComposeArray(transducers);
     NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], xform);
 
     XCTAssertEqualObjects(expected, result);

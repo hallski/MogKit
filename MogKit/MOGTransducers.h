@@ -24,6 +24,6 @@ MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc indexMapFunc);
 MOGTransducer MOGUnique(void);
 MOGTransducer MOGWindowed(int length);
 
-MOGTransducer MOGComposeTransducers(MOGTransducer, MOGTransducer);
-MOGTransducer MOGComposeTransducersArray(NSArray *transducers);
+MOGTransducer MOGCompose(MOGTransducer, MOGTransducer);
+MOGTransducer MOGComposeArray(NSArray *transducers);
 

@@ -165,15 +165,15 @@ MOGTransducer MOGWindowed(int length)
 
 
 #pragma mark - Transducer Composition
-MOGTransducer MOGComposeTransducers(MOGTransducer f, MOGTransducer g)
+MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 {
     return ^MOGReducer(MOGReducer reducer) {
         return g(f(reducer));
     };
 }
 
-MOGTransducer MOGComposeTransducersArray(NSArray *transducers) {
+MOGTransducer MOGComposeArray(NSArray *transducers) {
     return MOGReduce(transducers.reverseObjectEnumerator, ^id(MOGTransducer acc, MOGTransducer val) {
-        return MOGComposeTransducers(acc, val);
+        return MOGCompose(acc, val);
     }, MOGIdentity());
 }

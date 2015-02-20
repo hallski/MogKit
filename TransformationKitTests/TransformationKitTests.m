@@ -188,6 +188,36 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testWindowedTransducerWithOneValue
+{
+    NSArray *array = @[@1];
+    NSArray *expected = @[@[@1, @1, @1]];
+
+    NSArray *result = TKTransduce(TKWindowed(3), TKArrayAppendReducer(), @[], array.objectEnumerator);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testWindowedTransducerWithTwoValues
+{
+    NSArray *array = @[@1, @2];
+    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
+
+    NSArray *result = TKTransduce(TKWindowed(3), TKArrayAppendReducer(), @[], array.objectEnumerator);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testWindowedTransducerWithMoreValuesThanWindowSize
+{
+    NSArray *array = @[@1, @2, @3, @4, @5];
+    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
+
+    NSArray *result = TKTransduce(TKWindowed(3), TKArrayAppendReducer(), @[], array.objectEnumerator);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 
 #pragma mark - Transducer composition
 - (void)testComposeTwoTransducers

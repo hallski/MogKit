@@ -142,6 +142,29 @@ TKTransducer TKUnique(void) {
     };
 }
 
+TKTransducer TKWindowed(int length)
+{
+    return ^TKReducer(TKReducer reducer) {
+        __block BOOL firstValue = YES;
+        NSMutableArray *windowedValues = [NSMutableArray arrayWithCapacity:length];
+
+        return ^id(id acc, id val) {
+            if (firstValue) {
+                for (int i = 0; i < length; ++i) {
+                    [windowedValues addObject:val];
+                }
+                firstValue = NO;
+            } else {
+                [windowedValues removeObjectAtIndex:0];
+                [windowedValues addObject:val];
+            }
+
+            return reducer(acc, [windowedValues copy]);
+        };
+    };
+}
+
+
 #pragma mark - Transducer Composition
 TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
 {

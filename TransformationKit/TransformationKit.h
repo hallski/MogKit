@@ -32,6 +32,7 @@ TKTransducer TKReplace(NSDictionary *replacements);
 TKTransducer TKKeep(TKMapFunc func);
 TKTransducer TKKeepIndexed(TKIndexedMapFunc indexMapFunc);
 TKTransducer TKUnique(void);
+TKTransducer TKWindowed(int length);
 
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);
 TKTransducer TKComposeTransducersArray(NSArray *transducers);

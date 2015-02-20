@@ -6,7 +6,7 @@
 
 #import "MOGOperations.h"
 
-id MOGEnumerationReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial)
+id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial)
 {
     id acc = initial;
     for (id val in source) {
@@ -16,7 +16,7 @@ id MOGEnumerationReduce(id<NSFastEnumeration> source, MOGReducer reducer, id ini
     return acc;
 }
 
-id MOGEnumerationTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)
+id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)
 {
-    return MOGEnumerationReduce(source, transducer(reducer), initial);
+    return MOGReduce(source, transducer(reducer), initial);
 }

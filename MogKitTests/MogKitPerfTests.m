@@ -29,11 +29,10 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
-                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                  MOGMap(^id(id o) {
-                                                      return o;
-                                                  }));
+        NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                       MOGMap(^id(id o) {
+                                           return o;
+                                       }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -46,11 +45,10 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
-                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                  MOGMap(^id(id o) {
-                                                      return o;
-                                                  }));
+        NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                       MOGMap(^id(id o) {
+                                           return o;
+                                       }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -75,9 +73,8 @@
 
         MOGTransducer xform = MOGComposeTransducersArray(transducers);
 
-        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
-                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                  xform);
+        NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                       xform);
 
         XCTAssertEqualObjects(array, result);
     }];

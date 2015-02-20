@@ -53,9 +53,15 @@
 
     [self measureBlock:^{
         NSArray *transducers = @[
-                TKMapping(^id(NSNumber *number) { return @(number.intValue + 100); }),
-                TKFiltering(^BOOL(NSNumber *number) { return YES; }),
-                TKMapping(^id(NSNumber *number) { return @(number.intValue - 100); })
+                TKMap(^id(NSNumber *number) {
+                    return @(number.intValue + 100);
+                }),
+                TKFilter(^BOOL(NSNumber *number) {
+                    return YES;
+                }),
+                TKMap(^id(NSNumber *number) {
+                    return @(number.intValue - 100);
+                })
         ];
 
         TKTransducer xform = TKComposeTransducersArray(transducers);

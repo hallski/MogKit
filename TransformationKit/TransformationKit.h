@@ -17,10 +17,10 @@ typedef TKReducer (^TKTransducer) (TKReducer);
 typedef id (^TKMapFunc) (id);
 typedef BOOL (^TKPredicate) (id);
 
-TKTransducer TKMapping(TKMapFunc);
-TKTransducer TKFiltering(TKPredicate);
+TKTransducer TKMap(TKMapFunc);
+TKTransducer TKFilter(TKPredicate);
 TKTransducer TKIdentityTransducer();
-TKTransducer TKTaking(int n);
+TKTransducer TKTake(int n);
 TKTransducer TKTakeWhile(TKPredicate);
 
 TKTransducer TKComposeTransducers(TKTransducer, TKTransducer);

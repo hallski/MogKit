@@ -8,7 +8,7 @@
 #import "TransformationKit.h"
 
 
-TKTransducer TKMapping(id (^mapFunc)(id))
+TKTransducer TKMap(id (^mapFunc)(id))
 {
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
@@ -17,7 +17,7 @@ TKTransducer TKMapping(id (^mapFunc)(id))
     };
 }
 
-TKTransducer TKFiltering(BOOL (^filterFunc)(id))
+TKTransducer TKFilter(BOOL (^filterFunc)(id))
 {
     return ^TKReducer(TKReducer reducer) {
         return ^id(id acc, id val) {
@@ -33,7 +33,7 @@ TKTransducer TKIdentityTransducer() {
     };
 }
 
-TKTransducer TKTaking(int n)
+TKTransducer TKTake(int n)
 {
     return ^TKReducer(TKReducer reducer) {
         __block int left = n;

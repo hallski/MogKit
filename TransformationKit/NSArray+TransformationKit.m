@@ -18,14 +18,14 @@ TKReducer TKMutableArrayAppendReducer(void) {
 
 - (instancetype)tk_map:(TKMapFunc)mapFunc
 {
-    return [[self.objectEnumerator tk_transduce:TKMapping(mapFunc)
+    return [[self.objectEnumerator tk_transduce:TKMap(mapFunc)
                                         reducer:TKMutableArrayAppendReducer()
                                         initial:[NSMutableArray new]] copy];
 }
 
 - (instancetype)tk_filter:(TKPredicate)predicate
 {
-    return [[self.objectEnumerator tk_transduce:TKFiltering(predicate)
+    return [[self.objectEnumerator tk_transduce:TKFilter(predicate)
                                         reducer:TKMutableArrayAppendReducer()
                                         initial:[NSMutableArray new]] copy];
 }

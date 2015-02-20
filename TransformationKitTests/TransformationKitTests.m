@@ -75,8 +75,12 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6];
     NSArray *expected = @[@6, @12, @18];
     TKTransducer xform = TKComposeTransducers(
-            TKMapping(^id(NSNumber *number) { return @(number.intValue * 3); }),
-            TKFiltering(^BOOL(NSNumber *number) { return number.intValue % 2 == 0; })
+            TKMap(^id(NSNumber *number) {
+                return @(number.intValue * 3);
+            }),
+            TKFilter(^BOOL(NSNumber *number) {
+                return number.intValue % 2 == 0;
+            })
     );
 
     NSArray *result = TKTransduce(xform, TKArrayAppendReducer(), @[], array.objectEnumerator);
@@ -89,9 +93,15 @@
     NSArray *array = @[@50, @500, @5000, @50000];
     NSArray *expected = @[@50, @500];
     NSArray *transducers = @[
-            TKMapping(^id(NSNumber *number) { return [NSString stringWithFormat:@"%@", number]; }),
-            TKFiltering(^BOOL(NSString *str) { return str.length < 4; }),
-            TKMapping(^id(NSString *str) { return @(str.intValue); })
+            TKMap(^id(NSNumber *number) {
+                return [NSString stringWithFormat:@"%@", number];
+            }),
+            TKFilter(^BOOL(NSString *str) {
+                return str.length < 4;
+            }),
+            TKMap(^id(NSString *str) {
+                return @(str.intValue);
+            })
     ];
     TKTransducer xform = TKComposeTransducersArray(transducers);
     NSArray *result = TKTransduce(xform, TKArrayAppendReducer(), @[], array.objectEnumerator);
@@ -104,7 +114,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @5];
 
-    NSArray *result = TKTransduce(TKTaking(5), TKArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = TKTransduce(TKTake(5), TKArrayAppendReducer(), @[], array.objectEnumerator);
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -114,7 +124,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @5];
 
-    TKTransducer takingFive = TKTaking(5);
+    TKTransducer takingFive = TKTake(5);
 
     NSArray *result = TKTransduce(takingFive, TKArrayAppendReducer(), @[], array.objectEnumerator);
     XCTAssertEqualObjects(expected, result);

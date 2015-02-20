@@ -6,7 +6,6 @@
 
 #import <XCTest/XCTest.h>
 #import "MogKit.h"
-#import "NSEnumerator+MogKit.h"
 
 
 @interface MogKitPerfTests : XCTestCase
@@ -30,11 +29,11 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
-                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                 MOGMap(^id(id o) {
-                                                     return o;
-                                                 }));
+        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
+                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                  MOGMap(^id(id o) {
+                                                      return o;
+                                                  }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -47,11 +46,11 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
-                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                 MOGMap(^id(id o) {
-                                                     return o;
-                                                 }));
+        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
+                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                  MOGMap(^id(id o) {
+                                                      return o;
+                                                  }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -76,9 +75,9 @@
 
         MOGTransducer xform = MOGComposeTransducersArray(transducers);
 
-        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
-                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                                 xform);
+        NSArray *result = MOGEnumerationTransduce(array.objectEnumerator,
+                                                  MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                  xform);
 
         XCTAssertEqualObjects(array, result);
     }];

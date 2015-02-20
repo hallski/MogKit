@@ -6,20 +6,17 @@
 
 #import "MOGOperations.h"
 
-
-id MOGEnumerableReduce(id<MOGEnumerable> source, MOGReducer reducer, id initial)
+id MOGEnumerationReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial)
 {
-    id obj;
     id acc = initial;
-
-    while ((obj = [source mog_nextValue])) {
-        acc = reducer(acc, obj);
+    for (id val in source) {
+        acc = reducer(acc, val);
     }
 
     return acc;
 }
 
-id MOGEnumerableTransduce(id<MOGEnumerable> source, MOGReducer reducer, id initial, MOGTransducer transducer)
+id MOGEnumerationTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)
 {
-    return MOGEnumerableReduce(source, transducer(reducer), initial);
+    return MOGEnumerationReduce(source, transducer(reducer), initial);
 }

@@ -12,7 +12,3 @@ typedef MOGReducer (^MOGTransducer) (MOGReducer);
 typedef id (^MOGMapFunc) (id);
 typedef id (^MOGIndexedMapFunc) (int, id);
 typedef BOOL (^MOGPredicate) (id);
-
-@protocol MOGEnumerable<NSObject>
-- (id)mog_nextValue;
-@end

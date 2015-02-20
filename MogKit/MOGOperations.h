@@ -9,5 +9,5 @@
 #import "MogTypes.h"
 
 
-id MOGEnumerableReduce(id<MOGEnumerable> source, MOGReducer reducer, id initial);
-id MOGEnumerableTransduce(id<MOGEnumerable> source, MOGReducer reducer, id initial, MOGTransducer transducer);
+id MOGEnumerationReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial);
+id MOGEnumerationTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer);

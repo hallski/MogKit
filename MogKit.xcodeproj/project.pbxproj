@@ -10,8 +10,6 @@
 		40B9A61D1A9524070062C693 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; };
 		40B9A6251A9524070062C693 /* libMogKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6191A9524070062C693 /* libMogKit.a */; };
 		40B9A6341A95241C0062C693 /* MogKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* MogKitTests.m */; };
-		6313D0482FEB362FBAC5ACED /* NSEnumerator+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */; };
-		6313D2B09A82CA7C02FA12B6 /* NSEnumerator+MogKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */; };
 		6313D2B5BF0106865159DF6B /* MogTransducers.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransducers.h */; };
 		6313D65BD3933D03436CB52A /* MOGReducers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MOGReducers.m */; };
 		6313D712E40D08B9C9CB36BB /* MOGReducers.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MOGReducers.h */; };
@@ -38,9 +36,7 @@
 		40B9A62A1A9524070062C693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40B9A6331A95241C0062C693 /* MogKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitTests.m; sourceTree = "<group>"; };
 		6313D04DE5EB35F3D5215A56 /* MOGOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGOperations.h; sourceTree = "<group>"; };
-		6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEnumerator+MogKit.m"; sourceTree = "<group>"; };
 		6313D18DDF2E3A5ED92D8280 /* MogTransducers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogTransducers.m; sourceTree = "<group>"; };
-		6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEnumerator+MogKit.h"; sourceTree = "<group>"; };
 		6313D4F60D39DC6032BEF249 /* MOGReducers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGReducers.m; sourceTree = "<group>"; };
 		6313D6FC822B6EB4294F42B4 /* MOGReducers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGReducers.h; sourceTree = "<group>"; };
 		6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitPerfTests.m; sourceTree = "<group>"; };
@@ -93,8 +89,6 @@
 				6313DCDA3FCA4C65D52CD514 /* MogTransducers.h */,
 				6313DD57CEA5BA8968AA5C06 /* MogTypes.h */,
 				6313D18DDF2E3A5ED92D8280 /* MogTransducers.m */,
-				6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */,
-				6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */,
 				6313D04DE5EB35F3D5215A56 /* MOGOperations.h */,
 				6313DF6FAE2E66A5CBAFEB45 /* MOGOperations.m */,
 				6313D6FC822B6EB4294F42B4 /* MOGReducers.h */,
@@ -130,7 +124,6 @@
 			files = (
 				40B9A61D1A9524070062C693 /* MogKit.h in Headers */,
 				6313D2B5BF0106865159DF6B /* MogTransducers.h in Headers */,
-				6313D0482FEB362FBAC5ACED /* NSEnumerator+MogKit.h in Headers */,
 				6313DC9CA930F36182F6FE72 /* MOGOperations.h in Headers */,
 				6313D712E40D08B9C9CB36BB /* MOGReducers.h in Headers */,
 			);
@@ -225,7 +218,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6313DBC0B3E097428A752DEB /* MogTransducers.m in Sources */,
-				6313D2B09A82CA7C02FA12B6 /* NSEnumerator+MogKit.m in Sources */,
 				6313DBD680F2376824345B78 /* MOGOperations.m in Sources */,
 				6313D65BD3933D03436CB52A /* MOGReducers.m in Sources */,
 			);

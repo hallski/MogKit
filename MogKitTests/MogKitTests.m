@@ -195,7 +195,7 @@
     NSArray *array = @[@1];
     NSArray *expected = @[@[@1, @1, @1]];
 
-    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindowed(3));
+    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindow(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -205,7 +205,7 @@
     NSArray *array = @[@1, @2];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
 
-    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindowed(3));
+    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindow(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -215,7 +215,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
 
-    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindowed(3));
+    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[], MOGWindow(3));
 
     XCTAssertEqualObjects(expected, result);
 }

@@ -181,7 +181,7 @@ MOGTransducer MOGUnique(void);
  *
  * @return a transducer that replaces each value with an array containing the current window content.
  */
-MOGTransducer MOGWindowed(int length);
+MOGTransducer MOGWindow(int length);
 
 /**
  * Creates the composite transducer by applying `g` to `f`.

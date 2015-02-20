@@ -140,7 +140,7 @@ MOGTransducer MOGUnique(void) {
     };
 }
 
-MOGTransducer MOGWindowed(int length)
+MOGTransducer MOGWindow(int length)
 {
     return ^MOGReducer(MOGReducer reducer) {
         __block BOOL firstValue = YES;

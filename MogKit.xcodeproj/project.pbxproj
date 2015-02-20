@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40B9A61D1A9524070062C693 /* TransformationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* TransformationKit.h */; };
-		40B9A61F1A9524070062C693 /* TransformationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A61E1A9524070062C693 /* TransformationKit.m */; };
-		40B9A6251A9524070062C693 /* libTransformationKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6191A9524070062C693 /* libTransformationKit.a */; };
-		40B9A6341A95241C0062C693 /* TransformationKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* TransformationKitTests.m */; };
-		6313D628E31D6BB710C07E26 /* NSArray+TransformationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */; };
-		6313D6D876E83FBB57D4DF6C /* NSArray+TransformationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */; };
-		6313DA623F53E34D1C7B7A5C /* TransformationKitPerfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */; };
+		40B9A61D1A9524070062C693 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; };
+		40B9A6251A9524070062C693 /* libMogKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B9A6191A9524070062C693 /* libMogKit.a */; };
+		40B9A6341A95241C0062C693 /* MogKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9A6331A95241C0062C693 /* MogKitTests.m */; };
+		6313D0482FEB362FBAC5ACED /* NSEnumerator+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */; };
+		6313D2B09A82CA7C02FA12B6 /* NSEnumerator+MogKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */; };
+		6313D2B5BF0106865159DF6B /* MogTransducers.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransducers.h */; };
+		6313D65BD3933D03436CB52A /* MOGReducers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MOGReducers.m */; };
+		6313D712E40D08B9C9CB36BB /* MOGReducers.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MOGReducers.h */; };
+		6313DA623F53E34D1C7B7A5C /* MogKitPerfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */; };
+		6313DBC0B3E097428A752DEB /* MogTransducers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransducers.m */; };
+		6313DBD680F2376824345B78 /* MOGOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF6FAE2E66A5CBAFEB45 /* MOGOperations.m */; };
+		6313DC9CA930F36182F6FE72 /* MOGOperations.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D04DE5EB35F3D5215A56 /* MOGOperations.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,15 +32,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		40B9A6191A9524070062C693 /* libTransformationKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTransformationKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		40B9A61C1A9524070062C693 /* TransformationKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransformationKit.h; sourceTree = "<group>"; };
-		40B9A61E1A9524070062C693 /* TransformationKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformationKit.m; sourceTree = "<group>"; };
-		40B9A6241A9524070062C693 /* TransformationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransformationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40B9A6191A9524070062C693 /* libMogKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMogKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		40B9A61C1A9524070062C693 /* MogKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MogKit.h; sourceTree = "<group>"; };
+		40B9A6241A9524070062C693 /* MogKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MogKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B9A62A1A9524070062C693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40B9A6331A95241C0062C693 /* TransformationKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformationKitTests.m; sourceTree = "<group>"; };
-		6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TransformationKit.h"; sourceTree = "<group>"; };
-		6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TransformationKit.m"; sourceTree = "<group>"; };
-		6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformationKitPerfTests.m; sourceTree = "<group>"; };
+		40B9A6331A95241C0062C693 /* MogKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitTests.m; sourceTree = "<group>"; };
+		6313D04DE5EB35F3D5215A56 /* MOGOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGOperations.h; sourceTree = "<group>"; };
+		6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEnumerator+MogKit.m"; sourceTree = "<group>"; };
+		6313D18DDF2E3A5ED92D8280 /* MogTransducers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogTransducers.m; sourceTree = "<group>"; };
+		6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEnumerator+MogKit.h"; sourceTree = "<group>"; };
+		6313D4F60D39DC6032BEF249 /* MOGReducers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGReducers.m; sourceTree = "<group>"; };
+		6313D6FC822B6EB4294F42B4 /* MOGReducers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGReducers.h; sourceTree = "<group>"; };
+		6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitPerfTests.m; sourceTree = "<group>"; };
+		6313DCDA3FCA4C65D52CD514 /* MogTransducers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MogTransducers.h; sourceTree = "<group>"; };
+		6313DD57CEA5BA8968AA5C06 /* MogTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MogTypes.h; sourceTree = "<group>"; };
+		6313DF6FAE2E66A5CBAFEB45 /* MOGOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGOperations.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A6251A9524070062C693 /* libTransformationKit.a in Frameworks */,
+				40B9A6251A9524070062C693 /* libMogKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,8 +71,8 @@
 		40B9A6101A9524070062C693 = {
 			isa = PBXGroup;
 			children = (
-				40B9A61B1A9524070062C693 /* TransformationKit */,
-				40B9A6281A9524070062C693 /* TransformationKitTests */,
+				40B9A61B1A9524070062C693 /* MogKit */,
+				40B9A6281A9524070062C693 /* MogKitTests */,
 				40B9A61A1A9524070062C693 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,31 +80,37 @@
 		40B9A61A1A9524070062C693 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40B9A6191A9524070062C693 /* libTransformationKit.a */,
-				40B9A6241A9524070062C693 /* TransformationKitTests.xctest */,
+				40B9A6191A9524070062C693 /* libMogKit.a */,
+				40B9A6241A9524070062C693 /* MogKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		40B9A61B1A9524070062C693 /* TransformationKit */ = {
+		40B9A61B1A9524070062C693 /* MogKit */ = {
 			isa = PBXGroup;
 			children = (
-				40B9A61C1A9524070062C693 /* TransformationKit.h */,
-				40B9A61E1A9524070062C693 /* TransformationKit.m */,
-				6313D8EBAC53F93D7A0C6E13 /* NSArray+TransformationKit.m */,
-				6313D3F92FCDAC050142BBC2 /* NSArray+TransformationKit.h */,
+				40B9A61C1A9524070062C693 /* MogKit.h */,
+				6313DCDA3FCA4C65D52CD514 /* MogTransducers.h */,
+				6313DD57CEA5BA8968AA5C06 /* MogTypes.h */,
+				6313D18DDF2E3A5ED92D8280 /* MogTransducers.m */,
+				6313D06474EE9254062330F7 /* NSEnumerator+MogKit.m */,
+				6313D33F06B761302ECAB535 /* NSEnumerator+MogKit.h */,
+				6313D04DE5EB35F3D5215A56 /* MOGOperations.h */,
+				6313DF6FAE2E66A5CBAFEB45 /* MOGOperations.m */,
+				6313D6FC822B6EB4294F42B4 /* MOGReducers.h */,
+				6313D4F60D39DC6032BEF249 /* MOGReducers.m */,
 			);
-			path = TransformationKit;
+			path = MogKit;
 			sourceTree = "<group>";
 		};
-		40B9A6281A9524070062C693 /* TransformationKitTests */ = {
+		40B9A6281A9524070062C693 /* MogKitTests */ = {
 			isa = PBXGroup;
 			children = (
 				40B9A6291A9524070062C693 /* Supporting Files */,
-				40B9A6331A95241C0062C693 /* TransformationKitTests.m */,
-				6313DAE43FF93B90D20954BC /* TransformationKitPerfTests.m */,
+				40B9A6331A95241C0062C693 /* MogKitTests.m */,
+				6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */,
 			);
-			path = TransformationKitTests;
+			path = MogKitTests;
 			sourceTree = "<group>";
 		};
 		40B9A6291A9524070062C693 /* Supporting Files */ = {
@@ -111,17 +128,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A61D1A9524070062C693 /* TransformationKit.h in Headers */,
-				6313D628E31D6BB710C07E26 /* NSArray+TransformationKit.h in Headers */,
+				40B9A61D1A9524070062C693 /* MogKit.h in Headers */,
+				6313D2B5BF0106865159DF6B /* MogTransducers.h in Headers */,
+				6313D0482FEB362FBAC5ACED /* NSEnumerator+MogKit.h in Headers */,
+				6313DC9CA930F36182F6FE72 /* MOGOperations.h in Headers */,
+				6313D712E40D08B9C9CB36BB /* MOGReducers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		40B9A6181A9524070062C693 /* TransformationKit */ = {
+		40B9A6181A9524070062C693 /* MogKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "TransformationKit" */;
+			buildConfigurationList = 40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKit" */;
 			buildPhases = (
 				40B9A6151A9524070062C693 /* Sources */,
 				40B9A6161A9524070062C693 /* Frameworks */,
@@ -131,14 +151,14 @@
 			);
 			dependencies = (
 			);
-			name = TransformationKit;
+			name = MogKit;
 			productName = TransformationKit;
-			productReference = 40B9A6191A9524070062C693 /* libTransformationKit.a */;
+			productReference = 40B9A6191A9524070062C693 /* libMogKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		40B9A6231A9524070062C693 /* TransformationKitTests */ = {
+		40B9A6231A9524070062C693 /* MogKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "TransformationKitTests" */;
+			buildConfigurationList = 40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKitTests" */;
 			buildPhases = (
 				40B9A6201A9524070062C693 /* Sources */,
 				40B9A6211A9524070062C693 /* Frameworks */,
@@ -149,9 +169,9 @@
 			dependencies = (
 				40B9A6271A9524070062C693 /* PBXTargetDependency */,
 			);
-			name = TransformationKitTests;
+			name = MogKitTests;
 			productName = TransformationKitTests;
-			productReference = 40B9A6241A9524070062C693 /* TransformationKitTests.xctest */;
+			productReference = 40B9A6241A9524070062C693 /* MogKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +191,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 40B9A6141A9524070062C693 /* Build configuration list for PBXProject "TransformationKit" */;
+			buildConfigurationList = 40B9A6141A9524070062C693 /* Build configuration list for PBXProject "MogKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -183,8 +203,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				40B9A6181A9524070062C693 /* TransformationKit */,
-				40B9A6231A9524070062C693 /* TransformationKitTests */,
+				40B9A6181A9524070062C693 /* MogKit */,
+				40B9A6231A9524070062C693 /* MogKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -204,8 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A61F1A9524070062C693 /* TransformationKit.m in Sources */,
-				6313D6D876E83FBB57D4DF6C /* NSArray+TransformationKit.m in Sources */,
+				6313DBC0B3E097428A752DEB /* MogTransducers.m in Sources */,
+				6313D2B09A82CA7C02FA12B6 /* NSEnumerator+MogKit.m in Sources */,
+				6313DBD680F2376824345B78 /* MOGOperations.m in Sources */,
+				6313D65BD3933D03436CB52A /* MOGReducers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,8 +235,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B9A6341A95241C0062C693 /* TransformationKitTests.m in Sources */,
-				6313DA623F53E34D1C7B7A5C /* TransformationKitPerfTests.m in Sources */,
+				40B9A6341A95241C0062C693 /* MogKitTests.m in Sources */,
+				6313DA623F53E34D1C7B7A5C /* MogKitPerfTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +245,7 @@
 /* Begin PBXTargetDependency section */
 		40B9A6271A9524070062C693 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 40B9A6181A9524070062C693 /* TransformationKit */;
+			target = 40B9A6181A9524070062C693 /* MogKit */;
 			targetProxy = 40B9A6261A9524070062C693 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -308,7 +330,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MogKit;
 			};
 			name = Debug;
 		};
@@ -317,7 +339,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MogKit;
 			};
 			name = Release;
 		};
@@ -333,13 +355,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = TransformationKitTests/Info.plist;
+				INFOPLIST_FILE = MogKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MogKitTests;
 			};
 			name = Debug;
 		};
@@ -351,20 +373,20 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = TransformationKitTests/Info.plist;
+				INFOPLIST_FILE = MogKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MogKitTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		40B9A6141A9524070062C693 /* Build configuration list for PBXProject "TransformationKit" */ = {
+		40B9A6141A9524070062C693 /* Build configuration list for PBXProject "MogKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40B9A62B1A9524070062C693 /* Debug */,
@@ -373,21 +395,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "TransformationKit" */ = {
+		40B9A62D1A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40B9A62E1A9524070062C693 /* Debug */,
 				40B9A62F1A9524070062C693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "TransformationKitTests" */ = {
+		40B9A6301A9524070062C693 /* Build configuration list for PBXNativeTarget "MogKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40B9A6311A9524070062C693 /* Debug */,
 				40B9A6321A9524070062C693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

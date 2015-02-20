@@ -1,12 +1,18 @@
+//
+// MogKit
+//
+// Copyright (c) 2015 Mikael Hallendal. All rights reserved.
+//
+
 #import <XCTest/XCTest.h>
-#import "TransformationKit.h"
-#import "NSArray+TransformationKit.h"
+#import "MogKit.h"
+#import "NSEnumerator+MogKit.h"
 
 
-@interface TransformationKitPerfTests : XCTestCase
+@interface MogKitPerfTests : XCTestCase
 @end
 
-@implementation TransformationKitPerfTests
+@implementation MogKitPerfTests
 
 - (NSArray *)testArrayWithInts:(int)numberOfInts
 {
@@ -24,9 +30,9 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = [array tk_map:^id(id o) {
+        NSArray *result = MOGEnumerableTransduce(MOGMap(^id(id o) {
             return o;
-        }];
+        }), MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -39,9 +45,9 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = [array tk_map:^id(id o) {
+        NSArray *result = MOGEnumerableTransduce(MOGMap(^id(id o) {
             return o;
-        }];
+        }), MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -53,37 +59,20 @@
 
     [self measureBlock:^{
         NSArray *transducers = @[
-                TKMap(^id(NSNumber *number) {
+                MOGMap(^id(NSNumber *number) {
                     return @(number.intValue + 100);
                 }),
-                TKFilter(^BOOL(NSNumber *number) {
+                MOGFilter(^BOOL(NSNumber *number) {
                     return YES;
                 }),
-                TKMap(^id(NSNumber *number) {
+                MOGMap(^id(NSNumber *number) {
                     return @(number.intValue - 100);
                 })
         ];
 
-        TKTransducer xform = TKComposeTransducersArray(transducers);
+        MOGTransducer xform = MOGComposeTransducersArray(transducers);
 
-        NSArray *result = TKTransduce(xform, TKMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
-
-        XCTAssertEqualObjects(array, result);
-    }];
-}
-
-- (void)testPerformanceChaining
-{
-    NSArray *array = [self testArrayWithInts:100000];
-
-    [self measureBlock:^{
-        NSArray *result = [[[array tk_map:^id(NSNumber *number) {
-            return @(number.intValue + 100);
-        }] tk_filter:^BOOL(NSNumber *number) {
-            return YES;
-        }] tk_map:^id(NSNumber *number) {
-            return @(number.intValue - 100);
-        }];
+        NSArray *result = MOGEnumerableTransduce(xform, MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
 
         XCTAssertEqualObjects(array, result);
     }];

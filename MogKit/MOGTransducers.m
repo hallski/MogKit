@@ -1,49 +1,48 @@
 //
-//  TransformationKit.m
-//  TransformationKit
+// MogKit
 //
-//  Copyright (c) 2015 Mikael Hallendal. All rights reserved.
+// Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
-#import "TransformationKit.h"
+#import "MogTransducers.h"
 
+#import "NSEnumerator+MogKit.h"
 
-TKTransducer TKMap(id (^mapFunc)(id))
+MOGTransducer MOGIdentity(void) {
+    return ^MOGReducer(MOGReducer reducer) {
+        return reducer;
+    };
+}
+
+MOGTransducer MOGMap(id (^mapFunc)(id))
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return reducer(acc, mapFunc(val));
         };
     };
 }
 
-TKTransducer TKFilter(TKPredicate predicate)
+MOGTransducer MOGFilter(MOGPredicate predicate)
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return predicate(val) ? reducer(acc, val) : acc;
         };
     };
 }
 
-
-TKTransducer TKRemove(TKPredicate predicate) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGRemove(MOGPredicate predicate) {
+    return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return predicate(val) ? acc : reducer(acc, val);
         };
     };
 }
 
-TKTransducer TKIdentity() {
-    return ^TKReducer(TKReducer reducer) {
-        return reducer;
-    };
-}
-
-TKTransducer TKTake(int n)
+MOGTransducer MOGTake(int n)
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block int left = n;
         return ^id(id acc, id val) {
             return left-- > 0 ? reducer(acc, val) : acc;
@@ -51,9 +50,9 @@ TKTransducer TKTake(int n)
     };
 }
 
-TKTransducer TKTakeWhile(TKPredicate predicate)
+MOGTransducer MOGTakeWhile(MOGPredicate predicate)
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block BOOL keepTaking = YES;
         return ^id(id acc, id val) {
             if (keepTaking) {
@@ -65,8 +64,8 @@ TKTransducer TKTakeWhile(TKPredicate predicate)
     };
 }
 
-TKTransducer TKTakeNth(int n) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGTakeNth(int n) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block int i = 0;
         return ^id(id acc, id val) {
             return (i++ % n == 0) ? reducer(acc, val) : acc;
@@ -74,8 +73,8 @@ TKTransducer TKTakeNth(int n) {
     };
 }
 
-TKTransducer TKDrop(int n) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGDrop(int n) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block int dropped = 0;
         return ^id(id acc, id val) {
             if (dropped < n) {
@@ -88,8 +87,8 @@ TKTransducer TKDrop(int n) {
     };
 }
 
-TKTransducer TKDropWhile(TKPredicate predicate) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGDropWhile(MOGPredicate predicate) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block BOOL keepDropping = YES;
         return ^id(id acc, id val) {
             if (keepDropping) {
@@ -100,8 +99,8 @@ TKTransducer TKDropWhile(TKPredicate predicate) {
     };
 }
 
-TKTransducer TKReplace(NSDictionary *replacements) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGReplace(NSDictionary *replacements) {
+    return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             val = replacements[val] ?: val;
 
@@ -110,16 +109,16 @@ TKTransducer TKReplace(NSDictionary *replacements) {
     };
 }
 
-TKTransducer TKKeep(TKMapFunc func) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGKeep(MOGMapFunc func) {
+    return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return func(val) == nil ? acc : reducer(acc, val);
         };
     };
 }
 
-TKTransducer TKKeepIndexed(TKIndexedMapFunc indexedMapFunc) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc indexedMapFunc) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block int index = 0;
         return ^id(id acc, id val) {
             return indexedMapFunc(index++, val) == nil ? acc : reducer(acc, val);
@@ -127,8 +126,8 @@ TKTransducer TKKeepIndexed(TKIndexedMapFunc indexedMapFunc) {
     };
 }
 
-TKTransducer TKUnique(void) {
-    return ^TKReducer(TKReducer reducer) {
+MOGTransducer MOGUnique(void) {
+    return ^MOGReducer(MOGReducer reducer) {
         NSMutableSet *inTheFinal = [NSMutableSet new];
 
         return ^id(id acc, id val) {
@@ -142,9 +141,9 @@ TKTransducer TKUnique(void) {
     };
 }
 
-TKTransducer TKWindowed(int length)
+MOGTransducer MOGWindowed(int length)
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         __block BOOL firstValue = YES;
         NSMutableArray *windowedValues = [NSMutableArray arrayWithCapacity:length];
 
@@ -166,52 +165,16 @@ TKTransducer TKWindowed(int length)
 
 
 #pragma mark - Transducer Composition
-TKTransducer TKComposeTransducers(TKTransducer f, TKTransducer g)
+MOGTransducer MOGComposeTransducers(MOGTransducer f, MOGTransducer g)
 {
-    return ^TKReducer(TKReducer reducer) {
+    return ^MOGReducer(MOGReducer reducer) {
         return g(f(reducer));
     };
 }
 
-TKTransducer TKComposeTransducersArray(NSArray *transducers) {
-    return [transducers.reverseObjectEnumerator tk_reduce:^id(TKTransducer acc, TKTransducer val) {
-        return TKComposeTransducers(acc, val);
-    } initial:TKIdentity()];
+MOGTransducer MOGComposeTransducersArray(NSArray *transducers) {
+    return [transducers.reverseObjectEnumerator tk_reduce:^id(MOGTransducer acc, MOGTransducer val) {
+        return MOGComposeTransducers(acc, val);
+    } initial:MOGIdentity()];
 }
 
-id TKReduce(TKReducer reducer, id initial, id<TKEnumerable> source)
-{
-    id obj;
-    id acc = initial;
-
-    while ((obj = [source tk_nextValue])) {
-        acc = reducer(acc, obj);
-    }
-
-    return acc;
-}
-
-id TKTransduce(TKTransducer transducer, TKReducer reducer, id initial, id<TKEnumerable> source)
-{
-    return TKReduce(transducer(reducer), initial, source);
-}
-
-
-@implementation NSEnumerator (TKTransformable)
-
-- (id)tk_nextValue
-{
-    return [self nextObject];
-}
-
-- (id)tk_reduce:(TKReducer)reducer initial:(id)initial
-{
-    return TKReduce(reducer, initial, self);
-}
-
-- (id)tk_transduce:(TKTransducer)transducer reducer:(TKReducer)reducer initial:(id)initial
-{
-    return TKTransduce(transducer, reducer, initial, self);
-}
-
-@end

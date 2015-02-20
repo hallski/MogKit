@@ -7,7 +7,7 @@
 #import "MOGOperations.h"
 
 
-id MOGEnumerableReduce(MOGReducer reducer, id initial, id<MOGEnumerable> source)
+id MOGEnumerableReduce(id<MOGEnumerable> source, MOGReducer reducer, id initial)
 {
     id obj;
     id acc = initial;
@@ -19,7 +19,7 @@ id MOGEnumerableReduce(MOGReducer reducer, id initial, id<MOGEnumerable> source)
     return acc;
 }
 
-id MOGEnumerableTransduce(MOGTransducer transducer, MOGReducer reducer, id initial, id<MOGEnumerable> source)
+id MOGEnumerableTransduce(id<MOGEnumerable> source, MOGReducer reducer, id initial, MOGTransducer transducer)
 {
-    return MOGEnumerableReduce(transducer(reducer), initial, source);
+    return MOGEnumerableReduce(source, transducer(reducer), initial);
 }

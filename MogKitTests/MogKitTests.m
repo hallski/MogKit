@@ -10,7 +10,6 @@
 
 
 @interface MogKitTests : XCTestCase
-
 @end
 
 @implementation MogKitTests
@@ -19,9 +18,10 @@
 {
     NSArray *array = @[@1, @2, @3, @4];
     NSArray *expected = @[@11, @12, @13, @14];
-    NSArray *result = MOGEnumerableTransduce(MOGMap(^id(NSNumber *number) {
-        return @(number.intValue + 10);
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGMap(^id(NSNumber *number) {
+                                                 return @(number.intValue + 10);
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -30,9 +30,10 @@
 {
     NSArray *array = @[];
     NSArray *expected = @[];
-    NSArray *result = MOGEnumerableTransduce(MOGMap(^id(id o) {
-        return o;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGMap(^id(id o) {
+                                                 return o;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -41,10 +42,11 @@
 {
     NSArray *array = @[@1, @10, @15, @20];
     NSArray *expected = @[@10, @15];
-    NSArray *result = MOGEnumerableTransduce(MOGFilter(^BOOL(NSNumber *number) {
-        int n = number.intValue;
-        return n >= 10 && n <= 15;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGFilter(^BOOL(NSNumber *number) {
+                                                 int n = number.intValue;
+                                                 return n >= 10 && n <= 15;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -53,10 +55,11 @@
 {
     NSArray *array = @[@1, @10, @15, @20];
     NSArray *expected = @[@1, @20];
-    NSArray *result = MOGEnumerableTransduce(MOGRemove(^BOOL(NSNumber *number) {
-        int n = number.intValue;
-        return n >= 10 && n <= 15;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGRemove(^BOOL(NSNumber *number) {
+                                                 int n = number.intValue;
+                                                 return n >= 10 && n <= 15;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -66,7 +69,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @5];
 
-    NSArray *result = MOGEnumerableTransduce(MOGTake(5), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGTake(5));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -78,10 +81,10 @@
 
     MOGTransducer takingFive = MOGTake(5);
 
-    NSArray *result = MOGEnumerableTransduce(takingFive, MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], takingFive);
     XCTAssertEqualObjects(expected, result);
 
-    result = MOGEnumerableTransduce(takingFive, MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], takingFive);
     XCTAssertEqualObjects(expected, result);
 }
 
@@ -90,9 +93,10 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4];
 
-    NSArray *result = MOGEnumerableTransduce(MOGTakeWhile(^BOOL(NSNumber *number) {
-        return number.intValue % 5 != 0;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGTakeWhile(^BOOL(NSNumber *number) {
+                                                 return number.intValue % 5 != 0;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -102,7 +106,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @4, @7, @10];
 
-    NSArray *result = MOGEnumerableTransduce(MOGTakeNth(3), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGTakeNth(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -112,7 +116,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@4, @5, @6, @7, @8, @9, @10];
 
-    NSArray *result = MOGEnumerableTransduce(MOGDrop(3), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGDrop(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -122,9 +126,10 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@5, @6, @7, @8, @9, @10];
 
-    NSArray *result = MOGEnumerableTransduce(MOGDropWhile(^BOOL(NSNumber *number) {
-        return number.intValue % 5 != 0;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGDropWhile(^BOOL(NSNumber *number) {
+                                                 return number.intValue % 5 != 0;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -136,7 +141,8 @@
 
     NSDictionary *replacementDict = @{ @"1" : @"a", @"2": @"b", @"3" : @"c", @"4" : @"d", @"5" : @"e" };
 
-    NSArray *result = MOGEnumerableTransduce(MOGReplace(replacementDict), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGReplace(replacementDict));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -148,7 +154,8 @@
 
     NSDictionary *replacementDict = @{ @"1" : @"a", @"3" : @"c", @"5" : @"e" };
 
-    NSArray *result = MOGEnumerableTransduce(MOGReplace(replacementDict), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGReplace(replacementDict));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -158,9 +165,10 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @3, @5, @7, @9];
 
-    NSArray *result = MOGEnumerableTransduce(MOGKeep(^id(NSNumber *number) {
-        return number.intValue % 2 == 0 ? nil : number;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGKeep(^id(NSNumber *number) {
+                                                 return number.intValue % 2 == 0 ? nil : number;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -170,9 +178,10 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @3, @5, @7, @9];
 
-    NSArray *result = MOGEnumerableTransduce(MOGKeepIndexed(^id(int index, id o) {
-        return index % 2 == 0 ? o : nil;
-    }), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[],
+                                             MOGKeepIndexed(^id(int index, id o) {
+                                                 return index % 2 == 0 ? o : nil;
+                                             }));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -182,7 +191,7 @@
     NSArray *array = @[@1, @2, @3, @4, @3, @2, @1, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @8, @9, @10];
 
-    NSArray *result = MOGEnumerableTransduce(MOGUnique(), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGUnique());
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -192,7 +201,7 @@
     NSArray *array = @[@1];
     NSArray *expected = @[@[@1, @1, @1]];
 
-    NSArray *result = MOGEnumerableTransduce(MOGWindowed(3), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGWindowed(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -202,7 +211,7 @@
     NSArray *array = @[@1, @2];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
 
-    NSArray *result = MOGEnumerableTransduce(MOGWindowed(3), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGWindowed(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -212,7 +221,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
 
-    NSArray *result = MOGEnumerableTransduce(MOGWindowed(3), MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], MOGWindowed(3));
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -232,7 +241,7 @@
             })
     );
 
-    NSArray *result = MOGEnumerableTransduce(xform, MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], xform);
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -253,7 +262,7 @@
             })
     ];
     MOGTransducer xform = MOGComposeTransducersArray(transducers);
-    NSArray *result = MOGEnumerableTransduce(xform, MOGArrayAppendReducer(), @[], array.objectEnumerator);
+    NSArray *result = MOGEnumerableTransduce(array.objectEnumerator, MOGArrayAppendReducer(), @[], xform);
 
     XCTAssertEqualObjects(expected, result);
 }

@@ -5,8 +5,9 @@
 //
 
 #import "MogTransducers.h"
-
+#import "MOGOperations.h"
 #import "NSEnumerator+MogKit.h"
+
 
 MOGTransducer MOGIdentity(void) {
     return ^MOGReducer(MOGReducer reducer) {
@@ -173,8 +174,7 @@ MOGTransducer MOGComposeTransducers(MOGTransducer f, MOGTransducer g)
 }
 
 MOGTransducer MOGComposeTransducersArray(NSArray *transducers) {
-    return [transducers.reverseObjectEnumerator tk_reduce:^id(MOGTransducer acc, MOGTransducer val) {
+    return MOGEnumerableReduce(transducers.reverseObjectEnumerator, ^id(MOGTransducer acc, MOGTransducer val) {
         return MOGComposeTransducers(acc, val);
-    } initial:MOGIdentity()];
+    }, MOGIdentity());
 }
-

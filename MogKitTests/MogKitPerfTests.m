@@ -30,9 +30,11 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerableTransduce(MOGMap(^id(id o) {
-            return o;
-        }), MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
+        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
+                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                 MOGMap(^id(id o) {
+                                                     return o;
+                                                 }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -45,9 +47,11 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *expected = array;
-        NSArray *result = MOGEnumerableTransduce(MOGMap(^id(id o) {
-            return o;
-        }), MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
+        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
+                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                 MOGMap(^id(id o) {
+                                                     return o;
+                                                 }));
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -72,7 +76,9 @@
 
         MOGTransducer xform = MOGComposeTransducersArray(transducers);
 
-        NSArray *result = MOGEnumerableTransduce(xform, MOGMutableArrayAppendReducer(), [NSMutableArray new], array.objectEnumerator);
+        NSArray *result = MOGEnumerableTransduce(array.objectEnumerator,
+                                                 MOGMutableArrayAppendReducer(), [NSMutableArray new],
+                                                 xform);
 
         XCTAssertEqualObjects(array, result);
     }];

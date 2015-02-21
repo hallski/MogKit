@@ -261,4 +261,14 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testLastValueReducer
+{
+    NSArray *array = @[@1, @2, @3, @4, @5];
+    NSNumber *expected = @5;
+
+    NSNumber *result = MOGTransduce(array, MOGLastValueReducer(), @1, MOGIdentity());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 @end

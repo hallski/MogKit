@@ -1,3 +1,4 @@
+# Example: Alpha trimmed mean filter
 Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean filter_:
 
 ```objective-c

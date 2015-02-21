@@ -15,7 +15,7 @@
 typedef MOGReducer (^MOGTransducer) (MOGReducer);
 
 /**
- * A `MOGMapFunc` is a function you typically send to `MOGMap` which is a transformation of a single value
+ * A `MOGMapFunc` is a function you typically use with `MOGMapTransducer` which is a transformation of a single value
  * into a new value.
  */
 typedef id (^MOGMapFunc) (id val);
@@ -27,8 +27,8 @@ typedef id (^MOGMapFunc) (id val);
 typedef id (^MOGIndexedMapFunc) (int index, id val);
 
 /**
- * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilter` or
- * `MOGKeep`.
+ * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilterTransducer` or
+ * `MOGKeepTransducer`.
  */
 typedef BOOL (^MOGPredicate) (id val);
 
@@ -38,7 +38,7 @@ typedef BOOL (^MOGPredicate) (id val);
  *
  * @return the identity transducer.
  */
-MOGTransducer MOGIdentity(void);
+MOGTransducer MOGIdentityTransducer(void);
 
 /**
  * Creates a transducer that applies the `mapFunc` to transform each value passed through the transformation.
@@ -47,7 +47,7 @@ MOGTransducer MOGIdentity(void);
  *
  * @return a transducer that applies the map transformation.
  */
-MOGTransducer MOGMap(MOGMapFunc mapFunc);
+MOGTransducer MOGMapTransducer(MOGMapFunc mapFunc);
 
 /**
  * Creates a transducer that filters all values based on the `predicate` function. Values where `predicate` returns
@@ -57,17 +57,17 @@ MOGTransducer MOGMap(MOGMapFunc mapFunc);
  *
  * @return a transducer that filters values keeps values where the predicate returns YES.
  */
-MOGTransducer MOGFilter(MOGPredicate predicate);
+MOGTransducer MOGFilterTransducer(MOGPredicate predicate);
 
 /**
  * Creates a transducer that removes all values where the `predicate` function returns YES.
- * This is the reverse of `MOGFilter`.
+ * This is the reverse of `MOGFilterTransducer`.
  *
  * @param predicate the predicate function. Return YES to drop the values, NO to let them through.
  *
  * @return a transducer that remove values where predicate returns YES.
  */
-MOGTransducer MOGRemove(MOGPredicate predicate);
+MOGTransducer MOGRemoveTransducer(MOGPredicate predicate);
 
 /**
  * Creates a transducer that let `n` values through and then drops all remaining values passed through it.
@@ -76,9 +76,9 @@ MOGTransducer MOGRemove(MOGPredicate predicate);
  *
  * @return a transducer that takes `n` values and then drops all remaining values.
  *
- * @see `MOGDrop`
+ * @see `MOGDropTransducer`
  */
-MOGTransducer MOGTake(int n);
+MOGTransducer MOGTakeTransducer(int n);
 
 /**
  * Creates a transducer that pass values through while the `predicate` function returns YES. After the predicate
@@ -88,7 +88,7 @@ MOGTransducer MOGTake(int n);
  *
  * @return a transducer that takes values until `predicate` returns NO and drops all remaining values.
  */
-MOGTransducer MOGTakeWhile(MOGPredicate predicate);
+MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate);
 
 /**
  * Creates a transducer that pass through every nth value and drops the other.
@@ -97,7 +97,7 @@ MOGTransducer MOGTakeWhile(MOGPredicate predicate);
  *
  * @return a transducer that returns every n values.
  */
-MOGTransducer MOGTakeNth(int n);
+MOGTransducer MOGTakeNthTransducer(int n);
 
 /**
  * Creates a transducer that drops the first `n` values and pass through all successive values.
@@ -106,9 +106,9 @@ MOGTransducer MOGTakeNth(int n);
  *
  * @return a transducer that drops the n first values.
  *
- * @see `MOGTake`
+ * @see `MOGTakeTransducer`
  */
-MOGTransducer MOGDrop(int n);
+MOGTransducer MOGDropTransducer(int n);
 
 /**
  * Creates a transducer that drops all values while the `predicate` function returns YES.
@@ -118,9 +118,9 @@ MOGTransducer MOGDrop(int n);
  *
  * @return a transducer that drops all values until the predicate function returns YES.
  *
- * @see MOGTakeWhile
+ * @see MOGTakeWhileTransducer
  */
-MOGTransducer MOGDropWhile(MOGPredicate predicate);
+MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate);
 
 /**
  * Creates a transducer that replaces values if they are found in the `replacements` dictionary. For each value it will
@@ -134,7 +134,7 @@ MOGTransducer MOGDropWhile(MOGPredicate predicate);
  * @warning Keep in mind that if the replacements dictionary can't replace all values it should return the same type
  *          as the values passed in.
  */
-MOGTransducer MOGReplace(NSDictionary *replacements);
+MOGTransducer MOGReplaceTransducer(NSDictionary *replacements);
 
 /**
  * Creates a transducer that keep values where `func` returns a non-nil value and drops all where nil is returned.
@@ -146,29 +146,29 @@ MOGTransducer MOGReplace(NSDictionary *replacements);
  *
  * @return a transducer that drops all values where `func` returns nil.
  *
- * @see `MOGFilter`, `MOGRemove` and `MOGKeepIndexed`.
+ * @see `MOGFilterTransducer`, `MOGRemoveTransducer` and `MOGKeepIndexedTransducer`.
  */
-MOGTransducer MOGKeep(MOGMapFunc func);
+MOGTransducer MOGKeepTransducer(MOGMapFunc func);
 
 /**
  * Creates a transducer a transducer that keeps values where `func` returns a non-nil value. This is similar to
- * `MOGKeep` with the difference that the index of the value is passed to `func` as well.
+ * `MOGKeepTransducer` with the difference that the index of the value is passed to `func` as well.
  *
  * @param func a function that determines if the transducer should pass on a value or not. non-nil to pass on,
  *        nil to drop it.
  *
  * @return a transducer that drops all values where `func` returns nil.
  *
- * @see `MOGFilter`, `MOGRemove` and `MOGKeep`.
+ * @see `MOGFilterTransducer`, `MOGRemoveTransducer` and `MOGKeep`.
  */
-MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc func);
+MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func);
 
 /**
  * Creates a transducer that drops all consecutive duplicates. Whether it's a duplicate is determined by `isEqual:`
  *
  * @return a transducer that drops all consecutive duplicates.
  */
-MOGTransducer MOGUnique(void);
+MOGTransducer MOGUniqueTransducer(void);
 
 /**
  * Creates a transducer that flattens values that conforms to `NSFastEnumeration`. Other values are passed
@@ -176,7 +176,7 @@ MOGTransducer MOGUnique(void);
  *
  * @return a transducer that concat the values.
  */
-MOGTransducer MOGCat(void);
+MOGTransducer MOGCatTransducer(void);
 
 /**
  * Creates a transducer that first apply the mapFunc on all values and then concatenates the results. It's the
@@ -186,7 +186,7 @@ MOGTransducer MOGCat(void);
  *
  * @return a transducer that applies `mapFunc` on all values and then concatenates the result.
  */
-MOGTransducer MOGMapCat(MOGMapFunc mapFunc);
+MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
 
 /**
  * Creates a transducer that creates a window of size `length` by examining the values passed through.
@@ -198,7 +198,7 @@ MOGTransducer MOGMapCat(MOGMapFunc mapFunc);
  *
  * @return a transducer that replaces each value with an array containing the current window content.
  */
-MOGTransducer MOGWindow(int length);
+MOGTransducer MOGWindowTransducer(int length);
 
 /**
  * Creates the composite transducer by applying `f` to `g`.

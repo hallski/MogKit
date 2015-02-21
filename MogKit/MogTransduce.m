@@ -7,13 +7,13 @@
 #import "MogTransduce.h"
 
 
-MOGTransducer MOGIdentity(void) {
+MOGTransducer MOGIdentityTransducer(void) {
     return ^MOGReducer(MOGReducer reducer) {
         return reducer;
     };
 }
 
-MOGTransducer MOGMap(id (^mapFunc)(id))
+MOGTransducer MOGMapTransducer(id (^mapFunc)(id))
 {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
@@ -22,7 +22,7 @@ MOGTransducer MOGMap(id (^mapFunc)(id))
     };
 }
 
-MOGTransducer MOGFilter(MOGPredicate predicate)
+MOGTransducer MOGFilterTransducer(MOGPredicate predicate)
 {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
@@ -31,7 +31,7 @@ MOGTransducer MOGFilter(MOGPredicate predicate)
     };
 }
 
-MOGTransducer MOGRemove(MOGPredicate predicate) {
+MOGTransducer MOGRemoveTransducer(MOGPredicate predicate) {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return predicate(val) ? acc : reducer(acc, val);
@@ -39,7 +39,7 @@ MOGTransducer MOGRemove(MOGPredicate predicate) {
     };
 }
 
-MOGTransducer MOGTake(int n)
+MOGTransducer MOGTakeTransducer(int n)
 {
     return ^MOGReducer(MOGReducer reducer) {
         __block int left = n;
@@ -49,7 +49,7 @@ MOGTransducer MOGTake(int n)
     };
 }
 
-MOGTransducer MOGTakeWhile(MOGPredicate predicate)
+MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate)
 {
     return ^MOGReducer(MOGReducer reducer) {
         __block BOOL keepTaking = YES;
@@ -63,7 +63,7 @@ MOGTransducer MOGTakeWhile(MOGPredicate predicate)
     };
 }
 
-MOGTransducer MOGTakeNth(int n) {
+MOGTransducer MOGTakeNthTransducer(int n) {
     return ^MOGReducer(MOGReducer reducer) {
         __block int i = 0;
         return ^id(id acc, id val) {
@@ -72,7 +72,7 @@ MOGTransducer MOGTakeNth(int n) {
     };
 }
 
-MOGTransducer MOGDrop(int n) {
+MOGTransducer MOGDropTransducer(int n) {
     return ^MOGReducer(MOGReducer reducer) {
         __block int dropped = 0;
         return ^id(id acc, id val) {
@@ -86,7 +86,7 @@ MOGTransducer MOGDrop(int n) {
     };
 }
 
-MOGTransducer MOGDropWhile(MOGPredicate predicate) {
+MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate) {
     return ^MOGReducer(MOGReducer reducer) {
         __block BOOL keepDropping = YES;
         return ^id(id acc, id val) {
@@ -98,7 +98,7 @@ MOGTransducer MOGDropWhile(MOGPredicate predicate) {
     };
 }
 
-MOGTransducer MOGReplace(NSDictionary *replacements) {
+MOGTransducer MOGReplaceTransducer(NSDictionary *replacements) {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             val = replacements[val] ?: val;
@@ -108,7 +108,7 @@ MOGTransducer MOGReplace(NSDictionary *replacements) {
     };
 }
 
-MOGTransducer MOGKeep(MOGMapFunc func) {
+MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
             return func(val) == nil ? acc : reducer(acc, val);
@@ -116,7 +116,7 @@ MOGTransducer MOGKeep(MOGMapFunc func) {
     };
 }
 
-MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc func) {
+MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
         __block int index = 0;
         return ^id(id acc, id val) {
@@ -125,7 +125,7 @@ MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc func) {
     };
 }
 
-MOGTransducer MOGUnique(void) {
+MOGTransducer MOGUniqueTransducer(void) {
     return ^MOGReducer(MOGReducer reducer) {
         NSMutableSet *inTheFinal = [NSMutableSet new];
 
@@ -140,7 +140,7 @@ MOGTransducer MOGUnique(void) {
     };
 }
 
-MOGTransducer MOGCat(void)
+MOGTransducer MOGCatTransducer(void)
 {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
@@ -158,12 +158,12 @@ MOGTransducer MOGCat(void)
     };
 }
 
-MOGTransducer MOGMapCat(MOGMapFunc mapFunc)
+MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc)
 {
-    return MOGCompose(MOGMap(mapFunc), MOGCat());
+    return MOGCompose(MOGMapTransducer(mapFunc), MOGCatTransducer());
 }
 
-MOGTransducer MOGWindow(int length)
+MOGTransducer MOGWindowTransducer(int length)
 {
     return ^MOGReducer(MOGReducer reducer) {
         __block BOOL firstValue = YES;
@@ -197,7 +197,7 @@ MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 MOGTransducer MOGComposeArray(NSArray *transducers) {
     return MOGReduce(transducers, ^id(MOGTransducer acc, MOGTransducer val) {
         return MOGCompose(acc, val);
-    }, MOGIdentity());
+    }, MOGIdentityTransducer());
 }
 
 id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)

@@ -39,7 +39,7 @@
     // Measure performance of standard impl.
     [self measureBlock:^{
         NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                       MOGMap(^id(NSNumber *number) {
+                                       MOGMapTransducer(^id(NSNumber *number) {
                                            return @(number.intValue + 100);
                                        }));
 
@@ -68,13 +68,13 @@
 
     [self measureBlock:^{
         NSArray *transducers = @[
-                MOGMap(^id(NSNumber *number) {
+                MOGMapTransducer(^id(NSNumber *number) {
                     return @(number.intValue + 100);
                 }),
-                MOGFilter(^BOOL(NSNumber *number) {
+                MOGFilterTransducer(^BOOL(NSNumber *number) {
                     return YES;
                 }),
-                MOGMap(^id(NSNumber *number) {
+                MOGMapTransducer(^id(NSNumber *number) {
                     return @(number.intValue - 100);
                 })
         ];
@@ -94,15 +94,15 @@
 
     [self measureBlock:^{
         NSMutableArray *array1 = MOGTransduce(array, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGMap(^id(NSNumber *number) {
+                                              MOGMapTransducer(^id(NSNumber *number) {
                                                   return @(number.intValue + 100);
                                               }));
         NSMutableArray *array2 = MOGTransduce(array1, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGFilter(^BOOL(NSNumber *number) {
+                                              MOGFilterTransducer(^BOOL(NSNumber *number) {
                                                   return YES;
                                               }));
         NSMutableArray *result = MOGTransduce(array2, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGMap(^id(NSNumber *number) {
+                                              MOGMapTransducer(^id(NSNumber *number) {
                                                   return @(number.intValue - 100);
                                               }));
 

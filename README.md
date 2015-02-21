@@ -9,7 +9,7 @@ A simple map operation on an array
 
 ```objective-c
 NSArray *array = @[@1, @2, @3];
-NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
+NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
     return @(number.intValue + 100);
 });
 
@@ -19,9 +19,9 @@ NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
 What is nice about using transducers here is that they are composable and agnostic about both input source and output. This means that it's easy to create reusable processes that can be used in many different examples.
 
 ```objective-c
-MOGTransducer uppercaseLongNames = MOGCompose(MOGFilter(^BOOL(NSString *str) {
+MOGTransducer uppercaseLongNames = MOGCompose(MOGFilterTransducer(^BOOL(NSString *str) {
     return str.length >= 5;
-}), MOGMap(^id(NSString *str) {
+}), MOGMapTransducer(^id(NSString *str) {
     return [str uppercaseString];
 }));
 
@@ -34,9 +34,9 @@ Since transducers work by compositing rather then chaining it means that the inp
 Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean filter_:
 
 ```objective-c
-MOGTransducer Trim(int drop, int finalSize)
+MOGTransducer TrimTransducer(int drop, int finalSize)
 {
-    return MOGCompose(MOGDrop(drop), MOGTake(finalSize));
+    return MOGCompose(MOGDropTransducer(drop), MOGTakeTransducer(finalSize));
 }
 
 MOGMapFunc SortArrayOfNumbers(BOOL ascending)
@@ -51,7 +51,7 @@ MOGMapFunc SortArrayOfNumbers(BOOL ascending)
 MOGMapFunc TrimArray(int trimN)
 {
     return ^id(NSArray *values) {
-        return [values mog_transduce:Trim(trimN, (int)values.count - 2 * trimN)];
+        return [values mog_transduce:TrimTransducer(trimN, (int)values.count - 2 * trimN)];
     };
 }
 
@@ -65,10 +65,10 @@ MOGMapFunc MeanOfArrayOfNumbers()
 MOGTransducer AlphaTrimmedMeanFilter(int windowSize)
 {
     return MOGComposeArray(@[
-        MOGWindow(windowSize),
-        MOGMap(SortArrayOfNumbers(YES)),
-        MOGMap(TrimArray(windowSize / 4)),
-        MOGMap(MeanOfArrayOfNumbers())
+        MOGWindowTransducer(windowSize),
+        MOGMapTransducer(SortArrayOfNumbers(YES)),
+        MOGMapTransducer(TrimArray(windowSize / 4)),
+        MOGMapTransducer(MeanOfArrayOfNumbers())
     ]);
 }
 

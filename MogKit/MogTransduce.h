@@ -11,6 +11,10 @@
 
 /**
  * A transducer takes a `MOGReducer` and returns a new `MOGReducer` with some transformation applied.
+ *
+ * @discussion a transducer can be stateful but the state is bound in the reducer created when the transducer is
+ * applied to the output reducer. This means it's safe to use the same transducer to create new reducers used in
+ * transformations.
  */
 typedef MOGReducer (^MOGTransducer) (MOGReducer);
 
@@ -74,7 +78,7 @@ MOGTransducer MOGRemoveTransducer(MOGPredicate predicate);
  *
  * @param n the number of values to pass through.
  *
- * @return a transducer that takes `n` values and then drops all remaining values.
+ * @return a stateful transducer that takes `n` values and then drops all remaining values.
  *
  * @see `MOGDropTransducer`
  */
@@ -86,7 +90,7 @@ MOGTransducer MOGTakeTransducer(int n);
  *
  * @param predicate the predicate function, return YES to let values through, NO to drop all remaining values.
  *
- * @return a transducer that takes values until `predicate` returns NO and drops all remaining values.
+ * @return a stateful transducer that takes values until `predicate` returns NO and drops all remaining values.
  */
 MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate);
 
@@ -95,7 +99,7 @@ MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate);
  *
  * @param n determines which values to pass through.
  *
- * @return a transducer that returns every n values.
+ * @return a stateful transducer that returns every n values.
  */
 MOGTransducer MOGTakeNthTransducer(int n);
 
@@ -104,7 +108,7 @@ MOGTransducer MOGTakeNthTransducer(int n);
  *
  * @param n number of values to drop.
  *
- * @return a transducer that drops the n first values.
+ * @return a stateful transducer that drops the n first values.
  *
  * @see `MOGTakeTransducer`
  */
@@ -116,7 +120,7 @@ MOGTransducer MOGDropTransducer(int n);
  *
  * @param predicate the predicate function deciding whether to keep dropping values.
  *
- * @return a transducer that drops all values until the predicate function returns YES.
+ * @return a stateful transducer that drops all values until the predicate function returns YES.
  *
  * @see MOGTakeWhileTransducer
  */
@@ -157,7 +161,7 @@ MOGTransducer MOGKeepTransducer(MOGMapFunc func);
  * @param func a function that determines if the transducer should pass on a value or not. non-nil to pass on,
  *        nil to drop it.
  *
- * @return a transducer that drops all values where `func` returns nil.
+ * @return a stateful transducer that drops all values where `func` returns nil.
  *
  * @see `MOGFilterTransducer`, `MOGRemoveTransducer` and `MOGKeep`.
  */
@@ -166,7 +170,7 @@ MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func);
 /**
  * Creates a transducer that drops all consecutive duplicates. Whether it's a duplicate is determined by `isEqual:`
  *
- * @return a transducer that drops all consecutive duplicates.
+ * @return a stateful transducer that drops all consecutive duplicates.
  */
 MOGTransducer MOGUniqueTransducer(void);
 
@@ -196,7 +200,7 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
  *
  * @param length the length of the window.
  *
- * @return a transducer that replaces each value with an array containing the current window content.
+ * @return a stateful transducer that replaces each value with an array containing the current window content.
  */
 MOGTransducer MOGWindowTransducer(int length);
 

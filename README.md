@@ -9,6 +9,7 @@ For an introduction to transducers, see [Clojure - Transducers](http://clojure.o
 ## Use cases
 There are several cases where using MogKit might make sense. The easiest is when you simply want to transform some data in for example an array into a new array.
 
+### Simply transform data
 ```objective-c
 NSArray *array = @[@1, @2, @3];
 NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
@@ -18,6 +19,7 @@ NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
 // result is now @[@101, @102, @103]
 ```
 
+### Use to easily implement some transformation functions
 Another cases is when you have some data structure and you want to add a functional API to it, for example extending `NSArray`. In order to for example add a `filter` function to array, all you need to do is
 
 ```objective-c
@@ -31,6 +33,7 @@ Another cases is when you have some data structure and you want to add a functio
 @end
 ```
 
+### Non-collection use cases
 Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
 
 ```objective-c
@@ -67,13 +70,13 @@ MOGTransducer add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
     })
 ]);
 
-[[self.textField.rac_textSignal transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
+[[textField.rac_textSignal transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
     NSLog(@"Number plus 100 = %@", x);
 }];
 
 ```
 
-The transducer can then be reused in any other transformation, and is not tied to `RACStream`.
+The transducer can then be reused in any other transformation, and is not even tied to `RACStream`.
 
 
 ## Installation

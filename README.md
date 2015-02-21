@@ -22,7 +22,7 @@ NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
 ```
 
 ### Use to easily implement some transformation functions
-Another cases is when you have some data structure and you want to add a functional API to it, for example extending `NSArray`. In order to for example add a `filter` function to array, all you need to do is
+Another case is when you have some data structure and you want to add a functional API to it, for example extending `NSArray`. In order to for example add a `filter` function to array, all you need to do is
 
 ```objective-c
 @implementation NSArray (Filterable)

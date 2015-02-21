@@ -224,14 +224,15 @@
 #pragma mark - Transducer composition
 - (void)testComposeTwoTransducers
 {
-    NSArray *array = @[@1, @2, @3, @4, @5, @6];
-    NSArray *expected = @[@6, @12, @18];
+    NSArray *array = @[@1, @10, @100];
+    NSArray *expected = @[@"10", @"100"];
+
     MOGTransducer xform = MOGCompose(
-            MOGMap(^id(NSNumber *number) {
-                return @(number.intValue * 3);
+            MOGFilter(^BOOL(NSString *str) {
+                return str.length >= 2;
             }),
-            MOGFilter(^BOOL(NSNumber *number) {
-                return number.intValue % 2 == 0;
+            MOGMap(^id(NSNumber *number) {
+                return [NSString stringWithFormat:@"%@", number];
             })
     );
 

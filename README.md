@@ -7,9 +7,11 @@ Since transducers work by compositing rather then chaining it means that the inp
 For an introduction to transducers, see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).
 
 ## Use cases
-There are several cases where using MogKit might make sense. The easiest is when you simply want to transform some data in for example an array into a new array.
+There are several cases where using MogKit might make sense. Easiest shown with some example.
 
 ### Simply transform data
+When you simply want to transform some data in for example an array into a new array.
+
 ```objective-c
 NSArray *array = @[@1, @2, @3];
 NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
@@ -27,7 +29,7 @@ Another cases is when you have some data structure and you want to add a functio
 
 - (NSArray *)my_filter:(MOGPredicate)predicate
 {
-    return [MOGTransduce(self, MOGMutableArrayAppendReducer(), [NSMutableArray new], MOGFilterTransducer(predicate) copy];
+    return [self mog_transduce:MOGFilterTransducer(predicate)];
 }
 
 @end

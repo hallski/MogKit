@@ -8,7 +8,7 @@
 
 
 /**
-* A reducer takes an accumulated value and the next value and combines them into a new accumalated value.
+* A reducer takes an accumulated value and the next value and combines them into a new accumulated value.
 * The return accumulated value is typically passed in as `acc` on successive calls.
 */
 typedef id (^MOGReducer) (id acc, id val);

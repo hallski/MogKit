@@ -228,11 +228,11 @@
     NSArray *expected = @[@"10", @"100"];
 
     MOGTransducer xform = MOGCompose(
-            MOGFilter(^BOOL(NSString *str) {
-                return str.length >= 2;
-            }),
             MOGMap(^id(NSNumber *number) {
                 return [NSString stringWithFormat:@"%@", number];
+            }),
+            MOGFilter(^BOOL(NSString *str) {
+                return str.length >= 2;
             })
     );
 
@@ -246,14 +246,14 @@
     NSArray *array = @[@50, @500, @5000, @50000];
     NSArray *expected = @[@50, @500];
     NSArray *transducers = @[
-            MOGMap(^id(NSString *str) {
-                return @(str.intValue);
+            MOGMap(^id(NSNumber *number) {
+                return [NSString stringWithFormat:@"%@", number];
             }),
             MOGFilter(^BOOL(NSString *str) {
                 return str.length < 4;
             }),
-            MOGMap(^id(NSNumber *number) {
-                return [NSString stringWithFormat:@"%@", number];
+            MOGMap(^id(NSString *str) {
+                return @(str.intValue);
             })
     ];
     MOGTransducer xform = MOGComposeArray(transducers);

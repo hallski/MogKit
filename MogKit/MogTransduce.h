@@ -201,21 +201,28 @@ MOGTransducer MOGMapCat(MOGMapFunc mapFunc);
 MOGTransducer MOGWindow(int length);
 
 /**
- * Creates the composite transducer by applying `g` to `f`.
+ * Creates the composite transducer by applying `f` to `g`.
+ *
+ * @discussion Note that transducers are composed right to left but the resulting transformation runs left to right.
+ *             In this case, it means that the transformation done by `f` will be applied before that of `g`.
  *
  * @param f the first transducer
  * @param g the second transducer
  *
- * @return a composite transducer of applied `g` to `f`.
+ * @return a composite transducer of applied `f` to `g`.
  */
 MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g);
 
 /**
  * Creates a transducer which is the composition of `transducers`.
  *
+ * @discussion Note that transducers are composed right to left but the resulting transformation runs left to right.
+ *
  * @param transducers an `NSArray` of `MOGTransducer`s.
  *
  * @return a composite transducer of all transducers in `transducers`.
+ *
+ * @see `MOGCompose`
  */
 MOGTransducer MOGComposeArray(NSArray *transducers);
 

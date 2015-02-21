@@ -160,7 +160,7 @@ MOGTransducer MOGCat(void)
 
 MOGTransducer MOGMapCat(MOGMapFunc mapFunc)
 {
-    return MOGCompose(MOGCat(), MOGMap(mapFunc));
+    return MOGCompose(MOGMap(mapFunc), MOGCat());
 }
 
 MOGTransducer MOGWindow(int length)
@@ -190,7 +190,7 @@ MOGTransducer MOGWindow(int length)
 MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 {
     return ^MOGReducer(MOGReducer reducer) {
-        return g(f(reducer));
+        return f(g(reducer));
     };
 }
 

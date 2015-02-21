@@ -172,7 +172,7 @@ MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 }
 
 MOGTransducer MOGComposeArray(NSArray *transducers) {
-    return MOGReduce(transducers.reverseObjectEnumerator, ^id(MOGTransducer acc, MOGTransducer val) {
+    return MOGReduce(transducers, ^id(MOGTransducer acc, MOGTransducer val) {
         return MOGCompose(acc, val);
     }, MOGIdentity());
 }

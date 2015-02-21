@@ -110,3 +110,6 @@ CocoaPods support is planned.
 
 ## Swift support?
 It's coming.
+
+## Status
+The API is still not locked down so might change slightly until 1.0 has been released.

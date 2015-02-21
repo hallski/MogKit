@@ -33,6 +33,20 @@ Another cases is when you have some data structure and you want to add a functio
 @end
 ```
 
+### Combine to create new transformations
+```objective-c
+MOGTransducer TrimTransducer(int drop, int finalSize)
+{
+    return MOGCompose(MOGDropTransducer(drop), MOGTakeTransducer(finalSize));
+}
+
+// Used with an NSArray this could add an extension to the array with
+- trim:(int)trimSize 
+{
+    return [[self mog_transduce:TrimTransducer(trimSize, self.count - 2 * trimSize)] copy];
+}
+```
+
 ### Non-collection use cases
 Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
 

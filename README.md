@@ -73,12 +73,15 @@ NSNumber *number = MOGTransduce(array, MOGLastValueReducer(), @0, filter);
 // number == 7.5
 
 // Or we can simulate the numbers coming in from a stream and manually feed numbers to the filter.
-MOGReducer filterReducer = filter(MOGLastValueReducer());
+MOGReducer manualFilter = filter(MOGLastValueReducer());
 
-for (NSNumber *n in array) {
-    number = filterReducer(nil, n);
-}
-// number == 7.5
+// Can compare the values of number with the result array above.
+number = manualFilter(nil, @14); // number == 14
+number = manualFilter(nil, @13); // number == 14
+number = manualFilter(nil, @12); // number == 14
+number = manualFilter(nil, @1);  // number == 14
+number = manualFilter(nil, @2);  // number == 13.83
+
 ```
 
 ## Installation

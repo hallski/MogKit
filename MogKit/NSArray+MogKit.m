@@ -6,7 +6,6 @@
 
 #import "NSArray+MogKit.h"
 
-#import "MogKit.h"
 
 @implementation NSArray (MogKit)
 

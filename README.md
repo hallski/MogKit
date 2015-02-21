@@ -31,12 +31,12 @@ NSArray *uppercasedAndLong = [@[@"Joe", @"Sandra", @"steve", @"al"] mog_transduc
 
 Since transducers work by compositing rather then chaining it means that the input values are only iterated over once and not one time per operation.
 
-Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean average filter_:
+Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean filter_:
 
 ```objective-c
-MOGTransducer TKTrim(int drop, int finalSize)
+MOGTransducer Trim(int drop, int finalSize)
 {
-    return MOGCompose(MOGTake(finalSize), MOGDrop(drop));
+    return MOGCompose(MOGDrop(drop), MOGTake(finalSize));
 }
 
 MOGMapFunc SortArrayOfNumbers(BOOL ascending)
@@ -51,11 +51,11 @@ MOGMapFunc SortArrayOfNumbers(BOOL ascending)
 MOGMapFunc TrimArray(int trimN)
 {
     return ^id(NSArray *values) {
-        return [values mog_transduce:TKTrim(trimN, (int)values.count - trimN)];
+        return [values mog_transduce:Trim(trimN, (int)values.count - 2 * trimN)];
     };
 }
 
-MOGMapFunc AvarageOfArrayOfNumbers()
+MOGMapFunc MeanOfArrayOfNumbers()
 {
     return ^id(NSArray *numbers) {
         return [numbers valueForKeyPath:@"@avg.self"];
@@ -68,7 +68,7 @@ MOGTransducer AlphaTrimmedMeanFilter(int windowSize)
         MOGWindow(windowSize),
         MOGMap(SortArrayOfNumbers(YES)),
         MOGMap(TrimArray(windowSize / 4)),
-        MOGMap(AvarageOfArrayOfNumbers())
+        MOGMap(MeanOfArrayOfNumbers())
     ]);
 }
 
@@ -107,7 +107,7 @@ to your `Cartfile` and follow the Carthage instructions for including the framew
 
 You can also add it as submodule to your project `https://github.com/mhallendal/MogKit.git` and include the project file in your application.
 
-If you are using the Foundation extensions, like `-mog_transduce:` on `NSArray`, make suer that you add `-ObjC` to your applications _Other Linker Flags_.
+If you are using the Foundation extensions, like `-mog_transduce:` on `NSArray`, make sure that you add `-ObjC` to your application's _Other Linker Flags_.
 
 CocoaPods support is planned.
 

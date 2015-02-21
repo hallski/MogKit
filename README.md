@@ -22,12 +22,12 @@ NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
 ```
 
 ### Use to easily implement some transformation functions
-Another case is when you have some data structure and you want to add a functional API to it, for example extending `NSArray`. In order to for example add a `filter` function to array, all you need to do is
+Another case is when you have some data structure and want to add a transformation method to it, for example extending `NSArray` and give it a `filter` method, all you need to do is
 
 ```objective-c
 @implementation NSArray (Filterable)
 
-- (NSArray *)my_filter:(MOGPredicate)predicate
+- (NSArray *)filter:(MOGPredicate)predicate
 {
     return [self mog_transduce:MOGFilterTransducer(predicate)];
 }
@@ -36,16 +36,12 @@ Another case is when you have some data structure and you want to add a function
 ```
 
 ### Combine to create new transformations
+Say you want to add a `trim:` method to `NSArray` that returns a new array with `trimSize` elements removed from the start and end.
 ```objective-c
-MOGTransducer TrimTransducer(int drop, int finalSize)
-{
-    return MOGCompose(MOGDropTransducer(drop), MOGTakeTransducer(finalSize));
-}
-
-// Used with an NSArray this could add an extension to the array with
+// 
 - trim:(int)trimSize 
 {
-    return [self mog_transduce:TrimTransducer(trimSize, self.count - 2 * trimSize)];
+    return [self mog_transduce:MOGCompose(MOGDropTransducer(trimSize), MOGTakeTransducer(self.count - 2 * trimSize))];
 }
 ```
 

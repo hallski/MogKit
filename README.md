@@ -19,11 +19,11 @@ NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
 What is nice about using transducers here is that they are composable and agnostic about both input source and output. This means that it's easy to create reusable processes that can be used in many different examples.
 
 ```objective-c
-    MOGTransducer uppercaseLongNames = MOGCompose(MOGFilter(^BOOL(NSString *str) {
-        return str.length >= 5;
-    }), MOGMap(^id(NSString *str) {
-        return [str uppercaseString];
-    }));
+MOGTransducer uppercaseLongNames = MOGCompose(MOGFilter(^BOOL(NSString *str) {
+    return str.length >= 5;
+}), MOGMap(^id(NSString *str) {
+    return [str uppercaseString];
+}));
 
 NSArray *uppercasedAndLong = [@[@"Joe", @"Sandra", @"steve", @"al"] mog_transduce:uppercaseLongNames]);
 // uppercasedAndLong == @[@"SANDRA", @"STEVE"]
@@ -65,11 +65,11 @@ MOGMapFunc AvarageOfArrayOfNumbers()
 MOGTransducer AlphaTrimmedMeanFilter(int windowSize)
 {
     return MOGComposeArray(@[
-                             MOGWindow(windowSize),
-                             MOGMap(SortArrayOfNumbers(YES)),
-                             MOGMap(TrimArray(windowSize / 4)),
-                             MOGMap(AvarageOfArrayOfNumbers())
-                             ]);
+        MOGWindow(windowSize),
+        MOGMap(SortArrayOfNumbers(YES)),
+        MOGMap(TrimArray(windowSize / 4)),
+        MOGMap(AvarageOfArrayOfNumbers())
+    ]);
 }
 
 // This filter can now be used in a number of different ways

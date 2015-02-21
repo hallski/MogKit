@@ -4,7 +4,76 @@ MogKit is a toolkit that makes heavy use of _Transducers_ in order to create com
 
 For an introduction to transducers, see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).
 
-## Example
+## Use cases
+There are several cases where using MogKit might make sense. The easiest is when you simply want to transform some data in for example an array into a new array.
+
+```objective-c
+NSArray *array = @[@1, @2, @3];
+NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
+    return @(number.intValue + 100);
+});
+
+// result is now @[@101, @102, @103]
+```
+
+Another cases is when you have some data structure and you want to add a functional API to it, for example extending `NSArray`. In order to for example add a `filter` function to array, all you need to do is
+
+```objective-c
+@implementation NSArray (Filterable)
+
+- (NSArray *)my_filter:(MOGPredicate)predicate
+{
+    return [MOGTransduce(self, MOGMutableArrayAppendReducer(), [NSMutableArray new], MOGFilterTransducer(predicate) copy];
+}
+
+@end
+```
+
+Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
+
+```objective-c
+@implementation RACStream (MogKit)
+
+- (instancetype)transform:(MOGTransducer)transducer
+{
+    MOGReducer reducer = transducer(MOGLastValueReducer());
+
+    Class class = self.class;
+
+    return [[self flattenMap:^RACStream *(id value) {
+        id transformed = reducer(nil, value);
+        if (transformed) {
+            return [class return:transformed];
+        } else {
+            return class.empty;
+        }
+    }] setNameWithFormat:@"[%@] -transform:", self.name];
+}
+
+@end
+
+NSNumberFormatter *currencyFormatter = [NSNumberFormatter new];
+currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+
+MOGTransducer add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
+    MOGFilterTransducer(StringIsValidInt()),
+    MOGMapTransducer(^id(NSString *string) {
+        return @([string intValue] + 100);
+    }),
+    MOGMapTransducer(^id(id val) {
+        return [currencyFormatter stringFromNumber:val];
+    })
+]);
+
+[[self.textField.rac_textSignal transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
+    NSLog(@"Number plus 100 = %@", x);
+}];
+
+```
+
+The transducer can then be reused in any other transformation, and is not tied to `RACStream`.
+
+## Example: Alpha trimmed mean
 A simple map operation on an array
 
 ```objective-c

@@ -211,6 +211,6 @@ MOGTransducer MOGComposeArray(NSArray *transducers);
  * @param initial the initial value to pass as the accumulator to `reducer`.
  * @param transducer the transformation to apply.
  *
- * @return the final value collected by `reducer.
+ * @return the final value collected by `reducer`.
  */
 id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer);

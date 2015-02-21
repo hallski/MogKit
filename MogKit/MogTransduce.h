@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MogReduce.h"
+#import <MogKit/MogReduce.h>
 
 
 /**

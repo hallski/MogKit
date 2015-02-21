@@ -43,7 +43,7 @@ MOGTransducer TrimTransducer(int drop, int finalSize)
 // Used with an NSArray this could add an extension to the array with
 - trim:(int)trimSize 
 {
-    return [[self mog_transduce:TrimTransducer(trimSize, self.count - 2 * trimSize)] copy];
+    return [self mog_transduce:TrimTransducer(trimSize, self.count - 2 * trimSize)];
 }
 ```
 

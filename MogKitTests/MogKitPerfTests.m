@@ -5,7 +5,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <MogKit/MogKit.h>
+#import "MogKit.h"
 
 
 @interface MogKitPerfTests : XCTestCase

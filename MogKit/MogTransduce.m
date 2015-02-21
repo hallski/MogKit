@@ -140,6 +140,29 @@ MOGTransducer MOGUnique(void) {
     };
 }
 
+MOGTransducer MOGCat(void)
+{
+    return ^MOGReducer(MOGReducer reducer) {
+        return ^id(id acc, id val) {
+            if (![val conformsToProtocol:@protocol(NSFastEnumeration)]) {
+                // Leave untouched if it's not a fast enumeration
+                return reducer(acc, val);
+            }
+
+            for (id v in val) {
+                acc = reducer(acc, v);
+            }
+
+            return acc;
+        };
+    };
+}
+
+MOGTransducer MOGMapCat(MOGMapFunc mapFunc)
+{
+    return MOGCompose(MOGCat(), MOGMap(mapFunc));
+}
+
 MOGTransducer MOGWindow(int length)
 {
     return ^MOGReducer(MOGReducer reducer) {

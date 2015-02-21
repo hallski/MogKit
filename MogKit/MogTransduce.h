@@ -170,6 +170,23 @@ MOGTransducer MOGKeepIndexed(MOGIndexedMapFunc func);
  */
 MOGTransducer MOGUnique(void);
 
+/**
+ * Creates a transducer that flattens values that conforms to `NSFastEnumeration`. Other values are passed
+ * through untouched.
+ *
+ * @return a transducer that concat the values.
+ */
+MOGTransducer MOGCat(void);
+
+/**
+ * Creates a transducer that first apply the mapFunc on all values and then concatenates the results. It's the
+ * composition of `MogCat` . `MogMap`.
+ *
+ * @param mapFunc the transformation function.
+ *
+ * @return a transducer that applies `mapFunc` on all values and then concatenates the result.
+ */
+MOGTransducer MOGMapCat(MOGMapFunc mapFunc);
 
 /**
  * Creates a transducer that creates a window of size `length` by examining the values passed through.

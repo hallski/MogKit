@@ -5,7 +5,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <MogKit/MogKit.h>
+#import "MogKit.h"
 
 
 @interface MogKitTests : XCTestCase
@@ -268,6 +268,38 @@
     NSNumber *expected = @5;
 
     NSNumber *result = MOGTransduce(array, MOGLastValueReducer(), @1, MOGIdentity());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testCatTransducer
+{
+    NSArray *array = @[@[@1, @2], @[@3, @4, @5], @[@6]];
+    NSArray *expected = @[@1, @2, @3, @4, @5, @6];
+
+    NSArray *result = MOGTransduce(array, MOGMutableArrayAppendReducer(), [NSMutableArray new], MOGCat());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testCatWithMixOfNormalAndEnumerators
+{
+    NSArray *array = @[@1, @[@2, @3], @4, @5];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
+
+    NSArray *result = MOGTransduce(array, MOGMutableArrayAppendReducer(), [NSMutableArray new], MOGCat());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testMapCatTransducer
+{
+    NSArray *array = @[@1, @2, @3];
+    NSArray *expected = @[@1, @1, @1, @2, @2, @2, @3, @3, @3];
+
+    NSArray *result = MOGTransduce(array, MOGMutableArrayAppendReducer(), [NSMutableArray new], MOGMapCat(^id(id val) {
+        return @[val, val, val];
+    }));
 
     XCTAssertEqualObjects(expected, result);
 }

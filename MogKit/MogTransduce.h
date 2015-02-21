@@ -180,7 +180,7 @@ MOGTransducer MOGCat(void);
 
 /**
  * Creates a transducer that first apply the mapFunc on all values and then concatenates the results. It's the
- * composition of `MogCat` . `MogMap`.
+ * composition of `MogMap` . `MogCat`.
  *
  * @param mapFunc the transformation function.
  *

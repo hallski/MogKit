@@ -18,7 +18,20 @@ NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
 
 What is nice about using transducers here is that they are composable and agnostic about both input source and output. This means that it's easy to create reusable processes that can be used in many different examples.
 
-Here is an example that creates an alpha trimmed mean average filter:
+```objective-c
+    MOGTransducer uppercaseLongNames = MOGCompose(MOGFilter(^BOOL(NSString *str) {
+        return str.length >= 5;
+    }), MOGMap(^id(NSString *str) {
+        return [str uppercaseString];
+    }));
+
+NSArray *uppercasedAndLong = [@[@"Joe", @"Sandra", @"steve", @"al"] mog_transduce:uppercaseLongNames]);
+// uppercasedAndLong == @[@"SANDRA", @"STEVE"]
+```
+
+Since transducers work by compositing rather then chaining it means that the input values are only iterated over once and not one time per operation.
+
+Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean average filter_:
 
 ```objective-c
 MOGTransducer TKTrim(int drop, int finalSize)
@@ -81,7 +94,6 @@ number = manualFilter(nil, @13); // number == 14
 number = manualFilter(nil, @12); // number == 14
 number = manualFilter(nil, @1);  // number == 14
 number = manualFilter(nil, @2);  // number == 13.83
-
 ```
 
 ## Installation

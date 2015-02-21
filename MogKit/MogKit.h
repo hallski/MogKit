@@ -7,3 +7,4 @@
 #import <Foundation/Foundation.h>
 #import "MogReduce.h"
 #import "MogTransduce.h"
+#import "NSArray+MogKit.h"

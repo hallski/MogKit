@@ -115,7 +115,7 @@ MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id def
 MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
-            return func(val) == nil ? acc : reducer(acc, val);
+            return func(val) != nil ? reducer(acc, val) : acc;
         };
     };
 }
@@ -124,7 +124,7 @@ MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
         __block NSUInteger index = 0;
         return ^id(id acc, id val) {
-            return func(index++, val) == nil ? acc : reducer(acc, val);
+            return func(index++, val) != nil ? reducer(acc, val) : acc;
         };
     };
 }

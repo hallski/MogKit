@@ -2,7 +2,7 @@
 Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean filter_:
 
 ```objective-c
-MOGTransducer TrimTransducer(int drop, int finalSize)
+MOGTransducer TrimTransducer(NSUInteger drop, NSUInteger finalSize)
 {
     return MOGCompose(MOGDropTransducer(drop), MOGTakeTransducer(finalSize));
 }
@@ -16,10 +16,10 @@ MOGMapFunc SortArrayOfNumbers(BOOL ascending)
     };
 }
 
-MOGMapFunc TrimArray(int trimN)
+MOGMapFunc TrimArray(NSUInteger trimN)
 {
     return ^id(NSArray *values) {
-        return [values mog_transduce:TrimTransducer(trimN, (int)values.count - 2 * trimN)];
+        return [values mog_transduce:TrimTransducer(trimN, values.count - 2 * trimN)];
     };
 }
 
@@ -30,7 +30,7 @@ MOGMapFunc MeanOfArrayOfNumbers()
     };
 }
 
-MOGTransducer AlphaTrimmedMeanFilter(int windowSize)
+MOGTransducer AlphaTrimmedMeanFilter(NSUInteger windowSize)
 {
     return MOGComposeArray(@[
         MOGWindowTransducer(windowSize),

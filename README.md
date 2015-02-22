@@ -39,14 +39,14 @@ Another case is when you have some data structure and want to add a transformati
 Say you want to add a `trim:` method to `NSArray` that returns a new array with `trimSize` elements removed from the start and end.
 ```objective-c
 // 
-- trim:(int)trimSize 
+- (NSArray *)trim:(int)trimSize 
 {
     return [self mog_transduce:MOGCompose(MOGDropTransducer(trimSize), MOGTakeTransducer(self.count - 2 * trimSize))];
 }
 ```
 
 ### Non-collection use cases
-Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
+Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` (from [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)) in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
 
 ```objective-c
 @implementation RACStream (MogKit)

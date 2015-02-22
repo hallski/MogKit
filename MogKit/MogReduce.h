@@ -50,6 +50,6 @@ MOGReducer MOGLastValueReducer(void);
  * @param reducer the reducer function to collect some accumulated value.
  * @param initial the initial value passed in as accumulator to the reducer.
  *
- * @return returns the final return value of `reducer.
+ * @return returns the final return value of `reducer`.
  */
 id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial);

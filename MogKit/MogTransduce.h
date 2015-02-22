@@ -28,7 +28,7 @@ typedef id (^MOGMapFunc) (id val);
  * `MOGIndexedMapFunc` is the same as `MOGMapFunc`, only it also includes the index of the value in sequence
  * that is being processed.
  */
-typedef id (^MOGIndexedMapFunc) (int index, id val);
+typedef id (^MOGIndexedMapFunc) (NSUInteger index, id val);
 
 /**
  * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilterTransducer` or
@@ -82,7 +82,7 @@ MOGTransducer MOGRemoveTransducer(MOGPredicate predicate);
  *
  * @see `MOGDropTransducer`
  */
-MOGTransducer MOGTakeTransducer(int n);
+MOGTransducer MOGTakeTransducer(NSUInteger n);
 
 /**
  * Creates a transducer that pass values through while the `predicate` function returns YES. After the predicate
@@ -101,7 +101,7 @@ MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate);
  *
  * @return a stateful transducer that returns every n values.
  */
-MOGTransducer MOGTakeNthTransducer(int n);
+MOGTransducer MOGTakeNthTransducer(NSUInteger n);
 
 /**
  * Creates a transducer that drops the first `n` values and pass through all successive values.
@@ -112,7 +112,7 @@ MOGTransducer MOGTakeNthTransducer(int n);
  *
  * @see `MOGTakeTransducer`
  */
-MOGTransducer MOGDropTransducer(int n);
+MOGTransducer MOGDropTransducer(NSUInteger n);
 
 /**
  * Creates a transducer that drops all values while the `predicate` function returns YES.
@@ -221,7 +221,7 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
  *
  * @return a stateful transducer that replaces each value with an array containing the current window content.
  */
-MOGTransducer MOGWindowTransducer(int length);
+MOGTransducer MOGWindowTransducer(NSUInteger length);
 
 /**
  * Creates the composite transducer by applying `f` to `g`.

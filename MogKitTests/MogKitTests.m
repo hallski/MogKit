@@ -198,7 +198,7 @@
     NSArray *expected = @[@1, @3, @5, @7, @9];
 
     NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[],
-                                   MOGKeepIndexedTransducer(^id(int index, id o) {
+                                   MOGKeepIndexedTransducer(^id(NSUInteger index, id o) {
                                        return index % 2 == 0 ? o : nil;
                                    }));
 

@@ -37,12 +37,12 @@ MOGTransducer MOGRemoveTransducer(MOGPredicate predicate) {
     });
 }
 
-MOGTransducer MOGTakeTransducer(int n)
+MOGTransducer MOGTakeTransducer(NSUInteger n)
 {
     return ^MOGReducer(MOGReducer reducer) {
-        __block int left = n;
+        __block NSUInteger taken = 0;
         return ^id(id acc, id val) {
-            return left-- > 0 ? reducer(acc, val) : acc;
+            return taken++ < n ? reducer(acc, val) : acc;
         };
     };
 }
@@ -61,18 +61,18 @@ MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate)
     };
 }
 
-MOGTransducer MOGTakeNthTransducer(int n) {
+MOGTransducer MOGTakeNthTransducer(NSUInteger n) {
     return ^MOGReducer(MOGReducer reducer) {
-        __block int i = 0;
+        __block NSUInteger i = 0;
         return ^id(id acc, id val) {
             return (i++ % n == 0) ? reducer(acc, val) : acc;
         };
     };
 }
 
-MOGTransducer MOGDropTransducer(int n) {
+MOGTransducer MOGDropTransducer(NSUInteger n) {
     return ^MOGReducer(MOGReducer reducer) {
-        __block int dropped = 0;
+        __block NSUInteger dropped = 0;
         return ^id(id acc, id val) {
             if (dropped < n) {
                 dropped++;
@@ -122,7 +122,7 @@ MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
 
 MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {
-        __block int index = 0;
+        __block NSUInteger index = 0;
         return ^id(id acc, id val) {
             return func(index++, val) == nil ? acc : reducer(acc, val);
         };
@@ -167,7 +167,7 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc)
     return MOGCompose(MOGMapTransducer(mapFunc), MOGCatTransducer());
 }
 
-MOGTransducer MOGWindowTransducer(int length)
+MOGTransducer MOGWindowTransducer(NSUInteger length)
 {
     return ^MOGReducer(MOGReducer reducer) {
         __block BOOL firstValue = YES;
@@ -175,7 +175,7 @@ MOGTransducer MOGWindowTransducer(int length)
 
         return ^id(id acc, id val) {
             if (firstValue) {
-                for (int i = 0; i < length; ++i) {
+                for (NSUInteger i = 0; i < length; ++i) {
                     [windowedValues addObject:val];
                 }
                 firstValue = NO;

@@ -32,11 +32,9 @@ MOGTransducer MOGFilterTransducer(MOGPredicate predicate)
 }
 
 MOGTransducer MOGRemoveTransducer(MOGPredicate predicate) {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
-            return predicate(val) ? acc : reducer(acc, val);
-        };
-    };
+    return MOGFilterTransducer(^BOOL(id val) {
+        return !predicate(val);
+    });
 }
 
 MOGTransducer MOGTakeTransducer(int n)

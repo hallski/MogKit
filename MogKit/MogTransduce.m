@@ -131,14 +131,14 @@ MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
 
 MOGTransducer MOGUniqueTransducer(void) {
     return ^MOGReducer(MOGReducer reducer) {
-        NSMutableSet *inTheFinal = [NSMutableSet new];
+        NSMutableSet *seenValues = [NSMutableSet new];
 
         return ^id(id acc, id val) {
-            if ([inTheFinal containsObject:val]) {
+            if ([seenValues containsObject:val]) {
                 return acc;
             }
 
-            [inTheFinal addObject:val];
+            [seenValues addObject:val];
             return reducer(acc, val);
         };
     };

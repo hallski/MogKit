@@ -152,6 +152,33 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testReplaceWithDefaultTransducer
+{
+    NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
+    NSArray *expected = @[@"a", @"-", @"c", @"-", @"e"];
+
+    NSDictionary *replacementDict = @{ @"1" : @"a", @"3" : @"c", @"5" : @"e" };
+
+    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[],
+                                   MOGReplaceWithDefaultTransducer(replacementDict, @"-"));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testReplaceWithDefaultTransducerWithNilAsDefault
+{
+    NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
+    NSArray *expected = @[@"a", @"2", @"c", @"4", @"e"];
+
+    NSDictionary *replacementDict = @{ @"1" : @"a", @"3" : @"c", @"5" : @"e" };
+
+    NSArray *result = MOGTransduce(array, MOGArrayAppendReducer(), @[],
+                                   MOGReplaceWithDefaultTransducer(replacementDict, nil));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+
 - (void)testKeepTransducer
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];

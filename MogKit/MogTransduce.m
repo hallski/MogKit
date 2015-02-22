@@ -97,14 +97,20 @@ MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate) {
 }
 
 MOGTransducer MOGReplaceTransducer(NSDictionary *replacements) {
+    return MOGReplaceWithDefaultTransducer(replacements, nil);
+}
+
+MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id defaultValue)
+{
     return ^MOGReducer(MOGReducer reducer) {
         return ^id(id acc, id val) {
-            val = replacements[val] ?: val;
-
-            return reducer(acc, val);
+            id replacement = replacements[val] ?: defaultValue;
+            replacement = replacement ?: val;
+            return reducer(acc, replacement);
         };
     };
 }
+
 
 MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
     return ^MOGReducer(MOGReducer reducer) {

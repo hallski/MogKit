@@ -131,6 +131,8 @@ MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate);
  * try to locate it as a key in the `replacements` dictionary, if found the corresponding value will be used instead,
  * otherwise the original value will be passed on unfiltered.
  *
+ * @discussion This is the same as calling `MOGReplaceWithDefaultTransducer` with `nil` as `defaultValue`.
+ *
  * @param replacements a dictionary container values and replacements.
  *
  * @return a transducer that replaces all values found in `replacements`.
@@ -139,6 +141,23 @@ MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate);
  *          as the values passed in.
  */
 MOGTransducer MOGReplaceTransducer(NSDictionary *replacements);
+
+/**
+ * Creates a transducer that replaces values if they are found in the `replacements` dictionary. For each value it will
+ * try to locate it as a key in the `replacements` dictionary, if found the corresponding value will be used instead,
+ * otherwise the default value will be used. If the default value is also nil, original value will be passed on unfiltered.
+ *
+ * @discussion Calling this function with a `nil` as default value is the same as calling `MOGReplaceTransducer`.
+ *
+ * @param replacements a dictionary container values and replacements.
+ * @param defaultValue the default value to pass on if a replacement isn't found in the `replacements` dictionary.
+ *
+ * @return a transducer that replaces all values found in `replacements`.
+ *
+ * @warning Keep in mind that if the replacements dictionary can't replace all values it should return the same type
+ *          as the values passed in.
+ */
+MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id defaultValuee);
 
 /**
  * Creates a transducer that keep values where `func` returns a non-nil value and drops all where nil is returned.

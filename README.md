@@ -39,7 +39,7 @@ Another case is when you have some data structure and want to add a transformati
 Say you want to add a `trim:` method to `NSArray` that returns a new array with `trimSize` elements removed from the start and end.
 ```objective-c
 // 
-- (NSArray *)trim:(int)trimSize 
+- (NSArray *)trim:(NSUInteger)trimSize 
 {
     return [self mog_transduce:MOGCompose(MOGDropTransducer(trimSize), MOGTakeTransducer(self.count - 2 * trimSize))];
 }

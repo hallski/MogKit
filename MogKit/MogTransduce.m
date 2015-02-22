@@ -199,8 +199,8 @@ MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 }
 
 MOGTransducer MOGComposeArray(NSArray *transducers) {
-    return MOGReduce(transducers, ^id(MOGTransducer acc, MOGTransducer val) {
-        return MOGCompose(acc, val);
+    return MOGReduce(transducers, ^id(id f, id g) {
+        return MOGCompose(f, g);
     }, MOGIdentityTransducer());
 }
 

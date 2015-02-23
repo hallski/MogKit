@@ -51,7 +51,7 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
 ```objective-c
 @implementation RACStream (MogKit)
 
-- (instancetype)transform:(MOGTransducer)transducer
+- (instancetype)mog_transduce:(MOGTransducer)transducer
 {
     Class class = self.class;
 
@@ -81,7 +81,7 @@ MOGTransducer add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
     })
 ]);
 
-[[textField.rac_textSignal transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
+[[textField.rac_textSignal mog_transduce:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
     NSLog(@"Number plus 100 = %@", x);
 }];
 

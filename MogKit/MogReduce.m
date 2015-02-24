@@ -6,19 +6,6 @@
 
 #import "MogReduce.h"
 
-MOGReducerReduceBlock MOGArrayAppendReducer(void) {
-    return ^id(NSArray *acc, id val) {
-        return [acc arrayByAddingObject:val];
-    };
-}
-
-MOGReducerReduceBlock MOGMutableArrayAppendReducer(void) {
-    return ^id(NSMutableArray *acc, id val) {
-        [acc addObject:val];
-        return acc;
-    };
-}
-
 MOGReducer *MOGArrayReducer(void)
 {
     return [[MOGReducer alloc] initWithInitBlock:^id {

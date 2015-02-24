@@ -10,13 +10,13 @@
 
 
 /**
- * A transducer takes a `MOGReducer` and returns a new `MOGReducer` with some transformation applied.
+ * A transducer takes a `MOGReducerReduceBlock` and returns a new `MOGReducerReduceBlock` with some transformation applied.
  *
  * @discussion a transducer can be stateful but the state is bound in the reducer created when the transducer is
  * applied to the output reducer. This means it's safe to use the same transducer to create new reducers used in
  * transformations.
  */
-typedef MOGReducer (^MOGTransducer) (MOGReducer);
+typedef MOGReducer *(^MOGTransducer) (MOGReducer *);
 
 /**
  * A `MOGMapFunc` is a function you typically use with `MOGMapTransducer` which is a transformation of a single value
@@ -255,9 +255,21 @@ MOGTransducer MOGComposeArray(NSArray *transducers);
  *
  * @param source any class conforming to the `NSFastEnumeration` protocol.
  * @param reducer the reducer function to collect the transformed values into the result of this function.
+ * @param transducer the transformation to apply.
+ *
+ * @return the final value collected by `reducer`.
+ */
+id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer transducer);
+
+/**
+ * Applied the transformation to `source`. This is the step when input, transformation and output are combined
+ * to transform the source values into output values based on the `reducer` and the `initial` value.
+ *
+ * @param source any class conforming to the `NSFastEnumeration` protocol.
+ * @param reducer the reducer function to collect the transformed values into the result of this function.
  * @param initial the initial value to pass as the accumulator to `reducer`.
  * @param transducer the transformation to apply.
  *
  * @return the final value collected by `reducer`.
  */
-id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer);
+id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer);

@@ -7,41 +7,40 @@
 #import <Foundation/Foundation.h>
 
 
+typedef id (^MOGReducerInititialBlock) (void);
+typedef id (^MOGReducerCompleteBlock) (id);
+typedef id (^MOGReducerReduceBlock) (id acc, id val);
+
 /**
 * A reducer takes an accumulated value and the next value and combines them into a new accumulated value.
 * The return accumulated value is typically passed in as `acc` on successive calls.
 */
-typedef id (^MOGReducer) (id acc, id val);
+@interface MOGReducer : NSObject
+@property (nonatomic, copy) MOGReducerReduceBlock reduce;
+@property (nonatomic, copy) MOGReducerInititialBlock initial;
+@property (nonatomic, copy) MOGReducerCompleteBlock complete;
+
+- (instancetype)initWithInitBlock:(id(^)(void))initBlock
+                    completeBlock:(id(^)(id))completeBlock
+                      reduceBlock:(MOGReducerReduceBlock)reduceBlock;
+
+@end
 
 /**
- * A reducer that accumulates values by creating new `NSArray`s for each value by calling `arrayByAddingObject:`.
- * When calling `MOGReduce` or `MOGTransduce` an empty `NSArray` should be used as initial value.
+ * A reducer that accumulates values in an array. If the reducer initial function isn't used to produce the
+ * initial value an `NSMutableArray` need to be supplied to `MOGReduce` or `MOGTransduceWithInitial`.
  *
- * @warning Creating new `NSArray`s for each value isn't particularly effective so when working with longer
- *          streams of values it is better to use `MOGMutableArrayAppendReducer`.
+ * When calling complete an immutable copy is returned.
  *
- * @return a reducer collecting values in an `NSArray`.
- *
- * @see `MOGMutableArrayAppendReducer`
+ * @return a reducer collecting values in an array.
  */
-MOGReducer MOGArrayAppendReducer(void);
-
-/**
- * A reducer that accumulates values by appending them to a mutable array. This is significantly more effective
- * than using `MOGArrayAppendReducer`. When calling `MOGReduce` or `MOGTransduce` an empty `NSMutableArray` should be
- * used as initial value.
- *
- * @return a reducer collecting values in an `NSMutableArray`.
- *
- * @see `MOGArrayAppendReducer`.
- */
-MOGReducer MOGMutableArrayAppendReducer(void);
+MOGReducer *MOGArrayReducer(void);
 
 /**
  * A reducer that ignores the accumulated value and simply always returns the last value it received. This is useful
  * when only the final value of a computation is used.
  */
-MOGReducer MOGLastValueReducer(void);
+MOGReducer *MOGLastValueReducer(void);
 
 /**
  * Applies the `reducer` to each element of `source` and returns the final accumulated value returned by `reduce`.
@@ -52,4 +51,4 @@ MOGReducer MOGLastValueReducer(void);
  *
  * @return returns the final return value of `reducer`.
  */
-id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial);
+id MOGReduce(id<NSFastEnumeration> source, MOGReducer *reducer, id initial);

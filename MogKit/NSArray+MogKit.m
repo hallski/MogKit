@@ -11,7 +11,7 @@
 
 - (NSArray *)mog_transduce:(MOGTransducer)transducer
 {
-    return [MOGTransduce(self, MOGMutableArrayAppendReducer(), [NSMutableArray new], transducer) copy];
+    return MOGTransduce(self, MOGArrayReducer(), transducer);
 }
 
 @end

@@ -35,6 +35,21 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testTransduceWithInitialValue
+{
+    NSArray *array = @[@1, @2, @3];
+    NSArray *expected = @[@111, @222, @333, @11, @12, @13];
+
+    NSMutableArray *initialArray = [NSMutableArray arrayWithArray:@[@111, @222, @333]];
+
+    NSArray *result = MOGTransduceWithInitial(array, MOGArrayReducer(), initialArray,
+                                              MOGMapTransducer(^id(NSNumber *val) {
+                                                  return @(val.intValue + 10);
+    }));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testFilter
 {
     NSArray *array = @[@1, @10, @15, @20];

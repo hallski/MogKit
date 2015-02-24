@@ -226,7 +226,7 @@ id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer
     return MOGReduce(source, transducer(reducer), nil);
 }
 
-id MOGTransduce2(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
+id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
 {
     return MOGReduce(source, transducer(reducer), initial);
 }

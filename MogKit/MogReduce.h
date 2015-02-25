@@ -7,8 +7,22 @@
 #import <Foundation/Foundation.h>
 
 
+/**
+ * Block that generates the initial value of a reduction.
+ */
 typedef id (^MOGReducerInititialBlock) (void);
+
+/**
+ * Block that is called by `MOGTransduce` after a reduction is done, this to allow step functions or the
+ * collection `MOGReducer` to do some final manipulation of the data.
+ */
 typedef id (^MOGReducerCompleteBlock) (id);
+
+/**
+ * A reduce block is passed to `MOGReduce` and is used to collect the accumulated valeu of the
+ * reduction. The block is passed the accumulated value and the next value in order to calculate
+ * the next accumulated value.
+ */
 typedef id (^MOGReduceBlock) (id acc, id val);
 
 /**

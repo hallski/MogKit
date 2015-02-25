@@ -165,15 +165,12 @@ MOGTransducer MOGCatTransducer(void)
                 return reducer.reduce(acc, val);
             }
 
-            // TODO: rewrite with reduce
-            for (id v in val) {
-                acc = reducer.reduce(acc, v);
-                if (MOGIsReduced(acc)) {
-                    return acc;
-                }
-            }
+            MOGReduceBlock keepReduced = ^id(id a, id v) {
+                a = reducer.reduce(a, v);
+                return MOGIsReduced(a) ? MOGReduced(a) : a;
+            };
 
-            return acc;
+            return MOGReduce(val, keepReduced, acc);
         });
     };
 }

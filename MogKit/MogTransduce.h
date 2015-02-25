@@ -10,7 +10,7 @@
 
 
 /**
- * A transducer takes a `MOGReducerReduceBlock` and returns a new `MOGReducerReduceBlock` with some transformation applied.
+ * A transducer takes a `MOGReduceBlock` and returns a new `MOGReduceBlock` with some transformation applied.
  *
  * @discussion a transducer can be stateful but the state is bound in the reducer created when the transducer is
  * applied to the output reducer. This means it's safe to use the same transducer to create new reducers used in

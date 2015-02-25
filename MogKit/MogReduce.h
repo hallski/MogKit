@@ -9,20 +9,20 @@
 
 typedef id (^MOGReducerInititialBlock) (void);
 typedef id (^MOGReducerCompleteBlock) (id);
-typedef id (^MOGReducerReduceBlock) (id acc, id val);
+typedef id (^MOGReduceBlock) (id acc, id val);
 
 /**
 * A reducer takes an accumulated value and the next value and combines them into a new accumulated value.
 * The return accumulated value is typically passed in as `acc` on successive calls.
 */
 @interface MOGReducer : NSObject
-@property (nonatomic, copy) MOGReducerReduceBlock reduce;
+@property (nonatomic, copy) MOGReduceBlock reduce;
 @property (nonatomic, copy) MOGReducerInititialBlock initial;
 @property (nonatomic, copy) MOGReducerCompleteBlock complete;
 
 - (instancetype)initWithInitBlock:(id(^)(void))initBlock
                     completeBlock:(id(^)(id))completeBlock
-                      reduceBlock:(MOGReducerReduceBlock)reduceBlock;
+                      reduceBlock:(MOGReduceBlock)reduceBlock;
 
 @end
 
@@ -51,7 +51,7 @@ MOGReducer *MOGLastValueReducer(void);
  *
  * @return returns the final return value of `reducer`.
  */
-id MOGReduce(id<NSFastEnumeration> source, MOGReducer *reducer, id initial);
+id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial);
 
 id MOGReduced(id value);
 BOOL MOGIsReduced(id value);

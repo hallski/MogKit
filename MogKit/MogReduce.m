@@ -36,19 +36,17 @@ MOGReducer *MOGLastValueReducer(void)
     }];
 }
 
-id MOGReduce(id<NSFastEnumeration> source, MOGReducer *reducer, id initial)
+id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial)
 {
-    id acc = initial ?: reducer.initial();
+    id acc = initial;
 
     for (id val in source) {
-        acc = reducer.reduce(acc, val);
+        acc = reduceBlock(acc, val);
         if (MOGIsReduced(acc)) {
             acc = MOGReducedGetValue(acc);
             break;
         }
     }
-
-    reducer.complete(acc);
 
     return acc;
 }
@@ -84,7 +82,7 @@ id MOGReducedGetValue(id reducedValue)
 
 - (instancetype)initWithInitBlock:(id(^)(void))initBlock
                     completeBlock:(id(^)(id))completeBlock
-                      reduceBlock:(MOGReducerReduceBlock)reduceBlock
+                      reduceBlock:(MOGReduceBlock)reduceBlock
 {
     if (self = [super init]) {
         self.initial = initBlock;

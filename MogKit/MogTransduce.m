@@ -6,7 +6,7 @@
 
 #import "MogTransduce.h"
 
-MOGReducer *SimpleStepReducer(MOGReducer *nextReducer, MOGReducerReduceBlock stepBlock) {
+MOGReducer *SimpleStepReducer(MOGReducer *nextReducer, MOGReduceBlock stepBlock) {
     return [[MOGReducer alloc] initWithInitBlock:^{ return nextReducer.initial(); }
                                    completeBlock:^(id result) { return nextReducer.complete(result); }
                                      reduceBlock:stepBlock];
@@ -165,6 +165,7 @@ MOGTransducer MOGCatTransducer(void)
                 return reducer.reduce(acc, val);
             }
 
+            // TODO: rewrite with reduce
             for (id v in val) {
                 acc = reducer.reduce(acc, v);
                 if (MOGIsReduced(acc)) {
@@ -212,24 +213,19 @@ MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
     };
 }
 
-MOGTransducer MOGComposeArray(NSArray *transducers) {
-    MOGReducer *reducer = [[MOGReducer alloc] initWithInitBlock:^id {
-        return MOGIdentityTransducer();
-    } completeBlock:^id(id o) {
-        return o;
-    } reduceBlock:^id(id f, id g) {
-        return MOGCompose(f, g);
-    }];
-
-    return MOGReduce(transducers, reducer, nil);
+MOGTransducer MOGComposeArray(NSArray *transducers)
+{
+    return MOGReduce(transducers, ^id(id f, id g) { return MOGCompose(f, g); }, MOGIdentityTransducer());
 }
 
 id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer transducer)
 {
-    return MOGReduce(source, transducer(reducer), nil);
+    return MOGTransduceWithInitial(source, reducer, reducer.initial(), transducer);
 }
 
 id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
 {
-    return MOGReduce(source, transducer(reducer), initial);
+    id acc = MOGReduce(source, transducer(reducer).reduce, initial);
+
+    return reducer.complete(acc);
 }

@@ -53,6 +53,33 @@ MOGReducer *MOGLastValueReducer(void);
  */
 id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial);
 
+/**
+ * Wraps `value` to signal that a reduction is done. `MOGReduce` will look at the value returned
+ * after each iteration to decide on whether the process has completed. If so, it will unwrap the
+ * value with `MOGReducedGetValue` and return it.
+ *
+ * @param the value to wrap
+ *
+ * @return a reduced value to indicate that the reduction is done.
+ */
 id MOGReduced(id value);
+
+/**
+ * Checks whether `value` is a value wrapped to indicate that the reduction is done. This is used
+ * by `MOGReduce` to decide on whether it should continue with the reduction. Any implementor
+ * of another transducer based process need to check the return value after each iteration.
+ *
+ * @param the value to check
+ *
+ * @return YES if `value` is a reduced value.
+ */
 BOOL MOGIsReduced(id value);
+
+/**
+ * Unwraps the value from the reduced wrapped and returns it.
+ *
+ * @param the reduced value
+ *
+ * @return the unwrapped original value.
+ */
 id MOGReducedGetValue(id reducedValue);

@@ -54,14 +54,21 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
 {
     Class class = self.class;
 
-    // Initialize the transducer state by applying it to a reducer
-    MOGReducer reducer = transducer(^id(NSMutableArray *acc, id val) {
-        [acc addObject:[class return:val]];
-        return acc;
-    });
-    
-    return [[self flattenMap:^RACStream *(id value) {
-        return [RACSignal concat:reducer([NSMutableArray new], value)];
+    MOGTransducer transducerWithMapToRAC = MOGCompose(transducer, MOGMapTransducer(^id(id val) {
+        return [class return:val];
+    }));
+
+    MOGReducer *reducer = transducerWithMapToRAC(MOGArrayReducer());
+
+    return [[self bind:^{
+        return ^(id value, BOOL *stop) {
+            id acc = reducer.reduce(reducer.initial(), value);
+            if (MOGIsReduced(acc)) {
+                *stop = YES;
+                acc = MOGReducedGetValue(acc);
+            }
+            return [class concat:acc];
+        };
     }] setNameWithFormat:@"[%@] -transform:", self.name];
 }
 

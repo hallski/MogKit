@@ -13,6 +13,23 @@
 
 @implementation MogKitTests
 
+- (void)testEarlyTermination
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
+
+    MOGReducer *reducer = MOGArrayReducer();
+    reducer.reduce = ^id(NSMutableArray *acc, NSNumber *val) {
+        [acc addObject:val];
+
+        return val.intValue == 5 ? MOGReduced(acc) : acc;
+    };
+
+    NSArray *result = MOGTransduce(array, reducer, MOGIdentityTransducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testMap
 {
     NSArray *array = @[@1, @2, @3, @4];
@@ -225,88 +242,6 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testWindowedTransducerWithOneValue
-{
-    NSArray *array = @[@1];
-    NSArray *expected = @[@[@1, @1, @1]];
-
-    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
-
-    XCTAssertEqualObjects(expected, result);
-}
-
-- (void)testWindowedTransducerWithTwoValues
-{
-    NSArray *array = @[@1, @2];
-    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
-
-    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
-
-    XCTAssertEqualObjects(expected, result);
-}
-
-- (void)testWindowedTransducerWithMoreValuesThanWindowSize
-{
-    NSArray *array = @[@1, @2, @3, @4, @5];
-    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
-
-    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
-
-    XCTAssertEqualObjects(expected, result);
-}
-
-
-#pragma mark - Transducer composition
-- (void)testComposeTwoTransducers
-{
-    NSArray *array = @[@1, @10, @100];
-    NSArray *expected = @[@"10", @"100"];
-
-    MOGTransducer xform = MOGCompose(
-            MOGMapTransducer(^id(NSNumber *number) {
-                return [NSString stringWithFormat:@"%@", number];
-            }),
-            MOGFilterTransducer(^BOOL(NSString *str) {
-                return str.length >= 2;
-            })
-    );
-
-    NSArray *result = MOGTransduce(array, MOGArrayReducer(), xform);
-
-    XCTAssertEqualObjects(expected, result);
-}
-
-- (void)testComposeArrayOfTransducers
-{
-    NSArray *array = @[@50, @500, @5000, @50000];
-    NSArray *expected = @[@50, @500];
-    NSArray *transducers = @[
-            MOGMapTransducer(^id(NSNumber *number) {
-                return [NSString stringWithFormat:@"%@", number];
-            }),
-            MOGFilterTransducer(^BOOL(NSString *str) {
-                return str.length < 4;
-            }),
-            MOGMapTransducer(^id(NSString *str) {
-                return @(str.intValue);
-            })
-    ];
-    MOGTransducer xform = MOGComposeArray(transducers);
-    NSArray *result = MOGTransduce(array, MOGArrayReducer(), xform);
-
-    XCTAssertEqualObjects(expected, result);
-}
-
-- (void)testLastValueReducer
-{
-    NSArray *array = @[@1, @2, @3, @4, @5];
-    NSNumber *expected = @5;
-
-    NSNumber *result = MOGTransduce(array, MOGLastValueReducer(), MOGIdentityTransducer());
-
-    XCTAssertEqualObjects(expected, result);
-}
-
 - (void)testCatTransducer
 {
     NSArray *array = @[@[@1, @2], @[@3, @4, @5], @[@6]];
@@ -356,19 +291,83 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testEarlyTermination
+- (void)testWindowedTransducerWithOneValue
 {
-    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    NSArray *expected = @[@1, @2, @3, @4, @5];
+    NSArray *array = @[@1];
+    NSArray *expected = @[@[@1, @1, @1]];
 
-    MOGReducer *reducer = MOGArrayReducer();
-    reducer.reduce = ^id(NSMutableArray *acc, NSNumber *val) {
-        [acc addObject:val];
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
 
-        return val.intValue == 5 ? MOGReduced(acc) : acc;
-    };
+    XCTAssertEqualObjects(expected, result);
+}
 
-    NSArray *result = MOGTransduce(array, reducer, MOGIdentityTransducer());
+- (void)testWindowedTransducerWithTwoValues
+{
+    NSArray *array = @[@1, @2];
+    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testWindowedTransducerWithMoreValuesThanWindowSize
+{
+    NSArray *array = @[@1, @2, @3, @4, @5];
+    NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGWindowTransducer(3));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testLastValueReducer
+{
+    NSArray *array = @[@1, @2, @3, @4, @5];
+    NSNumber *expected = @5;
+
+    NSNumber *result = MOGTransduce(array, MOGLastValueReducer(), MOGIdentityTransducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+#pragma mark - Transducer composition
+- (void)testComposeTwoTransducers
+{
+    NSArray *array = @[@1, @10, @100];
+    NSArray *expected = @[@"10", @"100"];
+
+    MOGTransducer xform = MOGCompose(
+            MOGMapTransducer(^id(NSNumber *number) {
+                return [NSString stringWithFormat:@"%@", number];
+            }),
+            MOGFilterTransducer(^BOOL(NSString *str) {
+                return str.length >= 2;
+            })
+    );
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), xform);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testComposeArrayOfTransducers
+{
+    NSArray *array = @[@50, @500, @5000, @50000];
+    NSArray *expected = @[@50, @500];
+    NSArray *transducers = @[
+            MOGMapTransducer(^id(NSNumber *number) {
+                return [NSString stringWithFormat:@"%@", number];
+            }),
+            MOGFilterTransducer(^BOOL(NSString *str) {
+                return str.length < 4;
+            }),
+            MOGMapTransducer(^id(NSString *str) {
+                return @(str.intValue);
+            })
+    ];
+    MOGTransducer xform = MOGComposeArray(transducers);
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), xform);
 
     XCTAssertEqualObjects(expected, result);
 }

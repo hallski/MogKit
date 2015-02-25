@@ -242,6 +242,16 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testDedupeTransducer
+{
+    NSArray *array = @[@1, @2, @2, @3, @4, @4, @4, @5, @4, @1];
+    NSArray *expected = @[@1, @2, @3, @4, @5, @4, @1];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGDedupeTransducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testCatTransducer
 {
     NSArray *array = @[@[@1, @2], @[@3, @4, @5], @[@6]];

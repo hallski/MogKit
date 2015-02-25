@@ -156,6 +156,23 @@ MOGTransducer MOGUniqueTransducer(void) {
     };
 }
 
+MOGTransducer MOGDedupeTransducer(void)
+{
+    return ^MOGReducer *(MOGReducer *reducer) {
+        __block id previous = nil;
+
+        return SimpleStepReducer(reducer, ^id(id acc, id val) {
+            if ([val isEqual:previous]) {
+                return acc;
+            } else {
+                previous = val;
+                return reducer.reduce(acc, val);
+            }
+        });
+    };
+}
+
+
 MOGTransducer MOGCatTransducer(void)
 {
     return ^MOGReducer *(MOGReducer *reducer) {

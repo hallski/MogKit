@@ -187,11 +187,25 @@ MOGTransducer MOGKeepTransducer(MOGMapFunc func);
 MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func);
 
 /**
- * Creates a transducer that drops all consecutive duplicates. Whether it's a duplicate is determined by `isEqual:`
+ * Creates a transducer that drops all duplicates. Whether it's a duplicate is determined by `isEqual:`
  *
- * @return a stateful transducer that drops all consecutive duplicates.
+ * @return a stateful transducer that drops all duplicates.
+ *
+ * @see `MOGDedupeTransducer
  */
 MOGTransducer MOGUniqueTransducer(void);
+
+/**
+ * Creates a transducer that drops consecutive duplicated values.
+ *
+ * @discussion Drops consecutive duplicates, for a transducer that drops
+ * all duplications, see `MOGUniqueTransducer`.
+ *
+ * @return a stateful transducer that drops consecutive duplications.
+ *
+ * @see `MOGUniqueTransducer`
+ */
+MOGTransducer MOGDedupeTransducer(void);
 
 /**
  * Creates a transducer that flattens values that conforms to `NSFastEnumeration`. Other values are passed

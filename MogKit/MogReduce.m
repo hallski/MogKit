@@ -6,32 +6,91 @@
 
 #import "MogReduce.h"
 
-MOGReducer MOGArrayAppendReducer(void) {
-    return ^id(NSArray *acc, id val) {
-        return [acc arrayByAddingObject:val];
-    };
-}
+@interface MOGReducedWrapper : NSObject
+@property (nonatomic, strong) id value;
+- (instancetype)initWithValue:(id)value;
+@end
 
-MOGReducer MOGMutableArrayAppendReducer(void) {
-    return ^id(NSMutableArray *acc, id val) {
+
+MOGReducer *MOGArrayReducer(void)
+{
+    return [[MOGReducer alloc] initWithInitBlock:^id {
+        return [NSMutableArray new];
+    } completeBlock:^id(NSMutableArray *result) {
+        return [result copy];
+    } reduceBlock:^id(NSMutableArray *acc, id val) {
         [acc addObject:val];
         return acc;
-    };
+    }];
 }
 
-MOGReducer MOGLastValueReducer(void)
+
+MOGReducer *MOGLastValueReducer(void)
 {
-    return ^id(id _, id val) {
+    return [[MOGReducer alloc] initWithInitBlock:^id {
+        return nil;
+    } completeBlock:^id(id o) {
+        return o;
+    } reduceBlock:^id(id acc, id val) {
         return val;
-    };
+    }];
 }
 
-id MOGReduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial)
+id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial)
 {
     id acc = initial;
+
     for (id val in source) {
-        acc = reducer(acc, val);
+        acc = reduceBlock(acc, val);
+        if (MOGIsReduced(acc)) {
+            acc = MOGReducedGetValue(acc);
+            break;
+        }
     }
 
     return acc;
 }
+
+@implementation MOGReducedWrapper
+- (instancetype)initWithValue:(id)value
+{
+    if (self = [super init]) {
+        self.value = value;
+    }
+    return self;
+}
+
+@end
+
+
+id MOGReduced(id value)
+{
+    return [[MOGReducedWrapper alloc] initWithValue:value];
+}
+
+BOOL MOGIsReduced(id value)
+{
+    return [value isKindOfClass:[MOGReducedWrapper class]];
+}
+
+id MOGReducedGetValue(id reducedValue)
+{
+    return ((MOGReducedWrapper *)reducedValue).value;
+}
+
+@implementation MOGReducer
+
+- (instancetype)initWithInitBlock:(id(^)(void))initBlock
+                    completeBlock:(id(^)(id))completeBlock
+                      reduceBlock:(MOGReduceBlock)reduceBlock
+{
+    if (self = [super init]) {
+        self.initial = initBlock;
+        self.complete = completeBlock;
+        self.reduce = reduceBlock;
+    }
+
+    return self;
+}
+
+@end

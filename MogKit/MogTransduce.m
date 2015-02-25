@@ -6,28 +6,35 @@
 
 #import "MogTransduce.h"
 
+MOGReducer *SimpleStepReducer(MOGReducer *nextReducer, MOGReduceBlock stepBlock) {
+    return [[MOGReducer alloc] initWithInitBlock:^{ return nextReducer.initial(); }
+                                   completeBlock:^(id result) { return nextReducer.complete(result); }
+                                     reduceBlock:stepBlock];
+}
 
 MOGTransducer MOGIdentityTransducer(void) {
-    return ^MOGReducer(MOGReducer reducer) {
-        return reducer;
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return reducer.reduce(acc, val);
+        });
     };
 }
 
 MOGTransducer MOGMapTransducer(id (^mapFunc)(id))
 {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
-            return reducer(acc, mapFunc(val));
-        };
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return reducer.reduce(acc, mapFunc(val));
+        });
     };
 }
 
 MOGTransducer MOGFilterTransducer(MOGPredicate predicate)
 {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
-            return predicate(val) ? reducer(acc, val) : acc;
-        };
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return predicate(val) ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
@@ -39,60 +46,65 @@ MOGTransducer MOGRemoveTransducer(MOGPredicate predicate) {
 
 MOGTransducer MOGTakeTransducer(NSUInteger n)
 {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger taken = 0;
-        return ^id(id acc, id val) {
-            return taken++ < n ? reducer(acc, val) : acc;
-        };
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return taken++ < n ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
 MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate)
 {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block BOOL keepTaking = YES;
-        return ^id(id acc, id val) {
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if (keepTaking) {
                 keepTaking = predicate(val);
             }
 
-            return keepTaking ? reducer(acc, val) : acc;
-        };
+            return keepTaking ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
 MOGTransducer MOGTakeNthTransducer(NSUInteger n) {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger i = 0;
-        return ^id(id acc, id val) {
-            return (i++ % n == 0) ? reducer(acc, val) : acc;
-        };
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return (i++ % n == 0) ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
 MOGTransducer MOGDropTransducer(NSUInteger n) {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger dropped = 0;
-        return ^id(id acc, id val) {
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if (dropped < n) {
                 dropped++;
                 return acc;
             }
 
-            return reducer(acc, val);
-        };
+            return reducer.reduce(acc, val);
+        });
     };
 }
 
 MOGTransducer MOGDropWhileTransducer(MOGPredicate predicate) {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block BOOL keepDropping = YES;
-        return ^id(id acc, id val) {
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if (keepDropping) {
                 keepDropping = predicate(val);
             }
-            return keepDropping ? acc : reducer(acc, val);
-        };
+            return keepDropping ? acc : reducer.reduce(acc, val);
+        });
     };
 }
 
@@ -102,63 +114,64 @@ MOGTransducer MOGReplaceTransducer(NSDictionary *replacements) {
 
 MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id defaultValue)
 {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             id replacement = replacements[val] ?: defaultValue;
             replacement = replacement ?: val;
-            return reducer(acc, replacement);
-        };
+            return reducer.reduce(acc, replacement);
+        });
     };
 }
 
-
 MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
-            return func(val) != nil ? reducer(acc, val) : acc;
-        };
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return func(val) != nil ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
 MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger index = 0;
-        return ^id(id acc, id val) {
-            return func(index++, val) != nil ? reducer(acc, val) : acc;
-        };
+
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
+            return func(index++, val) != nil ? reducer.reduce(acc, val) : acc;
+        });
     };
 }
 
 MOGTransducer MOGUniqueTransducer(void) {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         NSMutableSet *seenValues = [NSMutableSet new];
 
-        return ^id(id acc, id val) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if ([seenValues containsObject:val]) {
                 return acc;
             }
 
             [seenValues addObject:val];
-            return reducer(acc, val);
-        };
+            return reducer.reduce(acc, val);
+        });
     };
 }
 
 MOGTransducer MOGCatTransducer(void)
 {
-    return ^MOGReducer(MOGReducer reducer) {
-        return ^id(id acc, id val) {
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if (![val conformsToProtocol:@protocol(NSFastEnumeration)]) {
                 // Leave untouched if it's not a fast enumeration
-                return reducer(acc, val);
+                return reducer.reduce(acc, val);
             }
 
-            for (id v in val) {
-                acc = reducer(acc, v);
-            }
+            MOGReduceBlock keepReduced = ^id(id a, id v) {
+                a = reducer.reduce(a, v);
+                return MOGIsReduced(a) ? MOGReduced(a) : a;
+            };
 
-            return acc;
-        };
+            return MOGReduce(val, keepReduced, acc);
+        });
     };
 }
 
@@ -169,11 +182,11 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc)
 
 MOGTransducer MOGWindowTransducer(NSUInteger length)
 {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         __block BOOL firstValue = YES;
         NSMutableArray *windowedValues = [NSMutableArray arrayWithCapacity:length];
 
-        return ^id(id acc, id val) {
+        return SimpleStepReducer(reducer, ^(id acc, id val) {
             if (firstValue) {
                 for (NSUInteger i = 0; i < length; ++i) {
                     [windowedValues addObject:val];
@@ -184,27 +197,30 @@ MOGTransducer MOGWindowTransducer(NSUInteger length)
                 [windowedValues addObject:val];
             }
 
-            return reducer(acc, [windowedValues copy]);
-        };
+            return reducer.reduce(acc, [windowedValues copy]);
+        });
     };
 }
-
 
 #pragma mark - Transducer Composition
 MOGTransducer MOGCompose(MOGTransducer f, MOGTransducer g)
 {
-    return ^MOGReducer(MOGReducer reducer) {
+    return ^MOGReducer *(MOGReducer *reducer) {
         return f(g(reducer));
     };
 }
 
-MOGTransducer MOGComposeArray(NSArray *transducers) {
-    return MOGReduce(transducers, ^id(id f, id g) {
-        return MOGCompose(f, g);
-    }, MOGIdentityTransducer());
+MOGTransducer MOGComposeArray(NSArray *transducers)
+{
+    return MOGReduce(transducers, ^id(id f, id g) { return MOGCompose(f, g); }, MOGIdentityTransducer());
 }
 
-id MOGTransduce(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransducer transducer)
+id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer transducer)
 {
-    return MOGReduce(source, transducer(reducer), initial);
+    return MOGTransduceWithInitial(source, reducer, reducer.initial(), transducer);
+}
+
+id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
+{
+    return reducer.complete(MOGReduce(source, transducer(reducer).reduce, initial));
 }

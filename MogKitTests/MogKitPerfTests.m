@@ -38,10 +38,9 @@
 
     // Measure performance of standard impl.
     [self measureBlock:^{
-        NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                       MOGMapTransducer(^id(NSNumber *number) {
-                                           return @(number.intValue + 100);
-                                       }));
+        NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
+            return @(number.intValue + 100);
+        })];
 
         XCTAssertEqualObjects(expected, result);
     }];
@@ -81,8 +80,7 @@
 
         MOGTransducer xform = MOGComposeArray(transducers);
 
-        NSArray *result = MOGTransduce(array.objectEnumerator, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                       xform);
+        NSArray *result = MOGTransduce(array, MOGArrayReducer(), xform);
 
         XCTAssertEqualObjects(array, result);
     }];
@@ -93,18 +91,15 @@
     NSArray *array = [self arrayWithInts:100000];
 
     [self measureBlock:^{
-        NSMutableArray *array1 = MOGTransduce(array, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGMapTransducer(^id(NSNumber *number) {
-                                                  return @(number.intValue + 100);
-                                              }));
-        NSMutableArray *array2 = MOGTransduce(array1, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGFilterTransducer(^BOOL(NSNumber *number) {
-                                                  return YES;
-                                              }));
-        NSMutableArray *result = MOGTransduce(array2, MOGMutableArrayAppendReducer(), [NSMutableArray new],
-                                              MOGMapTransducer(^id(NSNumber *number) {
-                                                  return @(number.intValue - 100);
-                                              }));
+        NSMutableArray *array1 = MOGTransduce(array, MOGArrayReducer(), MOGMapTransducer(^id(NSNumber *number) {
+            return @(number.intValue + 100);
+        }));
+        NSMutableArray *array2 = MOGTransduce(array1, MOGArrayReducer(), MOGFilterTransducer(^BOOL(NSNumber *number) {
+            return YES;
+        }));
+        NSMutableArray *result = MOGTransduce(array2, MOGArrayReducer(), MOGMapTransducer(^id(NSNumber *number) {
+            return @(number.intValue - 100);
+        }));
 
         XCTAssertEqualObjects(array, result);
     }];

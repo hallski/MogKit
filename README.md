@@ -105,7 +105,6 @@ If you are using the Foundation extensions, like `-mog_transduce:` on `NSArray`,
 CocoaPods support is planned.
 
 ## TODO
-- Support early termination
 - Swift support
 
 ## Status

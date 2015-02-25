@@ -10,7 +10,7 @@
 
 
 /**
- * A transducer takes a `MOGReduceBlock` and returns a new `MOGReduceBlock` with some transformation applied.
+ * A transducer takes a `MOGReducer` and returns a new `MOGReducer` with some transformation applied.
  *
  * @discussion a transducer can be stateful but the state is bound in the reducer created when the transducer is
  * applied to the output reducer. This means it's safe to use the same transducer to create new reducers used in
@@ -254,7 +254,7 @@ MOGTransducer MOGComposeArray(NSArray *transducers);
  * to transform the source values into output values based on the `reducer` and the `initial` value.
  *
  * @param source any class conforming to the `NSFastEnumeration` protocol.
- * @param reducer the reducer function to collect the transformed values into the result of this function.
+ * @param reducer the reducer to collect the transformed values into the result of this function.
  * @param transducer the transformation to apply.
  *
  * @return the final value collected by `reducer`.
@@ -266,7 +266,7 @@ id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer
  * to transform the source values into output values based on the `reducer` and the `initial` value.
  *
  * @param source any class conforming to the `NSFastEnumeration` protocol.
- * @param reducer the reducer function to collect the transformed values into the result of this function.
+ * @param reducer the reducer to collect the transformed values into the result of this function.
  * @param initial the initial value to pass as the accumulator to `reducer`.
  * @param transducer the transformation to apply.
  *

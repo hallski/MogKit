@@ -43,13 +43,14 @@ MOGReducer *MOGArrayReducer(void);
 MOGReducer *MOGLastValueReducer(void);
 
 /**
- * Applies the `reducer` to each element of `source` and returns the final accumulated value returned by `reduce`.
+ * Applies the `reduceBlock` to each element of `source` and returns the final accumulated
+ * value returned by `reduceBlock`.
  *
  * @param source any class conforming to the `NSFastEnumeration` protocol.
- * @param reducer the reducer function to collect some accumulated value.
- * @param initial the initial value passed in as accumulator to the reducer.
+ * @param reduceBlock the reduce block to collect some accumulated value.
+ * @param initial the initial value passed in as accumulator to the reduce block.
  *
- * @return returns the final return value of `reducer`.
+ * @return returns the final return value of `reduceBlock`.
  */
 id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial);
 

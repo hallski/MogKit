@@ -339,21 +339,36 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testEarlyTermination
+- (void)testCatTransducerWithEarlyTermination
 {
-    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    NSArray *expected = @[@11, @12, @13, @14, @15];
+    NSArray *array = @[@[@1, @2, @3], @[@4, @5, @6], @[@7, @8, @9, @10]];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
 
     MOGReducer *reducer = MOGArrayReducer();
     reducer.reduce = ^id(NSMutableArray *acc, NSNumber *val) {
         [acc addObject:val];
 
-        return val.intValue == 15 ? MOGReduced(acc) : acc;
+        return val.intValue == 5 ? MOGReduced(acc) : acc;
     };
 
-    NSArray *result = MOGTransduce(array, reducer, MOGMapTransducer(^id(NSNumber *number) {
-        return @(number.intValue + 10);
-    }));
+    NSArray *result = MOGTransduce(array, reducer, MOGCatTransducer());
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testEarlyTermination
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @4, @5];
+
+    MOGReducer *reducer = MOGArrayReducer();
+    reducer.reduce = ^id(NSMutableArray *acc, NSNumber *val) {
+        [acc addObject:val];
+
+        return val.intValue == 5 ? MOGReduced(acc) : acc;
+    };
+
+    NSArray *result = MOGTransduce(array, reducer, MOGIdentityTransducer());
 
     XCTAssertEqualObjects(expected, result);
 }

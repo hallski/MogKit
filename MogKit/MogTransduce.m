@@ -167,6 +167,9 @@ MOGTransducer MOGCatTransducer(void)
 
             for (id v in val) {
                 acc = reducer.reduce(acc, v);
+                if (MOGIsReduced(acc)) {
+                    return acc;
+                }
             }
 
             return acc;

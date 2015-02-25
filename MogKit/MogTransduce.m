@@ -225,7 +225,5 @@ id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer
 
 id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
 {
-    id acc = MOGReduce(source, transducer(reducer).reduce, initial);
-
-    return reducer.complete(acc);
+    return reducer.complete(MOGReduce(source, transducer(reducer).reduce, initial));
 }

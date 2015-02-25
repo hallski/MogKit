@@ -52,3 +52,7 @@ MOGReducer *MOGLastValueReducer(void);
  * @return returns the final return value of `reducer`.
  */
 id MOGReduce(id<NSFastEnumeration> source, MOGReducer *reducer, id initial);
+
+id MOGReduced(id value);
+BOOL MOGIsReduced(id value);
+id MOGReducedGetValue(id reducedValue);

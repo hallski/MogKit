@@ -336,6 +336,24 @@
             return @[val, val, val];
         }));
 
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testEarlyTermination
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@11, @12, @13, @14, @15];
+
+    MOGReducer *reducer = MOGArrayReducer();
+    reducer.reduce = ^id(NSMutableArray *acc, NSNumber *val) {
+        [acc addObject:val];
+
+        return val.intValue == 15 ? MOGReduced(acc) : acc;
+    };
+
+    NSArray *result = MOGTransduce(array, reducer, MOGMapTransducer(^id(NSNumber *number) {
+        return @(number.intValue + 10);
+    }));
 
     XCTAssertEqualObjects(expected, result);
 }

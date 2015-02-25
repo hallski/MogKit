@@ -98,3 +98,13 @@ BOOL MOGIsReduced(id value);
  * @return the unwrapped original value.
  */
 id MOGReducedGetValue(id reducedValue);
+
+/**
+ * Ensures that a value is wrapped as a reduced value. If `val` is already reduced, it's
+ * returned, otherwise it's wrapped as reduced.
+ *
+ * @param val the value
+ *
+ * @return a reduced value
+ */
+id MOGEnsureReduced(id val);

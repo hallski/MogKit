@@ -78,6 +78,11 @@ id MOGReducedGetValue(id reducedValue)
     return ((MOGReducedWrapper *)reducedValue).value;
 }
 
+id MOGEnsureReduced(id val)
+{
+    return MOGIsReduced(val) ? val : MOGReduced(val);
+}
+
 @implementation MOGReducer
 
 - (instancetype)initWithInitBlock:(id(^)(void))initBlock

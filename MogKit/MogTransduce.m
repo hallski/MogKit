@@ -50,7 +50,7 @@ MOGTransducer MOGTakeTransducer(NSUInteger n)
         __block NSUInteger taken = 0;
 
         return SimpleStepReducer(reducer, ^(id acc, id val) {
-            return taken++ < n ? reducer.reduce(acc, val) : acc;
+            return taken++ < n ? reducer.reduce(acc, val) : MOGEnsureReduced(acc);
         });
     };
 }
@@ -65,7 +65,7 @@ MOGTransducer MOGTakeWhileTransducer(MOGPredicate predicate)
                 keepTaking = predicate(val);
             }
 
-            return keepTaking ? reducer.reduce(acc, val) : acc;
+            return keepTaking ? reducer.reduce(acc, val) : MOGEnsureReduced(acc);
         });
     };
 }

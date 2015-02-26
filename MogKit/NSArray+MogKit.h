@@ -25,4 +25,6 @@
  */
 - (NSArray *)mog_transduce:(MOGTransducer)transducer;
 
++ (NSArray *)mog_transducedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transducer:(MOGTransducer)transducer;
+
 @end

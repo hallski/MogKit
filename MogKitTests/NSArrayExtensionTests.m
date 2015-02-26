@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import <MogKit/MogKit.h>
+#import "MogKit.h"
 
 
 @interface NSArrayExtensionTests : XCTestCase
@@ -32,5 +32,19 @@
 
     XCTAssertEqualObjects(expected, result);
 }
+
+- (void)testTransducedArrayFromEnumeration
+{
+    NSDictionary *dict = @{@"a": @1, @"b": @2, @"c": @3 };
+    NSArray *expected = @[@"A", @"B", @"C"];
+
+    NSArray *result = [NSArray mog_transducedArrayFromEnumeration:dict.keyEnumerator
+                                                       transducer:MOGMapTransducer(^id(NSString *str) {
+                                                           return [str uppercaseString];
+                                                       })];
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 
 @end

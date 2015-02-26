@@ -4,6 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
+#import <MogKit/MogKit.h>
 #import "NSArray+MogKit.h"
 
 
@@ -12,6 +13,11 @@
 - (NSArray *)mog_transduce:(MOGTransducer)transducer
 {
     return MOGTransduce(self, MOGArrayReducer(), transducer);
+}
+
++ (NSArray *)mog_transducedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transducer:(MOGTransducer)transducer
+{
+    return MOGTransduce(enumeration, MOGArrayReducer(), transducer);
 }
 
 @end

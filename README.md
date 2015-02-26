@@ -113,7 +113,7 @@ If you are using the Foundation extensions, like `-mog_transduce:` on `NSArray`,
 CocoaPods support is planned.
 
 ## TODO
-- Swift support
+- Swift support (post 1.0)
 
 ## Status
 The API is still not locked down so might change slightly until 1.0 has been released.

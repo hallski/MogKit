@@ -313,6 +313,16 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testPartitionTransducer
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@[@1, @2], @[@3, @4], @[@5, @6], @[@7, @8], @[@9, @10]];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGPartitionTransducer(2));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testWindowedTransducerWithOneValue
 {
     NSArray *array = @[@1];

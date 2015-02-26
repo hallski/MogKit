@@ -233,6 +233,34 @@ MOGTransducer MOGPartitionByTransducer(MOGMapFunc partitioningBlock) {
     };
 }
 
+MOGTransducer MOGPartitionTransducer(NSUInteger size)
+{
+    return ^MOGReducer *(MOGReducer *reducer) {
+        __block NSMutableArray *currentPartition = [NSMutableArray new];
+
+        return [[MOGReducer alloc] initWithInitBlock:^id {
+            return reducer.initial();
+        } completeBlock:^id(id result) {
+            if (currentPartition.count > 0) {
+                result = reducer.reduce(result, [currentPartition copy]);
+                return reducer.complete(result);
+            } else {
+                return result;
+            }
+        } reduceBlock:^id(id acc, id val) {
+            [currentPartition addObject:val];
+
+            if (currentPartition.count < size) {
+                return acc;
+            } else {
+                NSArray *finishedPartition = [currentPartition copy];
+                currentPartition = [NSMutableArray new];
+                return reducer.reduce(acc, finishedPartition);
+            }
+        }];
+    };
+}
+
 MOGTransducer MOGWindowTransducer(NSUInteger length)
 {
     return ^MOGReducer *(MOGReducer *reducer) {

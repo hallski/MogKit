@@ -236,6 +236,16 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
 MOGTransducer MOGPartitionByTransducer(MOGMapFunc partitioningBlock);
 
 /**
+ * Creates a transducer that splits the values into separate `NSArray`s every `size` elements. A smaller array may be
+ * sent at the end if there are less values than `size` accumulated in the transducer at complete.
+ *
+ * @param size the partition size
+ *
+ * @return a stateful transducer that splits incoming values into separate partitions of size `size`.
+ */
+MOGTransducer MOGPartitionTransducer(NSUInteger size);
+
+/**
  * Creates a transducer that creates a window of size `length` by examining the values passed through.
  * The window will always contain the last `length` values passed through. Until `length` values have passed through
  * the window will contain the first value in all slots. Each value passed through is replaced by an array with the

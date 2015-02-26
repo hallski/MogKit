@@ -4,6 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
+#import <MogKit/MogKit.h>
 #import "MogTransduce.h"
 
 MOGReducer *SimpleStepReducer(MOGReducer *nextReducer, MOGReduceBlock stepBlock) {
@@ -197,6 +198,41 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc)
     return MOGCompose(MOGMapTransducer(mapFunc), MOGCatTransducer());
 }
 
+
+MOGTransducer MOGPartitionByTransducer(MOGMapFunc partitioningBlock) {
+    return ^MOGReducer *(MOGReducer *reducer) {
+        __block id lastPartitionKey = nil;
+        __block NSMutableArray *currentPartition = nil;
+
+        return [[MOGReducer alloc] initWithInitBlock:^id {
+            return reducer.initial();
+        } completeBlock:^id(id result) {
+            if (currentPartition.count > 0) {
+                result = reducer.reduce(result, [currentPartition copy]);
+                return reducer.complete(result);
+            } else {
+                return result;
+            }
+        } reduceBlock:^id(id acc, id val) {
+            id partitionKey = partitioningBlock(val);
+            if (lastPartitionKey == nil) {
+                lastPartitionKey = partitionKey;
+                currentPartition = [NSMutableArray new];
+            }
+            if ([partitionKey isEqual:lastPartitionKey]) {
+                [currentPartition addObject:val];
+                return acc;
+            } else {
+                NSArray *finishedPartition = [currentPartition copy];
+                currentPartition = [NSMutableArray arrayWithObject:val];
+                lastPartitionKey = partitionKey;
+
+                return reducer.reduce(acc, finishedPartition);
+            }
+        }];
+    };
+}
+
 MOGTransducer MOGWindowTransducer(NSUInteger length)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
@@ -239,5 +275,6 @@ id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransducer
 
 id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransducer transducer)
 {
-    return reducer.complete(MOGReduce(source, transducer(reducer).reduce, initial));
+    MOGReducer *tr = transducer(reducer);
+    return tr.complete(MOGReduce(source, tr.reduce, initial));
 }

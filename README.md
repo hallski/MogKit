@@ -5,7 +5,7 @@ MogKit is a toolkit that makes heavy use of _Transducers_ in order to create com
 
 Since transducers work by compositing rather then chaining it means that the input values are only iterated over once and not one time per operation.
 
-For an introduction to transducers, see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).
+For an [introduction to transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming), see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).
 
 ## Use cases
 There are several cases where using MogKit might make sense. Easiest shown with some example.

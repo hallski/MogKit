@@ -54,18 +54,26 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
 - (instancetype)transform:(MOGTransducer)transducer
 {
     Class class = self.class;
-
+    
+    // Map all values to a RAC return value.
     MOGTransducer transducerWithMapToRAC = MOGCompose(transducer, MOGMapTransducer(^id(id val) {
         return [class return:val];
     }));
 
+    // Collect values in an array since each value passed to our transducer can generate more than
+    // one value (for example when using the cat transducer).
     MOGReducer *reducer = transducerWithMapToRAC(MOGArrayReducer());
 
     return [[self bind:^{
         return ^(id value, BOOL *stop) {
+            // Reduce the single value
             id acc = reducer.reduce(reducer.initial(), value);
+            
+            // Stop if the transducer signals that the reduction is done (could for example happen 
+            // when using the take(n) transducer.
             if (MOGIsReduced(acc)) {
                 *stop = YES;
+                // Collect the final values from the process (for example when using partition).
                 acc = reducer.complete(MOGReducedGetValue(acc));
             }
             return [class concat:acc];

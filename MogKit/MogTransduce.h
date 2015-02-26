@@ -19,16 +19,16 @@
 typedef MOGReducer *(^MOGTransducer) (MOGReducer *);
 
 /**
- * A `MOGMapFunc` is a function you typically use with `MOGMapTransducer` which is a transformation of a single value
+ * A `MOGMapBlock` is a function you typically use with `MOGMapTransducer` which is a transformation of a single value
  * into a new value.
  */
-typedef id (^MOGMapFunc) (id val);
+typedef id (^MOGMapBlock) (id val);
 
 /**
- * `MOGIndexedMapFunc` is the same as `MOGMapFunc`, only it also includes the index of the value in sequence
+ * `MOGIndexedMapBlock` is the same as `MOGMapBlock`, only it also includes the index of the value in sequence
  * that is being processed.
  */
-typedef id (^MOGIndexedMapFunc) (NSUInteger index, id val);
+typedef id (^MOGIndexedMapBlock) (NSUInteger index, id val);
 
 /**
  * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilterTransducer` or
@@ -45,13 +45,13 @@ typedef BOOL (^MOGPredicate) (id val);
 MOGTransducer MOGIdentityTransducer(void);
 
 /**
- * Creates a transducer that applies the `mapFunc` to transform each value passed through the transformation.
+ * Creates a transducer that applies the `mapBlock` to transform each value passed through the transformation.
  *
- * @param mapFunc the transformation function.
+ * @param mapBlock the transformation function.
  *
  * @return a transducer that applies the map transformation.
  */
-MOGTransducer MOGMapTransducer(MOGMapFunc mapFunc);
+MOGTransducer MOGMapTransducer(MOGMapBlock mapBlock);
 
 /**
  * Creates a transducer that filters all values based on the `predicate` function. Values where `predicate` returns
@@ -160,31 +160,31 @@ MOGTransducer MOGReplaceTransducer(NSDictionary *replacements);
 MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id defaultValuee);
 
 /**
- * Creates a transducer that keep values where `func` returns a non-nil value and drops all where nil is returned.
+ * Creates a transducer that keep values where `mapBlock` returns a non-nil value and drops all where nil is returned.
  *
- * @warning Keep in mind that the original value is passed on, not the value returned by `func`.
+ * @warning Keep in mind that the original value is passed on, not the value returned by `mapBlock`.
  *
- * @param func a function that determines if the transducer should pass on a value or not. non-nil to pass on,
+ * @param mapBlock a function that determines if the transducer should pass on a value or not. non-nil to pass on,
  *        nil to drop it.
  *
- * @return a transducer that drops all values where `func` returns nil.
+ * @return a transducer that drops all values where `mapBlock` returns nil.
  *
  * @see `MOGFilterTransducer`, `MOGRemoveTransducer` and `MOGKeepIndexedTransducer`.
  */
-MOGTransducer MOGKeepTransducer(MOGMapFunc func);
+MOGTransducer MOGKeepTransducer(MOGMapBlock mapBlock);
 
 /**
- * Creates a transducer a transducer that keeps values where `func` returns a non-nil value. This is similar to
- * `MOGKeepTransducer` with the difference that the index of the value is passed to `func` as well.
+ * Creates a transducer a transducer that keeps values where `mapBlock` returns a non-nil value. This is similar to
+ * `MOGKeepTransducer` with the difference that the index of the value is passed to `mapBlock` as well.
  *
- * @param func a function that determines if the transducer should pass on a value or not. non-nil to pass on,
+ * @param mapBlock a function that determines if the transducer should pass on a value or not. non-nil to pass on,
  *        nil to drop it.
  *
- * @return a stateful transducer that drops all values where `func` returns nil.
+ * @return a stateful transducer that drops all values where `mapBlock` returns nil.
  *
  * @see `MOGFilterTransducer`, `MOGRemoveTransducer` and `MOGKeep`.
  */
-MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func);
+MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapBlock mapBlock);
 
 /**
  * Creates a transducer that drops all duplicates. Whether it's a duplicate is determined by `isEqual:`
@@ -216,14 +216,14 @@ MOGTransducer MOGDedupeTransducer(void);
 MOGTransducer MOGCatTransducer(void);
 
 /**
- * Creates a transducer that first apply the mapFunc on all values and then concatenates the results. It's the
+ * Creates a transducer that first apply the mapBlock on all values and then concatenates the results. It's the
  * composition of `MogMap` . `MogCat`.
  *
- * @param mapFunc the transformation function.
+ * @param mapBlock the transformation function.
  *
- * @return a transducer that applies `mapFunc` on all values and then concatenates the result.
+ * @return a transducer that applies `mapBlock` on all values and then concatenates the result.
  */
-MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
+MOGTransducer MOGMapCatTransducer(MOGMapBlock mapBlock);
 
 /**
  * Creates a transducer that splits the the values into separate `NSArray`s every time the `partitioningBlock`
@@ -233,7 +233,7 @@ MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc);
  *
  * @return a stateful transducer that splits incoming values into separate partitions.
  */
-MOGTransducer MOGPartitionByTransducer(MOGMapFunc partitioningBlock);
+MOGTransducer MOGPartitionByTransducer(MOGMapBlock partitioningBlock);
 
 /**
  * Creates a transducer that splits the values into separate `NSArray`s every `size` elements. A smaller array may be

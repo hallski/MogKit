@@ -124,15 +124,15 @@ MOGTransducer MOGReplaceWithDefaultTransducer(NSDictionary *replacements, id def
     };
 }
 
-MOGTransducer MOGKeepTransducer(MOGMapFunc func) {
+MOGTransducer MOGKeepTransducer(MOGMapBlock mapBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {
         return SimpleStepReducer(reducer, ^(id acc, id val) {
-            return func(val) != nil ? reducer.reduce(acc, val) : acc;
+            return mapBlock(val) != nil ? reducer.reduce(acc, val) : acc;
         });
     };
 }
 
-MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapFunc func) {
+MOGTransducer MOGKeepIndexedTransducer(MOGIndexedMapBlock func) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger index = 0;
 
@@ -193,13 +193,13 @@ MOGTransducer MOGCatTransducer(void)
     };
 }
 
-MOGTransducer MOGMapCatTransducer(MOGMapFunc mapFunc)
+MOGTransducer MOGMapCatTransducer(MOGMapBlock mapBlock)
 {
-    return MOGCompose(MOGMapTransducer(mapFunc), MOGCatTransducer());
+    return MOGCompose(MOGMapTransducer(mapBlock), MOGCatTransducer());
 }
 
 
-MOGTransducer MOGPartitionByTransducer(MOGMapFunc partitioningBlock) {
+MOGTransducer MOGPartitionByTransducer(MOGMapBlock partitioningBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block id lastPartitionKey = nil;
         __block NSMutableArray *currentPartition = nil;

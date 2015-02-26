@@ -74,7 +74,11 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
 }
 
 @end
+```
 
+This makes it possible to create composed transformations and apply to a signal instead of chaining several transformed signals:
+
+```objective-c
 NSNumberFormatter *currencyFormatter = [NSNumberFormatter new];
 currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 

@@ -1,4 +1,5 @@
 # MogKit
+[![Build Status](https://travis-ci.org/mhallendal/MogKit.svg?branch=master)](https://travis-ci.org/mhallendal/MogKit)
 
 MogKit is a toolkit that makes heavy use of _Transducers_ in order to create composable transformations that are independent from the underlying context they are working on.
 

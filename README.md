@@ -65,7 +65,7 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
             id acc = reducer.reduce(reducer.initial(), value);
             if (MOGIsReduced(acc)) {
                 *stop = YES;
-                acc = MOGReducedGetValue(acc);
+                acc = reducer.complete(MOGReducedGetValue(acc));
             }
             return [class concat:acc];
         };

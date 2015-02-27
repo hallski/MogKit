@@ -140,3 +140,8 @@ CocoaPods support is planned.
 
 ## Status
 The API is still not locked down so might change slightly until 1.0 has been released.
+
+## This looks like Transducers
+For a reader that are familiar with Transducers this will feel familiar, MogKit is implemented using Transducers and `MOGTrasformation`s are actually transducers mapping from `MOGReducer` to `MOGReducer`.
+
+For an [introduction to transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming), see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).

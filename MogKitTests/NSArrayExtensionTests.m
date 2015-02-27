@@ -18,7 +18,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5];
     NSArray *expected = @[@101, @102, @103, @104, @105];
 
-    NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
+    NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
         return @(number.intValue + 100);
     })];
 
@@ -31,7 +31,7 @@
     NSArray *expected = @[@"A", @"B", @"C"];
 
     NSArray *result = [NSArray mog_transducedArrayFromEnumeration:dict.keyEnumerator
-                                                       transducer:MOGMapTransducer(^id(NSString *str) {
+                                                       transducer:MOGMap(^id(NSString *str) {
                                                            return [str uppercaseString];
                                                        })];
 

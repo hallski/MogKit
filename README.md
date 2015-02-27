@@ -1,11 +1,9 @@
 # MogKit
 [![Build Status](https://travis-ci.org/mhallendal/MogKit.svg?branch=master)](https://travis-ci.org/mhallendal/MogKit)
 
-MogKit is a toolkit that makes heavy use of _Transducers_ in order to create composable transformations that are independent from the underlying context they are working on.
+MogKit is a toolkit that provides fully tested and easily compasable transformations to collections and any series of values (like signals, channels, etc). The transformations are independant on the underlying values or data structures which makes them highly reusable.
 
-Since transducers work by compositing rather then chaining it means that the input values are only iterated over once and not one time per operation.
-
-For an [introduction to transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming), see [Clojure - Transducers](http://clojure.org/transducers) and the presentation by Clojure creator [Rich Hickey](https://www.youtube.com/watch?v=6mTbuzafcII).
+As opposed to similar transformation frameworks MogKit works with composition instead of chaining which means the values are only iterated over once instead of once per step.
 
 ## Use cases
 There are several cases where using MogKit might make sense. Easiest shown with some example.

@@ -15,7 +15,7 @@ When you simply want to transform some data in for example an array into a new a
 
 ```objective-c
 NSArray *array = @[@1, @2, @3];
-NSArray *result = [array mog_transduce:MOGMapTransducer(^id(NSNumber *number) {
+NSArray *result = [array mog_transform:MOGMap(^id(NSNumber *number) {
     return @(number.intValue + 100);
 });
 
@@ -30,7 +30,7 @@ Another case is when you have some data structure and want to add a transformati
 
 - (NSArray *)filter:(MOGPredicate)predicate
 {
-    return [self mog_transduce:MOGFilterTransducer(predicate)];
+    return [self mog_transform:MOGFilter(predicate)];
 }
 
 @end
@@ -41,30 +41,30 @@ Say you want to add a `trim:` method to `NSArray` that returns a new array with 
 ```objective-c
 - (NSArray *)trim:(NSUInteger)trimSize 
 {
-    return [self mog_transduce:MOGCompose(MOGDropTransducer(trimSize), MOGTakeTransducer(self.count - 2 * trimSize))];
+    return [self mog_transform:MOGCompose(MOGDrop(trimSize), MOGTake(self.count - 2 * trimSize))];
 }
 ```
 
 ### Non-collection use cases
-Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-transform:` method to `RACStream` (from [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)) in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
+Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You can easily make use of it to add composable transformation to anything where you want to transform a set of values. Here is an example adding a `-mog_transform:` method to `RACStream` (from [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)) in order to apply the passed in transducer to all values on the stream. This can be used instead of chaining a several of RACStreams built in transformations.
 
 ```objective-c
 @implementation RACStream (MogKit)
 
-- (instancetype)transform:(MOGTransducer)transducer
+- (instancetype)mog_transform:(MOGTransformation)transformation
 {
     Class class = self.class;
-    
-    MOGTransducer transducerWithMapToRAC = MOGCompose(transducer, MOGMapTransducer(^id(id val) {
+
+    MOGTransformation transformationWithMapToRAC = MOGCompose(transformation, MOGMap(^id(id val) {
         return [class return:val];
     }));
 
-    MOGReducer *reducer = transducerWithMapToRAC(MOGArrayReducer());
+    MOGReducer *reducer = transformationWithMapToRAC(MOGArrayReducer());
 
     return [[self bind:^{
         return ^(id value, BOOL *stop) {
             id acc = reducer.reduce(reducer.initial(), value);
-            
+
             if (MOGIsReduced(acc)) {
                 *stop = YES;
                 acc = reducer.complete(MOGReducedGetValue(acc));
@@ -83,25 +83,25 @@ This can later be used to apply a transducer to all values in a channel like thi
 NSNumberFormatter *currencyFormatter = [NSNumberFormatter new];
 currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 
-MOGTransducer add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
-    MOGFilterTransducer(StringIsValidInt()),
-    MOGMapTransducer(^id(NSString *string) {
+MOGTransformation add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
+    MOGFilter(StringIsValidInt()),
+    MOGMap(^id(NSString *string) {
         return @([string intValue] + 100);
     }),
-    MOGMapTransducer(^id(id val) {
+    MOGMap(^id(id val) {
         return [currencyFormatter stringFromNumber:val];
     })
 ]);
 
-[[textField.rac_textSignal transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
+[[textField.rac_textSignal mog_transform:add100ToIntValuesAndFormatAsCurrency] subscribeNext:^(id x) {
     NSLog(@"Number plus 100 = %@", x);
 }];
 
 ```
 
-The transducer can then be reused in any other transformation, and is not even tied to `RACStream`.
+The transformation can then be reused and is not even tied to `RACStream`.
 
-## Implemented Transducers
+## Implemented Transformation
 - Map
 - Filter
 - Remove
@@ -133,7 +133,7 @@ to your `Cartfile` and follow the Carthage instructions for including the framew
 
 You can also add it as submodule to your project `https://github.com/mhallendal/MogKit.git` and include the project file in your application.
 
-If you are using the Foundation extensions, like `-mog_transduce:` on `NSArray`, make sure that you add `-ObjC` to your application's _Other Linker Flags_.
+If you are using the Foundation extensions, like `-mog_transform:` on `NSArray`, make sure that you add `-ObjC` to your application's _Other Linker Flags_.
 
 CocoaPods support is planned.
 

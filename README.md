@@ -1,7 +1,7 @@
 # MogKit
 [![Build Status](https://travis-ci.org/mhallendal/MogKit.svg?branch=master)](https://travis-ci.org/mhallendal/MogKit)
 
-MogKit is a toolkit that provides fully tested and easily compasable transformations to collections and any series of values (like signals, channels, etc). The transformations are independant on the underlying values or data structures which makes them highly reusable.
+MogKit is a toolkit that provides fully tested and easily composable transformations to collections and any series of values (like signals, channels, etc). The transformations are independant of the underlying values or data structures which makes them highly reusable.
 
 As opposed to similar transformation frameworks MogKit works with composition instead of chaining which means the values are only iterated over once instead of once per step.
 
@@ -69,13 +69,13 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
             }
             return [class concat:acc];
         };
-    }] setNameWithFormat:@"[%@] -transform:", self.name];
+    }] setNameWithFormat:@"[%@] -mog_transform:", self.name];
 }
 
 @end
 ```
 
-This can later be used to apply a transducer to all values in a channel like this:
+This can later be used to apply a transformation to all values in a channel like this:
 
 ```objective-c
 NSNumberFormatter *currencyFormatter = [NSNumberFormatter new];
@@ -99,7 +99,7 @@ MOGTransformation add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
 
 The transformation can then be reused and is not even tied to `RACStream`.
 
-## Implemented Transformation
+## Implemented Transformations
 - Map
 - Filter
 - Remove

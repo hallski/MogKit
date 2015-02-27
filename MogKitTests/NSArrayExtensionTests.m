@@ -13,7 +13,7 @@
 
 @implementation NSArrayExtensionTests
 
-- (void)testArrayTransduce
+- (void)testArrayTransform
 {
     NSArray *array = @[@1, @2, @3, @4, @5];
     NSArray *expected = @[@101, @102, @103, @104, @105];
@@ -25,7 +25,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testTransducedArrayFromEnumeration
+- (void)testTransformedArrayFromEnumeration
 {
     NSDictionary *dict = @{@"a": @1, @"b": @2, @"c": @3 };
     NSArray *expected = @[@"A", @"B", @"C"];

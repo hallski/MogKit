@@ -101,7 +101,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testTakeReuseTransducer
+- (void)testTakeReuseTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @5];
@@ -115,7 +115,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testTakeWhileTransducer
+- (void)testTakeWhileTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4];
@@ -127,7 +127,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testTakeNthTransducer
+- (void)testTakeNthTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @4, @7, @10];
@@ -137,7 +137,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testDropTransducer
+- (void)testDropTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@4, @5, @6, @7, @8, @9, @10];
@@ -147,7 +147,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testDropWhileTransducer
+- (void)testDropWhile
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@5, @6, @7, @8, @9, @10];
@@ -159,7 +159,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testReplaceTransducer
+- (void)testReplaceTransformation
 {
     NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
     NSArray *expected = @[@"a", @"b", @"c", @"d", @"e"];
@@ -171,7 +171,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testReplaceTransducerWithMissingTranslation
+- (void)testReplaceTransformationWithMissingTranslation
 {
     NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
     NSArray *expected = @[@"a", @"2", @"c", @"4", @"e"];
@@ -183,7 +183,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testReplaceWithDefaultTransducer
+- (void)testReplaceWithDefaultTransformation
 {
     NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
     NSArray *expected = @[@"a", @"-", @"c", @"-", @"e"];
@@ -195,7 +195,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testReplaceWithDefaultTransducerWithNilAsDefault
+- (void)testReplaceWithDefaultTransformationWithNilAsDefault
 {
     NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];
     NSArray *expected = @[@"a", @"2", @"c", @"4", @"e"];
@@ -208,7 +208,7 @@
 }
 
 
-- (void)testKeepTransducer
+- (void)testKeepTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @3, @5, @7, @9];
@@ -220,7 +220,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testKeepIndexedTransducer
+- (void)testKeepIndexedTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@1, @3, @5, @7, @9];
@@ -232,7 +232,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testUniqueTransducer
+- (void)testUniqueTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @3, @2, @1, @8, @9, @10];
     NSArray *expected = @[@1, @2, @3, @4, @8, @9, @10];
@@ -242,7 +242,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testDedupeTransducer
+- (void)testDedupeTransformation
 {
     NSArray *array = @[@1, @2, @2, @3, @4, @4, @4, @5, @4, @1];
     NSArray *expected = @[@1, @2, @3, @4, @5, @4, @1];
@@ -252,7 +252,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testCatTransducer
+- (void)testCatTransformation
 {
     NSArray *array = @[@[@1, @2], @[@3, @4, @5], @[@6]];
     NSArray *expected = @[@1, @2, @3, @4, @5, @6];
@@ -272,7 +272,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testMapCatTransducer
+- (void)testMapCatTransformation
 {
     NSArray *array = @[@1, @2, @3];
     NSArray *expected = @[@1, @1, @1, @2, @2, @2, @3, @3, @3];
@@ -284,7 +284,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testCatTransducerWithEarlyTermination
+- (void)testCatTransformationWithEarlyTermination
 {
     NSArray *array = @[@[@1, @2, @3], @[@4, @5, @6], @[@7, @8, @9, @10]];
     NSArray *expected = @[@1, @2, @3, @4, @5];
@@ -301,7 +301,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testPartitioningByTransducer
+- (void)testPartitioningByTransformation
 {
     NSArray *array = @[@1, @1, @2, @2, @3, @1];
     NSArray *expected = @[@[@1, @1], @[@2, @2], @[@3], @[@1]];
@@ -325,7 +325,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testPartitionTransducer
+- (void)testPartitionTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@[@1, @2], @[@3, @4], @[@5, @6], @[@7, @8], @[@9, @10]];
@@ -345,7 +345,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testWindowedTransducerWithOneValue
+- (void)testWindowedTransformationWithOneValue
 {
     NSArray *array = @[@1];
     NSArray *expected = @[@[@1, @1, @1]];
@@ -355,7 +355,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testWindowedTransducerWithTwoValues
+- (void)testWindowedTransformationWithTwoValues
 {
     NSArray *array = @[@1, @2];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2]];
@@ -365,7 +365,7 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testWindowedTransducerWithMoreValuesThanWindowSize
+- (void)testWindowedTransformationWithMoreValuesThanWindowSize
 {
     NSArray *array = @[@1, @2, @3, @4, @5];
     NSArray *expected = @[@[@1, @1, @1], @[@1, @1, @2], @[@1, @2, @3], @[@2, @3, @4], @[@3, @4, @5]];
@@ -385,8 +385,8 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-#pragma mark - Transducer composition
-- (void)testComposeTwoTransducers
+#pragma mark - Transformation composition
+- (void)testComposeTwoTransformations
 {
     NSArray *array = @[@1, @10, @100];
     NSArray *expected = @[@"10", @"100"];
@@ -405,11 +405,11 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testComposeArrayOfTransducers
+- (void)testComposeArrayOfTransformations
 {
     NSArray *array = @[@50, @500, @5000, @50000];
     NSArray *expected = @[@50, @500];
-    NSArray *transducers = @[
+    NSArray *transformations = @[
             MOGMap(^id(NSNumber *number) {
                 return [NSString stringWithFormat:@"%@", number];
             }),
@@ -420,7 +420,7 @@
                 return @(str.intValue);
             })
     ];
-    MOGTransformation xform = MOGComposeArray(transducers);
+    MOGTransformation xform = MOGComposeArray(transformations);
     NSArray *result = MOGTransform(array, MOGArrayReducer(), xform);
 
     XCTAssertEqualObjects(expected, result);

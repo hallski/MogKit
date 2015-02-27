@@ -31,7 +31,7 @@
     return [mArray copy];
 }
 
-- (void)testPerformanceMappingArrayTransduce
+- (void)testPerformanceMappingArrayTransformation
 {
     NSArray *array = [self arrayWithInts:100000];
     NSArray *expected = [self expectedByAdding:100 toEachElementOfArrayOfInts:array];

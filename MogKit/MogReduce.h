@@ -82,7 +82,7 @@ id MOGReduced(id value);
 /**
  * Checks whether `value` is a value wrapped to indicate that the reduction is done. This is used
  * by `MOGReduce` to decide on whether it should continue with the reduction. Any implementor
- * of another transducer based process need to check the return value after each iteration.
+ * of another transformation based process need to check the return value after each iteration.
  *
  * @param the value to check
  *

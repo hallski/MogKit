@@ -12,18 +12,18 @@
 @interface NSArray (MogKit)
 
 /**
- * Apply a transducer to the array.
+ * Apply a transformation to the array.
  *
- * This applies the transducer through `MOGTransform` with a NSMutableArray to accumulate the values and finally
+ * This applies the transformation through `MOGTransform` with a NSMutableArray to accumulate the values and finally
  * makes a immutable copy which is passed back.
  *
- * @param transducer the transducer to apply.
+ * @param transformation the transformation to apply.
  *
  * @return a newly created array containined the transformed values.
  *
  * @see `MOGTransform`
  */
-- (NSArray *)mog_transform:(MOGTransformation)transducer;
+- (NSArray *)mog_transform:(MOGTransformation)transformation;
 
 /**
  * Applied `transformation` to `enumeration` and collects the reduction as an array.

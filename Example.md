@@ -2,12 +2,12 @@
 Here is an example that shows some of the reusability by creating processes that are agnostic to the underlying data structures or how the results are collected, a reusable _alpha trimmed mean filter_:
 
 ```objective-c
-MOGTransducer TrimTransducer(NSUInteger drop, NSUInteger finalSize)
+MOGTransformation Trim(NSUInteger drop, NSUInteger finalSize)
 {
-    return MOGCompose(MOGDropTransducer(drop), MOGTakeTransducer(finalSize));
+    return MOGCompose(MOGDrop(drop), MOGTake(finalSize));
 }
 
-MOGMapFunc SortArrayOfNumbers(BOOL ascending)
+MOGMapBlock SortArrayOfNumbers(BOOL ascending)
 {
     NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:ascending];
 
@@ -16,27 +16,27 @@ MOGMapFunc SortArrayOfNumbers(BOOL ascending)
     };
 }
 
-MOGMapFunc TrimArray(NSUInteger trimN)
+MOGMapBlock TrimArray(NSUInteger trimN)
 {
     return ^id(NSArray *values) {
         return [values mog_transduce:TrimTransducer(trimN, values.count - 2 * trimN)];
     };
 }
 
-MOGMapFunc MeanOfArrayOfNumbers()
+MOGMapBlock MeanOfArrayOfNumbers()
 {
     return ^id(NSArray *numbers) {
         return [numbers valueForKeyPath:@"@avg.self"];
     };
 }
 
-MOGTransducer AlphaTrimmedMeanFilter(NSUInteger windowSize)
+MOGTransformation AlphaTrimmedMeanFilter(NSUInteger windowSize)
 {
     return MOGComposeArray(@[
-        MOGWindowTransducer(windowSize),
-        MOGMapTransducer(SortArrayOfNumbers(YES)),
-        MOGMapTransducer(TrimArray(windowSize / 4)),
-        MOGMapTransducer(MeanOfArrayOfNumbers())
+        MOGWindow(windowSize),
+        MOGMap(SortArrayOfNumbers(YES)),
+        MOGMap(TrimArray(windowSize / 4)),
+        MOGMap(MeanOfArrayOfNumbers())
     ]);
 }
 
@@ -44,13 +44,13 @@ MOGTransducer AlphaTrimmedMeanFilter(NSUInteger windowSize)
 
 NSArray *array = @[@14, @13, @12, @1, @2, @3, @4, @5, @15, @9, @8, @7, @13, @14];
 
-MOGTransducer filter = AlphaTrimmedMeanFilter(12);
+MOGTransformation filter = AlphaTrimmedMeanFilter(12);
 
-NSArray *result = [array mog_transduce:filter];
+NSArray *result = [array mog_transform:filter];
 // result == [14, 14, 14, 14, 13.83, 13.5, 11.83, 10.33, 10.33, 9.5, 8.5, 7.5, 7.5, 7.5]
 
 // By using a different reduce function it's easy to only get the last value:
-NSNumber *number = MOGTransduce(array, MOGLastValueReducer(), @0, filter);
+NSNumber *number = MOGTransform(array, MOGLastValueReducer(), @0, filter);
 // number == 7.5
 
 // Or we can simulate the numbers coming in from a stream and manually feed numbers to the filter.

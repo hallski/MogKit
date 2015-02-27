@@ -5,5 +5,5 @@
 //
 
 #import "MogReduce.h"
-#import "MogTransduce.h"
+#import "MogTransformation.h"
 #import "NSArray+MogKit.h"

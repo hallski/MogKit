@@ -10,14 +10,14 @@
 
 @implementation NSArray (MogKit)
 
-- (NSArray *)mog_transduce:(MOGTransducer)transducer
+- (NSArray *)mog_transform:(MOGTransformation)transformation
 {
-    return MOGTransduce(self, MOGArrayReducer(), transducer);
+    return MOGTransform(self, MOGArrayReducer(), transformation);
 }
 
-+ (NSArray *)mog_transducedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transducer:(MOGTransducer)transducer
++ (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transformation:(MOGTransformation)transformation
 {
-    return MOGTransduce(enumeration, MOGArrayReducer(), transducer);
+    return MOGTransform(enumeration, MOGArrayReducer(), transformation);
 }
 
 @end

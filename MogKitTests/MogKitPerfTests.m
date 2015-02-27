@@ -38,7 +38,7 @@
 
     // Measure performance of standard impl.
     [self measureBlock:^{
-        NSArray *result = [array mog_transduce:MOGMap(^id(NSNumber *number) {
+        NSArray *result = [array mog_transform:MOGMap(^id(NSNumber *number) {
             return @(number.intValue + 100);
         })];
 

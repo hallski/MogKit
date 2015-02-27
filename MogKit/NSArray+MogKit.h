@@ -23,16 +23,16 @@
  *
  * @see `MOGTransduce`
  */
-- (NSArray *)mog_transduce:(MOGTransformation)transducer;
+- (NSArray *)mog_transform:(MOGTransformation)transducer;
 
 /**
- * Applied `transducer` to `enumeration` and collects the reduction as an array.
+ * Applied `transformation` to `enumeration` and collects the reduction as an array.
  *
  * @param enumeration the source used for transducing.
- * @param transducer the transducer to apply to the source.
+ * @param transformation the transformation to apply to the source.
  *
  * @return a newly created array containing the result of the transformation.
  */
-+ (NSArray *)mog_transducedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transducer:(MOGTransformation)transducer;
++ (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transformation:(MOGTransformation)transformation;
 
 @end

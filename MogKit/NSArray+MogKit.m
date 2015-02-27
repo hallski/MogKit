@@ -12,12 +12,12 @@
 
 - (NSArray *)mog_transduce:(MOGTransformation)transducer
 {
-    return MOGTransduce(self, MOGArrayReducer(), transducer);
+    return MOGTransform(self, MOGArrayReducer(), transducer);
 }
 
 + (NSArray *)mog_transducedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transducer:(MOGTransformation)transducer
 {
-    return MOGTransduce(enumeration, MOGArrayReducer(), transducer);
+    return MOGTransform(enumeration, MOGArrayReducer(), transducer);
 }
 
 @end

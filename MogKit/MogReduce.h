@@ -13,7 +13,7 @@
 typedef id (^MOGReducerInititialBlock) (void);
 
 /**
- * Block that is called by `MOGTransduce` after a reduction is done, this to allow step functions or the
+ * Block that is called by `MOGTransform` after a reduction is done, this to allow step functions or the
  * collection `MOGReducer` to do some final manipulation of the data.
  */
 typedef id (^MOGReducerCompleteBlock) (id);
@@ -42,7 +42,7 @@ typedef id (^MOGReduceBlock) (id acc, id val);
 
 /**
  * A reducer that accumulates values in an array. If the reducer initial function isn't used to produce the
- * initial value an `NSMutableArray` need to be supplied to `MOGReduce` or `MOGTransduceWithInitial`.
+ * initial value an `NSMutableArray` need to be supplied to `MOGReduce` or `MOGTransformWithInitial`.
  *
  * When calling complete an immutable copy is returned.
  *

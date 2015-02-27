@@ -300,13 +300,13 @@ MOGTransformation MOGComposeArray(NSArray *transducers)
     return MOGReduce(transducers, ^id(id f, id g) { return MOGCompose(f, g); }, MOGIdentity());
 }
 
-id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransformation transducer)
+id MOGTransform(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransformation transformation)
 {
-    return MOGTransduceWithInitial(source, reducer, reducer.initial(), transducer);
+    return MOGTransformWithInitial(source, reducer, reducer.initial(), transformation);
 }
 
-id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transducer)
+id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transformation)
 {
-    MOGReducer *tr = transducer(reducer);
+    MOGReducer *tr = transformation(reducer);
     return tr.complete(MOGReduce(source, tr.reduce, initial));
 }

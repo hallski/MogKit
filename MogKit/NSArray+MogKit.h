@@ -14,7 +14,7 @@
 /**
  * Apply a transducer to the array.
  *
- * This applies the transducer through `MOGTransduce` with a NSMutableArray to accumulate the values and finally
+ * This applies the transducer through `MOGTransform` with a NSMutableArray to accumulate the values and finally
  * makes a immutable copy which is passed back.
  *
  * @param transducer the transducer to apply.

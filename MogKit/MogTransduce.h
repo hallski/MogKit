@@ -293,7 +293,7 @@ MOGTransformation MOGComposeArray(NSArray *transducers);
  *
  * @return the final value collected by `reducer`.
  */
-id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransformation transducer);
+id MOGTransform(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransformation transformation);
 
 /**
  * Applied the transformation to `source`. This is the step when input, transformation and output are combined
@@ -306,4 +306,4 @@ id MOGTransduce(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransforma
  *
  * @return the final value collected by `reducer`.
  */
-id MOGTransduceWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transducer);
+id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transformation);

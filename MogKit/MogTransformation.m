@@ -5,7 +5,7 @@
 //
 
 #import <MogKit/MogKit.h>
-#import "MogTransduce.h"
+#import "MogTransformation.h"
 
 MOGReducer *SimpleStepReducer(MOGReducer *nextReducer, MOGReduceBlock stepBlock) {
     return [[MOGReducer alloc] initWithInitBlock:^{ return nextReducer.initial(); }

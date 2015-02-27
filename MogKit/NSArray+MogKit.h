@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <MogKit/MogTransduce.h>
+#import <MogKit/MogTransformation.h>
 
 
 @interface NSArray (MogKit)

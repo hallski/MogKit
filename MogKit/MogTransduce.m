@@ -208,7 +208,7 @@ MOGTransducer MOGPartitionByTransducer(MOGMapBlock partitioningBlock) {
             return reducer.initial();
         } completeBlock:^id(id result) {
             if (currentPartition.count > 0) {
-                result = reducer.reduce(result, [currentPartition copy]);
+                result = MOGUnreduced(reducer.reduce(result, [currentPartition copy]));
                 return reducer.complete(result);
             } else {
                 return result;
@@ -224,10 +224,12 @@ MOGTransducer MOGPartitionByTransducer(MOGMapBlock partitioningBlock) {
                 return acc;
             } else {
                 NSArray *finishedPartition = [currentPartition copy];
-                currentPartition = [NSMutableArray arrayWithObject:val];
-                lastPartitionKey = partitionKey;
-
-                return reducer.reduce(acc, finishedPartition);
+                id ret = reducer.reduce(acc, finishedPartition);
+                if (!MOGIsReduced(ret)) {
+                    currentPartition = [NSMutableArray arrayWithObject:val];
+                    lastPartitionKey = partitionKey;
+                }
+                return ret;
             }
         }];
     };
@@ -237,16 +239,16 @@ MOGTransducer MOGPartitionTransducer(NSUInteger size)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSMutableArray *currentPartition = [NSMutableArray new];
+        __block BOOL reduced = NO;
 
         return [[MOGReducer alloc] initWithInitBlock:^id {
             return reducer.initial();
         } completeBlock:^id(id result) {
-            if (currentPartition.count > 0) {
+            if (!reduced && currentPartition.count > 0) {
                 result = reducer.reduce(result, [currentPartition copy]);
-                return reducer.complete(result);
-            } else {
-                return result;
             }
+
+            return reducer.complete(MOGUnreduced(result));
         } reduceBlock:^id(id acc, id val) {
             [currentPartition addObject:val];
 
@@ -255,7 +257,9 @@ MOGTransducer MOGPartitionTransducer(NSUInteger size)
             } else {
                 NSArray *finishedPartition = [currentPartition copy];
                 currentPartition = [NSMutableArray new];
-                return reducer.reduce(acc, finishedPartition);
+                id ret = reducer.reduce(acc, finishedPartition);
+                reduced = MOGIsReduced(ret);
+                return ret;
             }
         }];
     };

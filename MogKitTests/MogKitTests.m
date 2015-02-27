@@ -313,12 +313,34 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testPartitionByWithEarlyTermination
+{
+    NSArray *array = @[@1, @1, @2, @2, @3];
+    NSArray *expected = @[@[@1, @1], @[@2, @2]];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGCompose(MOGPartitionByTransducer(^id(id val) {
+        return val;
+    }), MOGTakeTransducer(2)));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testPartitionTransducer
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@[@1, @2], @[@3, @4], @[@5, @6], @[@7, @8], @[@9, @10]];
 
     NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGPartitionTransducer(2));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testPartitionWithEarlyTermination
+{
+    NSArray *array = @[@1, @2, @3, @4, @5];
+    NSArray *expected = @[@[@1, @2], @[@3, @4]];
+
+    NSArray *result = MOGTransduce(array, MOGArrayReducer(), MOGCompose(MOGPartitionTransducer(2), MOGTakeTransducer(2)));
 
     XCTAssertEqualObjects(expected, result);
 }

@@ -108,3 +108,12 @@ id MOGReducedGetValue(id reducedValue);
  * @return a reduced value
  */
 id MOGEnsureReduced(id val);
+
+/**
+ * If `val` is reduced, it's unwrapped, otherwise it's returned.
+ *
+ * @param val the possibly reduced value.
+ *
+ * @return a possibly unwrapped value.
+ */
+id MOGUnreduced(id val);

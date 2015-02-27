@@ -101,6 +101,26 @@ MOGTransducer add100ToIntValuesAndFormatAsCurrency = MOGComposeArray(@[
 
 The transducer can then be reused in any other transformation, and is not even tied to `RACStream`.
 
+## Implemented Transducers
+- Map
+- Filter
+- Remove
+- Take
+- TakeWhile
+- TakeNth
+- Drop
+- DropWhile
+- Replace
+- ReplaceWithDefault
+- Keep
+- KeepIndexed
+- Unique
+- Dedupe
+- Cat
+- MapCat
+- PartitionBy
+- Partition
+- Window
 
 ## Installation
 The easiest way is to install through [Carthage](https://github.com/Carthage/Carthage). Simply add

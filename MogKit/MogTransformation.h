@@ -10,11 +10,10 @@
 
 
 /**
- * A transducer takes a `MOGReducer` and returns a new `MOGReducer` with some transformation applied.
+ * A transformation takes a `MOGReducer` and returns a new `MOGReducer` with some transformation applied.
  *
- * @discussion a transducer can be stateful but the state is bound in the reducer created when the transducer is
- * applied to the output reducer. This means it's safe to use the same transducer to create new reducers used in
- * transformations.
+ * @discussion a transformation can be stateful but the state is bound in the reducer created when the transformation
+ * is applied to the output reducer. This means it's safe to use the same transformation to create new reducers.
  */
 typedef MOGReducer *(^MOGTransformation) (MOGReducer *);
 

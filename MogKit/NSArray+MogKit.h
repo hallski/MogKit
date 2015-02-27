@@ -19,16 +19,16 @@
  *
  * @param transducer the transducer to apply.
  *
- * @return a newly created array containined the transduced values.
+ * @return a newly created array containined the transformed values.
  *
- * @see `MOGTransduce`
+ * @see `MOGTransform`
  */
 - (NSArray *)mog_transform:(MOGTransformation)transducer;
 
 /**
  * Applied `transformation` to `enumeration` and collects the reduction as an array.
  *
- * @param enumeration the source used for transducing.
+ * @param enumeration the source used for the transformation.
  * @param transformation the transformation to apply to the source.
  *
  * @return a newly created array containing the result of the transformation.

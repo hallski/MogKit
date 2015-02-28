@@ -156,7 +156,7 @@ MOGTransformation MOGReplace(NSDictionary *replacements);
  * @warning Keep in mind that if the replacements dictionary can't replace all values it should return the same type
  *          as the values passed in.
  */
-MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultValuee);
+MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultValue);
 
 /**
  * Creates a transformation that keep values where `mapBlock` returns a non-nil value and drops all where nil is returned.

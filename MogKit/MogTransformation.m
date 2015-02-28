@@ -227,24 +227,27 @@ MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
 
 MOGTransformation MOGPartition(NSUInteger size)
 {
+    NSCParameterAssert(size > 0);
+
     return ^MOGReducer *(MOGReducer *reducer) {
-        __block NSMutableArray *currentPartition = [NSMutableArray new];
-        __block BOOL reduced = NO;
+        __block NSMutableArray *currentPartition;
 
         return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val) {
+            if (!currentPartition) {
+                currentPartition = [NSMutableArray new];
+            }
             [currentPartition addObject:val];
 
             if (currentPartition.count < size) {
                 return acc;
             } else {
                 NSArray *finishedPartition = [currentPartition copy];
-                currentPartition = [NSMutableArray new];
+                currentPartition = nil;
                 id ret = reducer.reduce(acc, finishedPartition);
-                reduced = MOGIsReduced(ret);
                 return ret;
             }
         } completeBlock:^id(id result) {
-            if (!reduced && currentPartition.count > 0) {
+            if (currentPartition.count > 0) {
                 result = reducer.reduce(result, [currentPartition copy]);
             }
 

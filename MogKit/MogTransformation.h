@@ -238,7 +238,7 @@ MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock);
  * Creates a transformation that splits the values into separate `NSArray`s every `size` elements. A smaller array may be
  * sent at the end if there are less values than `size` accumulated in the transformation at complete.
  *
- * @param size the partition size
+ * @param size the partition size, must be greater than 0
  *
  * @return a stateful transformation that splits incoming values into separate partitions of size `size`.
  */

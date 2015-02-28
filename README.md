@@ -1,7 +1,7 @@
 # MogKit
 [![Build Status](https://travis-ci.org/mhallendal/MogKit.svg?branch=master)](https://travis-ci.org/mhallendal/MogKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Pod Information](https://img.shields.io/cocoapods/v/MogKit.svg?style=flat)
+[![Pod Information](https://img.shields.io/cocoapods/v/MogKit.svg?style=flat)](http://cocoadocs.org/docsets/MogKit)
 
 MogKit is a toolkit that provides fully tested and easily composable transformations to collections and any series of values (like signals, channels, etc). The transformations are independant of the underlying values or data structures which makes them highly reusable.
 

@@ -194,30 +194,31 @@ MOGTransformation MOGMapCat(MOGMapBlock mapBlock)
 MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block id lastPartitionKey = nil;
-        __block NSMutableArray *currentPartition = nil;
+        __block NSMutableArray *currentPartition = [NSMutableArray new];
 
         return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val) {
             id partitionKey = partitioningBlock(val);
-            if (lastPartitionKey == nil) {
-                lastPartitionKey = partitionKey;
-                currentPartition = [NSMutableArray new];
-            }
+            lastPartitionKey = lastPartitionKey ?: partitionKey;
+
             if ([partitionKey isEqual:lastPartitionKey]) {
                 [currentPartition addObject:val];
                 return acc;
             } else {
                 NSArray *finishedPartition = [currentPartition copy];
-                currentPartition = [NSMutableArray new];
-                id ret = reducer.reduce(acc, finishedPartition);
-                if (!MOGIsReduced(ret)) {
+                currentPartition = nil;
+
+                id newAcc = reducer.reduce(acc, finishedPartition);
+                if (!MOGIsReduced(newAcc)) {
+                    currentPartition = [NSMutableArray new];
                     [currentPartition addObject:val];
                     lastPartitionKey = partitionKey;
                 }
-                return ret;
+                return newAcc;
             }
         } completeBlock:^id(id result) {
             if (currentPartition.count > 0) {
                 result = MOGUnreduced(reducer.reduce(result, [currentPartition copy]));
+                currentPartition = nil;
             }
             return reducer.complete(result);
         }];

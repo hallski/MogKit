@@ -202,10 +202,8 @@ MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
         } completeBlock:^id(id result) {
             if (currentPartition.count > 0) {
                 result = MOGUnreduced(reducer.reduce(result, [currentPartition copy]));
-                return reducer.complete(result);
-            } else {
-                return result;
             }
+            return reducer.complete(result);
         } reduceBlock:^id(id acc, id val) {
             id partitionKey = partitioningBlock(val);
             if (lastPartitionKey == nil) {

@@ -4,6 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
+
 #import "MogReduce.h"
 
 @interface MOGReducedWrapper : NSObject

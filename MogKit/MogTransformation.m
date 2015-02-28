@@ -51,7 +51,12 @@ MOGTransformation MOGTake(NSUInteger n)
         __block NSUInteger taken = 0;
 
         return SimpleStepReducer(reducer, ^(id acc, id val) {
-            return taken++ < n ? reducer.reduce(acc, val) : MOGEnsureReduced(acc);
+            if (taken++ < n) {
+                id newAcc = reducer.reduce(acc, val);
+                return taken == n ? MOGEnsureReduced(newAcc) : newAcc;
+            } else {
+                return MOGEnsureReduced(acc);
+            }
         });
     };
 }
@@ -215,9 +220,10 @@ MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
                 return acc;
             } else {
                 NSArray *finishedPartition = [currentPartition copy];
+                currentPartition = [NSMutableArray new];
                 id ret = reducer.reduce(acc, finishedPartition);
                 if (!MOGIsReduced(ret)) {
-                    currentPartition = [NSMutableArray arrayWithObject:val];
+                    [currentPartition addObject:val];
                     lastPartitionKey = partitionKey;
                 }
                 return ret;

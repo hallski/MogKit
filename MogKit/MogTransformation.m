@@ -115,13 +115,10 @@ MOGTransformation MOGReplace(NSDictionary *replacements) {
 
 MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultValue)
 {
-    return ^MOGReducer *(MOGReducer *reducer) {
-        return SimpleStepReducer(reducer, ^(id acc, id val) {
-            id replacement = replacements[val] ?: defaultValue;
-            replacement = replacement ?: val;
-            return reducer.reduce(acc, replacement);
-        });
-    };
+    return MOGMap(^id(id val) {
+        id replacement = replacements[val] ?: defaultValue;
+        return replacement ?: val;
+    });
 }
 
 MOGTransformation MOGKeep(MOGMapBlock mapBlock) {
@@ -171,7 +168,6 @@ MOGTransformation MOGDedupe(void)
     };
 }
 
-
 MOGTransformation MOGCat(void)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
@@ -195,7 +191,6 @@ MOGTransformation MOGMapCat(MOGMapBlock mapBlock)
 {
     return MOGCompose(MOGMap(mapBlock), MOGCat());
 }
-
 
 MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {

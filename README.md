@@ -128,7 +128,7 @@ The transformation can then be reused and is not even tied to `RACStream`.
 The easiest way is to install through [Carthage](https://github.com/Carthage/Carthage). Simply add
 
 ```
-github "mhallendal/MogKit" "master"
+github "mhallendal/MogKit"
 ```
 
 to your `Cartfile` and follow the Carthage instructions for including the framework in your application.

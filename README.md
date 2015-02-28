@@ -1,6 +1,7 @@
 # MogKit
 [![Build Status](https://travis-ci.org/mhallendal/MogKit.svg?branch=master)](https://travis-ci.org/mhallendal/MogKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Pod Information](https://img.shields.io/cocoapods/v/MogKit.svg?style=flat)
 
 MogKit is a toolkit that provides fully tested and easily composable transformations to collections and any series of values (like signals, channels, etc). The transformations are independant of the underlying values or data structures which makes them highly reusable.
 
@@ -122,6 +123,8 @@ The transformation can then be reused and is not even tied to `RACStream`.
 - Window
 
 ## Installation
+
+### Carthage
 The easiest way is to install through [Carthage](https://github.com/Carthage/Carthage). Simply add
 
 ```
@@ -130,11 +133,18 @@ github "mhallendal/MogKit" "master"
 
 to your `Cartfile` and follow the Carthage instructions for including the framework in your application.
 
+### CocoaPods
+Alternatively by using CocoaPods, simply add
+```
+pod 'MogKit'
+```
+
+to your `Podfile`.
+
+### Submodule
 You can also add it as submodule to your project `https://github.com/mhallendal/MogKit.git` and include the project file in your application.
 
 If you are using the Foundation extensions, like `-mog_transform:` on `NSArray`, make sure that you add `-ObjC` to your application's _Other Linker Flags_.
-
-CocoaPods support is planned.
 
 ## TODO
 - Swift support (post 1.0)

@@ -125,11 +125,9 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
 }
 
 MOGTransformation MOGKeep(MOGMapBlock mapBlock) {
-    return ^MOGReducer *(MOGReducer *reducer) {
-        return SimpleStepReducer(reducer, ^(id acc, id val) {
-            return mapBlock(val) != nil ? reducer.reduce(acc, val) : acc;
-        });
-    };
+    return MOGFilter(^BOOL(id val) {
+        return mapBlock(val) != nil;
+    });
 }
 
 MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock func) {

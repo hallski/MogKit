@@ -223,6 +223,7 @@
 				40B9A6C11A97EAFD0062C693 /* Frameworks */,
 				40B9A6C21A97EAFD0062C693 /* Headers */,
 				40B9A6C31A97EAFD0062C693 /* Resources */,
+				40301A731AA269AD0019E1E6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -325,6 +326,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		40301A731AA269AD0019E1E6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = XcodeCoverage/exportenv.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		40B9A6A21A97EAE90062C693 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -401,6 +418,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",

@@ -345,6 +345,16 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testPartitionWithNonFinishedPartition
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8];
+    NSArray *expected = @[@[@1, @2, @3], @[@4, @5, @6], @[@7, @8]];
+
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGPartition(3));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testPartitionWithEarlyTermination
 {
     NSArray *array = @[@1, @2, @3, @4, @5];

@@ -34,9 +34,45 @@ typedef id (^MOGReduceBlock) (id acc, id val);
 @property (nonatomic, copy) MOGReducerInititialBlock initial;
 @property (nonatomic, copy) MOGReducerCompleteBlock complete;
 
+/**
+* Initialize a `MOGReducer` with blocks to create initial value, completion handler and reduce block.
+*
+* @discussion Use this initializer when writing an output reducer. For implementing transformations use one of the
+* stepReducer class methods instead.
+*
+* @param initBlock a block that creates the initial value for a reduction.
+* @param completeBlock block that will be called exactly once after a reduction is complete.
+* @param reduceBlock called for each value in the reduction.
+*
+* @return the reducer
+* */
 - (instancetype)initWithInitBlock:(id(^)(void))initBlock
                     completeBlock:(id(^)(id))completeBlock
                       reduceBlock:(MOGReduceBlock)reduceBlock;
+
+/**
+ * Class method to create a step reducer (used when implementing transformations).
+ *
+ * @param reduceBlock called for each value in the reduction.
+ *
+ * @return a newly created step reducer.
+ */
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceBlock)reduceBlock;
+
+/**
+ * Class method to create a step reducer (used when implementing transformations). Use this when the transformation
+ * keeps some state that needs to be flushed after the reduction is done. See the implementation of `MOGPartition` for
+ * an example of this.
+ *
+ * @param completeBlock block that will be called exactly once after a reduction is complete. Note that this block need
+ * to chain to nextReducers completeBlock.
+ * @param reduceBlock called for each value in the reduction.
+ *
+ * @return a newly created step reducer.
+ */
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer
+                               reduceBlock:(MOGReduceBlock)reduceBlock
+                             completeBlock:(id(^)(id))completeBlock;
 
 @end
 

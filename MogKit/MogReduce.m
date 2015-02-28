@@ -104,4 +104,22 @@ id MOGUnreduced(id val)
     return self;
 }
 
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceBlock)reduceBlock
+{
+    return [self stepReducerWithNextReducer:nextReducer
+                                reduceBlock:reduceBlock
+                              completeBlock:^id(id result) {
+                                  return nextReducer.complete(result);
+                              }];
+}
+
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer
+                               reduceBlock:(MOGReduceBlock)reduceBlock
+                             completeBlock:(id(^)(id))completeBlock
+{
+    return [[self alloc] initWithInitBlock:^id { return nextReducer.initial(); }
+                             completeBlock:completeBlock
+                               reduceBlock:reduceBlock];
+}
+
 @end

@@ -4,7 +4,7 @@
 // Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
 
-#import <MogKit/MogKit.h>
+
 #import "MogTransformation.h"
 
 MOGTransformation MOGIdentity(void) {

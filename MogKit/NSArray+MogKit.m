@@ -15,7 +15,8 @@
     return MOGTransform(self, MOGArrayReducer(), transformation);
 }
 
-+ (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transformation:(MOGTransformation)transformation
++ (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration
+                                  transformation:(MOGTransformation)transformation
 {
     return MOGTransform(enumeration, MOGArrayReducer(), transformation);
 }

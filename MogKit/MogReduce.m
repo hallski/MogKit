@@ -59,7 +59,6 @@ id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initia
     }
     return self;
 }
-
 @end
 
 

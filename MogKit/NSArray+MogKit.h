@@ -19,7 +19,7 @@
  *
  * @param transformation the transformation to apply.
  *
- * @return a newly created array containined the transformed values.
+ * @return a newly created array contained the transformed values.
  *
  * @see `MOGTransform`
  */

@@ -101,6 +101,16 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testTakeWithZero
+{
+    NSArray *array = @[@1, @2];
+    NSArray *expected = @[];
+
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGTake(0));
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testTakeReuseTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];

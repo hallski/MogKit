@@ -18,7 +18,7 @@
     XCTAssertEqualObjects(expected, mArray);
 }
 
-- (void)testArrayReducerCompleteCreatesNonMutableCopy
+- (void)testArrayReducerCompleteCompleteDoesntChangeTheValues
 {
     MOGReducer *reducer = MOGArrayReducer();
     NSMutableArray *mArray = [NSMutableArray arrayWithArray:@[@1, @2, @3, @4, @5]];
@@ -26,7 +26,6 @@
     NSArray *result = reducer.complete(mArray);
 
     XCTAssert([result isKindOfClass:[NSArray class]]);
-    XCTAssertFalse([result isKindOfClass:[NSMutableArray class]]);
     XCTAssertEqualObjects(result, mArray);
 }
 
@@ -72,7 +71,7 @@
     XCTAssertEqualObjects(expected, mString);
 }
 
-- (void)testStringConcatReducerCompleteCreatesNonMutableCopy
+- (void)testStringConcatReducerCompleteDoesntChangeTheValues
 {
     MOGReducer *reducer = MOGStringConcatReducer(nil);
 
@@ -82,7 +81,6 @@
     NSString *result = reducer.complete(mString);
 
     XCTAssert([result isKindOfClass:[NSString class]]);
-    XCTAssertFalse([result isKindOfClass:[NSMutableString class]]);
     XCTAssertEqualObjects(expected, result);
 }
 

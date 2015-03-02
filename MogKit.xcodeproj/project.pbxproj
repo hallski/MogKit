@@ -25,7 +25,9 @@
 		6313D23FFFC5D8AD35EB349E /* NSArray+MogKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */; };
 		6313D40AB14CDFD051C08C7A /* NSArray+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DA19720500FEB4094902 /* NSArray+MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6313D586A3FCAC21E1726DC0 /* NSArray+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DA19720500FEB4094902 /* NSArray+MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6313D83BF4DB5BED70D4B629 /* MogReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF459141FACBF1F00FC8 /* MogReduceTests.m */; };
 		6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
+		6313DC63CF8753FDC0CE84BC /* MogReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF459141FACBF1F00FC8 /* MogReduceTests.m */; };
 		6313DEBBA7BE3BE52606A406 /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,7 @@
 		6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogKitPerfTests.m; sourceTree = "<group>"; };
 		6313DCDA3FCA4C65D52CD514 /* MogTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MogTransformation.h; sourceTree = "<group>"; };
 		6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayExtensionTests.m; sourceTree = "<group>"; };
+		6313DF459141FACBF1F00FC8 /* MogReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogReduceTests.m; sourceTree = "<group>"; };
 		6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MogKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +142,7 @@
 				40B9A6331A95241C0062C693 /* MogTransformationTests.m */,
 				6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */,
 				6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */,
+				6313DF459141FACBF1F00FC8 /* MogReduceTests.m */,
 			);
 			path = MogKitTests;
 			sourceTree = "<group>";
@@ -359,6 +363,7 @@
 			files = (
 				40B9A6E21A97EC750062C693 /* MogTransformationTests.m in Sources */,
 				6313DEBBA7BE3BE52606A406 /* NSArrayExtensionTests.m in Sources */,
+				6313DC63CF8753FDC0CE84BC /* MogReduceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +383,7 @@
 			files = (
 				40B9A6E41A97EC760062C693 /* MogTransformationTests.m in Sources */,
 				6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */,
+				6313D83BF4DB5BED70D4B629 /* MogReduceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

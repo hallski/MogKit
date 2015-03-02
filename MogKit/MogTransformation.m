@@ -167,7 +167,7 @@ MOGTransformation MOGDedupe(void)
     };
 }
 
-MOGTransformation MOGCat(void)
+MOGTransformation MOGConcat(void)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
         return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val) {
@@ -188,7 +188,7 @@ MOGTransformation MOGCat(void)
 
 MOGTransformation MOGMapCat(MOGMapBlock mapBlock)
 {
-    return MOGCompose(MOGMap(mapBlock), MOGCat());
+    return MOGCompose(MOGMap(mapBlock), MOGConcat());
 }
 
 MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {

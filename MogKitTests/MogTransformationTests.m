@@ -8,10 +8,10 @@
 #import "MogKit.h"
 
 
-@interface MogKitTests : XCTestCase
+@interface MogTransformationTests : XCTestCase
 @end
 
-@implementation MogKitTests
+@implementation MogTransformationTests
 
 - (void)testEarlyTermination
 {

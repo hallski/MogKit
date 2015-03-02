@@ -77,8 +77,8 @@ typedef id (^MOGReduceBlock) (id acc, id val);
 @end
 
 /**
- * A reducer that accumulates values in an array. If the reducer initial function isn't used to produce the
- * initial value an `NSMutableArray` need to be supplied to `MOGReduce` or `MOGTransformWithInitial`.
+ * A reducer that accumulates values in an array. If the reducer initial block isn't used to produce the
+ * initial value an `NSMutableArray` must be supplied to `MOGReduce` or `MOGTransformWithInitial`.
  *
  * When calling complete an immutable copy is returned.
  *
@@ -91,6 +91,16 @@ MOGReducer *MOGArrayReducer(void);
  * when only the final value of a computation is used.
  */
 MOGReducer *MOGLastValueReducer(void);
+
+/**
+ * A reducer that concatenates string values, with a possible separator. If the reducer initial block isn't used
+ * to produce the initial value, a NSMutableString must be supplied to `MOGReduce` or `MOGTransformWithInitial`.
+ *
+ * @param separator a separator that is inserted between each string
+ *
+ * @return a reducer collecting values in an array.
+ */
+MOGReducer *MOGStringConcatReducer(NSString *separator);
 
 /**
  * Applies the `reduceBlock` to each element of `source` and returns the final accumulated

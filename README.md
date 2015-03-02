@@ -22,6 +22,19 @@ NSArray *result = [array mog_transform:MOGMap(^id(NSNumber *number) {
 // result is now @[@101, @102, @103]
 ```
 
+Or work on some numbers and output as a string:
+```objective-c
+NSArray *array = @[@1, @2, @3];
+
+NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), MOGCompose(MOGMap(^id(NSNumber *val) {
+    return @(val.intValue + 10);
+}), MOGMap(^id(NSNumber *val) {
+    return val.stringValue;
+})));
+
+// result = "11, 12, 13"
+```
+
 ### Use to easily implement some transformation functions
 Another case is when you have some data structure and want to add a transformation method to it, for example extending `NSArray` and give it a `filter` method, all you need to do is
 

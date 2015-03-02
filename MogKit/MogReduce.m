@@ -37,6 +37,22 @@ MOGReducer *MOGLastValueReducer(void)
     }];
 }
 
+MOGReducer *MOGStringConcatReducer(NSString *separator)
+{
+    return [[MOGReducer alloc] initWithInitBlock:^id {
+        return [NSMutableString new];
+    } completeBlock:^id(NSMutableString *result) {
+        return [result copy];
+    } reduceBlock:^id(NSMutableString *acc, NSString *val) {
+        if (!separator || [acc isEqualToString:@""]) {
+            [acc appendString:val];
+        } else {
+            [acc appendFormat:@"%@%@", separator, val];
+        }
+        return acc;
+    }];
+}
+
 id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial)
 {
     id acc = initial;

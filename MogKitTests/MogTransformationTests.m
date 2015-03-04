@@ -394,15 +394,6 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testLastValueReducer
-{
-    NSArray *array = @[@1, @2, @3, @4, @5];
-    NSNumber *expected = @5;
-
-    NSNumber *result = MOGTransform(array, MOGLastValueReducer(), MOGIdentity());
-
-    XCTAssertEqualObjects(expected, result);
-}
 
 #pragma mark - Transformation composition
 - (void)testComposeTwoTransformations

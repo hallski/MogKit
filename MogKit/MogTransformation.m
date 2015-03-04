@@ -121,17 +121,21 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
 }
 
 MOGTransformation MOGKeep(MOGMapBlock mapBlock) {
-    return MOGFilter(^BOOL(id val) {
-        return mapBlock(val) != nil;
-    });
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val) {
+            id outValue = mapBlock(val);
+            return outValue != nil ? reducer.reduce(acc, outValue) : acc;
+        }];
+    };
 }
 
-MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock func) {
+MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock indexedMapBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger index = 0;
 
         return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val) {
-            return func(index++, val) != nil ? reducer.reduce(acc, val) : acc;
+            id outValue = indexedMapBlock(index++, val);
+            return outValue != nil ? reducer.reduce(acc, outValue) : acc;
         }];
     };
 }

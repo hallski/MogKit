@@ -220,10 +220,10 @@
 - (void)testKeepTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    NSArray *expected = @[@1, @3, @5, @7, @9];
+    NSArray *expected = @[@11, @13, @15, @17, @19];
 
     NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGKeep(^id(NSNumber *number) {
-        return number.intValue % 2 == 0 ? nil : number;
+        return number.intValue % 2 == 0 ? nil : @(number.intValue + 10);
     }));
 
     XCTAssertEqualObjects(expected, result);
@@ -232,10 +232,10 @@
 - (void)testKeepIndexedTransformation
 {
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    NSArray *expected = @[@1, @3, @5, @7, @9];
+    NSArray *expected = @[@21, @23, @25, @27, @29];
 
-    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGKeepIndexed(^id(NSUInteger index, id o) {
-        return index % 2 == 0 ? o : nil;
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGKeepIndexed(^id(NSUInteger index, NSNumber *number) {
+        return index % 2 == 0 ? @(number.intValue + 20) : nil;
     }));
 
     XCTAssertEqualObjects(expected, result);

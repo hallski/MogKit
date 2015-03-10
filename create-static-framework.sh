@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# http://www.raywenderlich.com/65964/create-a-framework-for-ios
+# http://oopstechblog.com/index.php/how-to-create-fat-static-library-for-ios-7-8-projects/
+
 set -e
 export PROJECT_DIR="."
 export BUILD_DIR="${PROJECT_DIR}/build"

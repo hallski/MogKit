@@ -29,6 +29,13 @@
 		6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
 		6313DC63CF8753FDC0CE84BC /* MogReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF459141FACBF1F00FC8 /* MogReduceTests.m */; };
 		6313DEBBA7BE3BE52606A406 /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
+		99497FBE1AAEF01700EC4E21 /* MogTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransformation.m */; };
+		99497FBF1AAEF01B00EC4E21 /* MogReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D4F60D39DC6032BEF249 /* MogReduce.m */; };
+		99497FC01AAEF01B00EC4E21 /* NSArray+MogKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */; };
+		99497FC21AAEF38D00EC4E21 /* MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B9A61C1A9524070062C693 /* MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99497FC31AAEF38D00EC4E21 /* MogTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99497FC41AAEF38D00EC4E21 /* MogReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MogReduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99497FC51AAEF38D00EC4E21 /* NSArray+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DA19720500FEB4094902 /* NSArray+MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		99497FA51AAEEF2B00EC4E21 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		40B9A61C1A9524070062C693 /* MogKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MogKit.h; sourceTree = "<group>"; };
 		40B9A62A1A9524070062C693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +84,7 @@
 		6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayExtensionTests.m; sourceTree = "<group>"; };
 		6313DF459141FACBF1F00FC8 /* MogReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogReduceTests.m; sourceTree = "<group>"; };
 		6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MogKit.m"; sourceTree = "<group>"; };
+		99497FA71AAEEF2B00EC4E21 /* libMogKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMogKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +118,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99497FA41AAEEF2B00EC4E21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -117,6 +144,7 @@
 				40B9A6B11A97EAE90062C693 /* MogKit-iOSTests.xctest */,
 				40B9A6C51A97EAFD0062C693 /* MogKit.framework */,
 				40B9A6CF1A97EAFD0062C693 /* MogKit-MacTests.xctest */,
+				99497FA71AAEEF2B00EC4E21 /* libMogKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,6 +205,17 @@
 				40B9A6E71A97EEC80062C693 /* MogTransformation.h in Headers */,
 				40B9A6E81A97EEC80062C693 /* MogReduce.h in Headers */,
 				6313D586A3FCAC21E1726DC0 /* NSArray+MogKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99497FC11AAEF38100EC4E21 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99497FC51AAEF38D00EC4E21 /* NSArray+MogKit.h in Headers */,
+				99497FC21AAEF38D00EC4E21 /* MogKit.h in Headers */,
+				99497FC41AAEF38D00EC4E21 /* MogReduce.h in Headers */,
+				99497FC31AAEF38D00EC4E21 /* MogTransformation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +295,24 @@
 			productReference = 40B9A6CF1A97EAFD0062C693 /* MogKit-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		99497FA61AAEEF2B00EC4E21 /* MogKit-static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99497FBC1AAEEF2B00EC4E21 /* Build configuration list for PBXNativeTarget "MogKit-static" */;
+			buildPhases = (
+				99497FA31AAEEF2B00EC4E21 /* Sources */,
+				99497FA41AAEEF2B00EC4E21 /* Frameworks */,
+				99497FA51AAEEF2B00EC4E21 /* CopyFiles */,
+				99497FC11AAEF38100EC4E21 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MogKit-static";
+			productName = "MogKit-static";
+			productReference = 99497FA71AAEEF2B00EC4E21 /* libMogKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -277,6 +334,9 @@
 					40B9A6CE1A97EAFD0062C693 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					99497FA61AAEEF2B00EC4E21 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 				};
 			};
 			buildConfigurationList = 40B9A6141A9524070062C693 /* Build configuration list for PBXProject "MogKit" */;
@@ -295,6 +355,7 @@
 				40B9A6CE1A97EAFD0062C693 /* MogKit-MacTests */,
 				40B9A6A61A97EAE90062C693 /* MogKit-iOS */,
 				40B9A6B01A97EAE90062C693 /* MogKit-iOSTests */,
+				99497FA61AAEEF2B00EC4E21 /* MogKit-static */,
 			);
 		};
 /* End PBXProject section */
@@ -384,6 +445,16 @@
 				40B9A6E41A97EC760062C693 /* MogTransformationTests.m in Sources */,
 				6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */,
 				6313D83BF4DB5BED70D4B629 /* MogReduceTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99497FA31AAEEF2B00EC4E21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99497FBE1AAEF01700EC4E21 /* MogTransformation.m in Sources */,
+				99497FC01AAEF01B00EC4E21 /* NSArray+MogKit.m in Sources */,
+				99497FBF1AAEF01B00EC4E21 /* MogReduce.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +728,40 @@
 			};
 			name = Release;
 		};
+		99497FB81AAEEF2B00EC4E21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = MogKit;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		99497FB91AAEEF2B00EC4E21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = MogKit;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -704,6 +809,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		99497FBC1AAEEF2B00EC4E21 /* Build configuration list for PBXNativeTarget "MogKit-static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99497FB81AAEEF2B00EC4E21 /* Debug */,
+				99497FB91AAEEF2B00EC4E21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

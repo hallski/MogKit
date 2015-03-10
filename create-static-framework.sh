@@ -31,6 +31,10 @@ function build_static_library {
 build_static_library iphonesimulator i386
 mv "${BUILD_DIR}/Release-iphonesimulator/lib${PRODUCT_NAME}.a" "${BUILD_DIR}/libMogKiti386.a"
 
+build_static_library iphonesimulator x86_64
+mv "${BUILD_DIR}/Release-iphonesimulator/lib${PRODUCT_NAME}.a" "${BUILD_DIR}/libMogKitx86_64.a"
+
+
 # Build armv7
 build_static_library iphoneos armv7
 mv "${BUILD_DIR}/Release-iphoneos/lib${PRODUCT_NAME}.a" "${BUILD_DIR}/libMogKitArmv7.a"
@@ -48,7 +52,8 @@ lipo -create -output $UNIVERSIONAL_LIB_LOCATION \
     "${BUILD_DIR}/libMogKiti386.a"              \
     "${BUILD_DIR}/libMogKitArmv7.a"             \
     "${BUILD_DIR}/libMogKitArmv7s.a"            \
-    "${BUILD_DIR}/libMogKitArm64.a"
+    "${BUILD_DIR}/libMogKitArm64.a"             \
+    "${BUILD_DIR}/libMogKitx86_64.a"
 
 # Copy the headers and universal library into framework
 cp -a ${HEADER_LOCATION} "${FRAMEWORK_LOCATION}/Versions/A/Headers"

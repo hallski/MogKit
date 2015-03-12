@@ -247,6 +247,7 @@
 				40B9A6A31A97EAE90062C693 /* Frameworks */,
 				40B9A6A41A97EAE90062C693 /* Headers */,
 				40B9A6A51A97EAE90062C693 /* Resources */,
+				406327D81AB24244001DC4F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -420,7 +421,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = XcodeCoverage/exportenv.sh;
+			shellScript = "if [ -f XcodeCoverage/exportenv.sh ]; then\n    XcodeCoverage/exportenv.sh\nfi";
+		};
+		406327D81AB24244001DC4F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f XcodeCoverage/exportenv.sh ]; then\n    XcodeCoverage/exportenv.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

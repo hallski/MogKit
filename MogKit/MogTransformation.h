@@ -115,7 +115,7 @@ MOGTransformation MOGDrop(NSUInteger n);
 
 /**
  * Creates a transformation that drops all values while the `predicate` function returns YES.
- * After that all values are passed through
+ * After that all values are passed through.
  *
  * @param predicate the predicate function deciding whether to keep dropping values.
  *

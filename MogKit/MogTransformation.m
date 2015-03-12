@@ -108,6 +108,15 @@ MOGTransformation MOGDropWhile(MOGPredicate predicate) {
     };
 }
 
+
+MOGTransformation MOGDropNil(void) {
+    return ^MOGReducer *(MOGReducer *reducer) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val) {
+            return val != nil ? reducer.reduce(acc, val) : acc;
+        }];
+    };
+}
+
 MOGTransformation MOGReplace(NSDictionary *replacements) {
     return MOGReplaceWithDefault(replacements, nil);
 }

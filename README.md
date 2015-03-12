@@ -123,6 +123,7 @@ The transformation can then be reused and is not even tied to `RACStream`.
 - TakeNth
 - Drop
 - DropWhile
+- DropNil
 - Replace
 - ReplaceWithDefault
 - Keep

@@ -169,6 +169,25 @@
     XCTAssertEqualObjects(expected, result);
 }
 
+- (void)testDropNilTransformation
+{
+    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    NSArray *expected = @[@1, @2, @3, @9, @10];
+
+    MOGTransformation dropNil = MOGCompose(
+            MOGMap(^id(NSNumber *number) {
+                if (number.intValue > 3 && number.intValue < 9) {
+                    return nil;
+                }
+                return number;
+            }),
+            MOGDropNil());
+
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), dropNil);
+
+    XCTAssertEqualObjects(expected, result);
+}
+
 - (void)testReplaceTransformation
 {
     NSArray *array = @[@"1", @"2", @"3", @"4", @"5"];

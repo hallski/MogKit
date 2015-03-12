@@ -126,6 +126,13 @@ MOGTransformation MOGDrop(NSUInteger n);
 MOGTransformation MOGDropWhile(MOGPredicate predicate);
 
 /**
+ * Creates a transformation that pass on any non-nil values.
+ *
+ * @return a transformation that pass through any non-nil values.
+ */
+MOGTransformation MOGDropNil(void);
+
+/**
  * Creates a transformation that replaces values if they are found in the `replacements` dictionary. For each value it will
  * try to locate it as a key in the `replacements` dictionary, if found the corresponding value will be used instead,
  * otherwise the original value will be passed on unfiltered.

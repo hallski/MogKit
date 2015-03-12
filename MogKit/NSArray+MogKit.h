@@ -26,7 +26,7 @@
 - (NSArray *)mog_transform:(MOGTransformation)transformation;
 
 /**
- * Applied `transformation` to `enumeration` and collects the reduction as an array.
+ * Applies `transformation` to `enumeration` and collects the reduction as an array.
  *
  * @param enumeration the source used for the transformation.
  * @param transformation the transformation to apply to the source.

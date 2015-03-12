@@ -443,21 +443,4 @@
     XCTAssertEqualObjects(expected, result);
 }
 
-- (void)testSomething
-{
-    MOGReducer *reducer = MOGStringConcatReducer(@", ");
-
-    NSArray *array = @[@1, @2, @3];
-
-    NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), MOGCompose(MOGMap(^id(NSNumber *val) {
-        return @(val.intValue + 10);
-    }), MOGMap(^id(NSNumber *val) {
-        return val.stringValue;
-    })));
-
-    NSString *expected = @"11, 12, 13";
-
-    XCTAssertEqualObjects(expected, reducer.complete(result));
-}
-
 @end

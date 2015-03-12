@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "MogKit"
-  s.version      = "0.8"
+  s.version      = "0.9"
   s.summary      = "MogKit is a transducer based data transformation toolkit for Objective-C."
 
   s.description  = <<-DESC
@@ -29,10 +29,10 @@ Pod::Spec.new do |s|
 
   s.author       = { "Mikael Hallendal" => "hallski@hallski.org" }
 
-  s.ios.deployment_target = "8.0"
+  s.ios.deployment_target = "7.0"
   s.osx.deployment_target = "10.8"
 
-  s.source       = { :git => "https://github.com/mhallendal/MogKit.git", :tag => "0.8" }
+  s.source       = { :git => "https://github.com/mhallendal/MogKit.git", :tag => "0.9" }
 
   s.source_files  = "MogKit/*.{h,m}"
   # s.exclude_files = "MogKitTests/*"

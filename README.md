@@ -37,12 +37,12 @@ NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), MOGCompose
 
 It can also be used on any `NSObject` like:
 ```objective-c
-    id object = @10;
-    NSArray *expected = @[@(-10), @0, @10];
+id object = @10;
+NSArray *expected = @[@(-10), @0, @10];
 
-    NSArray *result = [object mog_transform:MOGFlatMap(^id(NSNumber *number) {
-        return @[@(-number.intValue), @0, number];
-    }) reducer:MOGArrayReducer()];
+NSArray *result = [object mog_transform:MOGFlatMap(^id(NSNumber *number) {
+    return @[@(-number.intValue), @0, number];
+}) reducer:MOGArrayReducer()];
 
 // result = @[@(-10), @0, @10]
 ```

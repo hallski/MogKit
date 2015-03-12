@@ -35,6 +35,18 @@ NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), MOGCompose
 // result = "11, 12, 13"
 ```
 
+It can also be used on any `NSObject` like:
+```objective-c
+    id object = @10;
+    NSArray *expected = @[@(-10), @0, @10];
+
+    NSArray *result = [object mog_transform:MOGFlatMap(^id(NSNumber *number) {
+        return @[@(-number.intValue), @0, number];
+    }) reducer:MOGArrayReducer()];
+
+// result = @[@(-10), @0, @10]
+```
+
 ### Use to easily implement some transformation functions
 Another case is when you have some data structure and want to add a transformation method to it, for example extending `NSArray` and give it a `filter` method, all you need to do is
 

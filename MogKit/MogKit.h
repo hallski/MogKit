@@ -7,3 +7,4 @@
 #import "MogReduce.h"
 #import "MogTransformation.h"
 #import "NSArray+MogKit.h"
+#import "NSObject+MogKit.h"

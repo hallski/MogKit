@@ -129,8 +129,8 @@ The transformation can then be reused and is not even tied to `RACStream`.
 - MapDropNil
 - Unique
 - Dedupe
-- Cat
-- MapCat
+- Flatten
+- FlatMap
 - PartitionBy
 - Partition
 - Window

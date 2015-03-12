@@ -196,21 +196,19 @@ MOGTransformation MOGDedupe(void);
  * Creates a transformation that concatenates values that conforms to `NSFastEnumeration`. Other values are passed
  * through untouched.
  *
- * @discussion Sometimes called 'flatten'.
- *
  * @return a transformation that concat the values.
  */
-MOGTransformation MOGConcat(void);
+MOGTransformation MOGFlatten(void);
 
 /**
  * Creates a transformation that first apply the mapBlock on all values and then concatenates the results. It's the
- * composition of `MogMap` . `MogConcat`.
+ * composition of `MogMap` . `MogFlatten`.
  *
  * @param mapBlock the transformation function.
  *
  * @return a transformation that applies `mapBlock` on all values and then concatenates the result.
  */
-MOGTransformation MOGMapCat(MOGMapBlock mapBlock);
+MOGTransformation MOGFlatMap(MOGMapBlock mapBlock);
 
 /**
  * Creates a transformation that splits the the values into separate `NSArray`s every time the `partitioningBlock`

@@ -273,7 +273,7 @@
     NSArray *array = @[@[@1, @2], @[@3, @4, @5], @[@6]];
     NSArray *expected = @[@1, @2, @3, @4, @5, @6];
 
-    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGConcat());
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGFlatten());
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -283,7 +283,7 @@
     NSArray *array = @[@1, @[@2, @3], @4, @5];
     NSArray *expected = @[@1, @2, @3, @4, @5];
 
-    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGConcat());
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGFlatten());
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -293,7 +293,7 @@
     NSArray *array = @[@1, @2, @3];
     NSArray *expected = @[@1, @1, @1, @2, @2, @2, @3, @3, @3];
 
-    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGMapCat(^id(id val) {
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGFlatMap(^id(id val) {
         return @[val, val, val];
     }));
 
@@ -312,7 +312,7 @@
         return val.intValue == 5 ? MOGReduced(acc) : acc;
     };
 
-    NSArray *result = MOGTransform(array, reducer, MOGConcat());
+    NSArray *result = MOGTransform(array, reducer, MOGFlatten());
 
     XCTAssertEqualObjects(expected, result);
 }

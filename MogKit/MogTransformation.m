@@ -108,7 +108,6 @@ MOGTransformation MOGDropWhile(MOGPredicate predicate) {
     };
 }
 
-
 MOGTransformation MOGDropNil(void) {
     return ^MOGReducer *(MOGReducer *reducer) {
         return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val) {
@@ -129,13 +128,8 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
     });
 }
 
-MOGTransformation MOGKeep(MOGMapBlock mapBlock) {
-    return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val) {
-            id outValue = mapBlock(val);
-            return outValue != nil ? reducer.reduce(acc, outValue) : acc;
-        }];
-    };
+MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock) {
+    return MOGCompose(MOGMap(mapBlock), MOGDropNil());
 }
 
 MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock indexedMapBlock) {

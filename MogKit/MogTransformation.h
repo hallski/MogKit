@@ -31,7 +31,7 @@ typedef id (^MOGIndexedMapBlock) (NSUInteger index, id val);
 
 /**
  * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilter` or
- * `MOGKeep`.
+ * `MOGMapDropNil`.
  */
 typedef BOOL (^MOGPredicate) (id val);
 
@@ -168,20 +168,18 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
 /**
  * Creates a transformation that keep values where `mapBlock` returns a non-nil value and drops all where nil is returned.
  *
- * @warning Keep in mind that the original value is passed on, not the value returned by `mapBlock`.
- *
  * @param mapBlock a function that determines if the transformation should pass on a value or not. non-nil to pass on,
  *        nil to drop it.
  *
  * @return a transformation that drops all values where `mapBlock` returns nil.
  *
- * @see `MOGFilter`, `MOGRemove` and `MOGKeepIndexed`.
+ * @see `MOGFilter`, `MOGRemove`.
  */
-MOGTransformation MOGKeep(MOGMapBlock mapBlock);
+MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock);
 
 /**
  * Creates a transformation that keeps values where `mapBlock` returns a non-nil value. This is similar to
- * `MOGKeep` with the difference that the index of the value is passed to `mapBlock` as well.
+ * `MOGMapDropNil` with the difference that the index of the value is passed to `mapBlock` as well.
  *
  * @param mapBlock a function that determines if the transformation should pass on a value or not. non-nil to pass on,
  *        nil to drop it.

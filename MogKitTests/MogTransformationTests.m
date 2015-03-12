@@ -241,7 +241,7 @@
     NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
     NSArray *expected = @[@11, @13, @15, @17, @19];
 
-    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGKeep(^id(NSNumber *number) {
+    NSArray *result = MOGTransform(array, MOGArrayReducer(), MOGMapDropNil(^id(NSNumber *number) {
         return number.intValue % 2 == 0 ? nil : @(number.intValue + 10);
     }));
 

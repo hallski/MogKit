@@ -132,17 +132,6 @@ MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock) {
     return MOGCompose(MOGMap(mapBlock), MOGDropNil());
 }
 
-MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock indexedMapBlock) {
-    return ^MOGReducer *(MOGReducer *reducer) {
-        __block NSUInteger index = 0;
-
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val) {
-            id outValue = indexedMapBlock(index++, val);
-            return outValue != nil ? reducer.reduce(acc, outValue) : acc;
-        }];
-    };
-}
-
 MOGTransformation MOGUnique(void) {
     return ^MOGReducer *(MOGReducer *reducer) {
         NSMutableSet *seenValues = [NSMutableSet new];

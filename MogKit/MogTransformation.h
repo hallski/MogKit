@@ -24,12 +24,6 @@ typedef MOGReducer *(^MOGTransformation) (MOGReducer *);
 typedef id (^MOGMapBlock) (id val);
 
 /**
- * `MOGIndexedMapBlock` is the same as `MOGMapBlock`, only it also includes the index of the value in sequence
- * that is being processed.
- */
-typedef id (^MOGIndexedMapBlock) (NSUInteger index, id val);
-
-/**
  * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilter` or
  * `MOGMapDropNil`.
  */
@@ -176,19 +170,6 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
  * @see `MOGFilter`, `MOGRemove`.
  */
 MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock);
-
-/**
- * Creates a transformation that keeps values where `mapBlock` returns a non-nil value. This is similar to
- * `MOGMapDropNil` with the difference that the index of the value is passed to `mapBlock` as well.
- *
- * @param mapBlock a function that determines if the transformation should pass on a value or not. non-nil to pass on,
- *        nil to drop it.
- *
- * @return a stateful transformation that drops all values where `mapBlock` returns nil.
- *
- * @see `MOGFilter`, `MOGRemove` and `MOGKeep`.
- */
-MOGTransformation MOGKeepIndexed(MOGIndexedMapBlock mapBlock);
 
 /**
  * Creates a transformation that drops all duplicates. Whether it's a duplicate is determined by `isEqual:`

@@ -127,7 +127,6 @@ The transformation can then be reused and is not even tied to `RACStream`.
 - Replace
 - ReplaceWithDefault
 - MapDropNil
-- KeepIndexed
 - Unique
 - Dedupe
 - Cat

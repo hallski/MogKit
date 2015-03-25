@@ -26,7 +26,7 @@ Or work on some numbers and output as a string:
 ```objective-c
 NSArray *array = @[@1, @2, @3];
 
-NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), MOGCompose(MOGMap(^id(NSNumber *val) {
+NSString *result = MOGTransform(array, MOGStringConcatReducer(@", "), [NSMutableString new], MOGCompose(MOGMap(^id(NSNumber *val) {
     return @(val.intValue + 10);
 }), MOGMap(^id(NSNumber *val) {
     return val.stringValue;
@@ -42,7 +42,7 @@ NSArray *expected = @[@(-10), @0, @10];
 
 NSArray *result = [object mog_transform:MOGFlatMap(^id(NSNumber *number) {
     return @[@(-number.intValue), @0, number];
-}) reducer:MOGArrayReducer()];
+}) reducer:MOGArrayReducer() initial:[NSMutableArray new]];
 
 // result = @[@(-10), @0, @10]
 ```
@@ -84,15 +84,15 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
         return [class return:val];
     }));
 
-    MOGReducer *reducer = transformationWithMapToRAC(MOGArrayReducer());
+    MOGReducer reducer = transformationWithMapToRAC(MOGArrayReducer());
 
     return [[self bind:^{
         return ^(id value, BOOL *stop) {
-            id acc = reducer.reduce(reducer.initial(), value);
+            id acc = reducer([NSMutableArray new], value);
 
             if (MOGIsReduced(acc)) {
                 *stop = YES;
-                acc = reducer.complete(MOGReducedGetValue(acc));
+                acc = MOGReducedGetValue(acc);
             }
             return [class concat:acc];
         };
@@ -143,8 +143,6 @@ The transformation can then be reused and is not even tied to `RACStream`.
 - Dedupe
 - Flatten
 - FlatMap
-- PartitionBy
-- Partition
 - Window
 
 ## Installation

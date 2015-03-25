@@ -16,9 +16,10 @@
  *
  * @param transformation the transformation to apply to the object.
  * @param reducer the reducer to use for collecting the result.
+ * @param initial the initial value passed into the transformation as accumulated value.
  *
  * @return the transformed value.
  */
-- (id)mog_transform:(MOGTransformation)transformation reducer:(MOGReducer *)reducer;
+- (id)mog_transform:(MOGTransformation)transformation reducer:(MOGReducer)reducer initial:(id)initial;
 
 @end

@@ -9,34 +9,24 @@
 
 - (void)testArrayReducerInitializeWithEmptyMutableArray
 {
-    MOGReducer *reducer = MOGArrayReducer();
+    MOGReducer reducer = MOGArrayReducer();
 
-    NSMutableArray *mArray = reducer.initial();
+    NSMutableArray *mArray = [NSMutableArray new];
     NSArray *expected = @[];
 
     XCTAssert([mArray isKindOfClass:[NSMutableArray class]]);
     XCTAssertEqualObjects(expected, mArray);
 }
 
-- (void)testArrayReducerCompleteCompleteDoesntChangeTheValues
-{
-    MOGReducer *reducer = MOGArrayReducer();
-    NSMutableArray *mArray = [NSMutableArray arrayWithArray:@[@1, @2, @3, @4, @5]];
-
-    NSArray *result = reducer.complete(mArray);
-
-    XCTAssert([result isKindOfClass:[NSArray class]]);
-    XCTAssertEqualObjects(result, mArray);
-}
 
 - (void)testArrayReducerReduceAddsObjects
 {
-    MOGReducer *reducer = MOGArrayReducer();
+    MOGReducer reducer = MOGArrayReducer();
 
-    NSMutableArray *mArray = reducer.initial();
+    NSMutableArray *mArray = [NSMutableArray new];
 
-    mArray = reducer.reduce(mArray, @1);
-    mArray = reducer.reduce(mArray, @2);
+    mArray = reducer(mArray, @1);
+    mArray = reducer(mArray, @2);
 
     NSArray *expected = @[@1, @2];
 
@@ -45,52 +35,32 @@
 
 - (void)testLastValueResolverReturnsVal
 {
-    MOGReducer *reducer = MOGLastValueReducer();
+    MOGReducer reducer = MOGLastValueReducer();
 
     id aString = @"aString";
 
-    XCTAssertEqualObjects(@1, reducer.reduce(nil, @1));
-    XCTAssertEqualObjects(aString, reducer.reduce(@123, aString));
-}
-
-- (void)testLastValueResolverDoesntChangeResultValue
-{
-    MOGReducer *reducer = MOGLastValueReducer();
-
-    XCTAssertEqualObjects(@99, reducer.complete(@99));
+    XCTAssertEqualObjects(@1, reducer(nil, @1));
+    XCTAssertEqualObjects(aString, reducer(@123, aString));
 }
 
 - (void)testStringConcatReducerInitializeWithEmptyMutableString
 {
-    MOGReducer *reducer = MOGStringConcatReducer(nil);
+    MOGReducer reducer = MOGStringConcatReducer(nil);
 
-    NSMutableString *mString = reducer.initial();
+    NSMutableString *mString = [NSMutableString new];
     NSString *expected = @"";
 
     XCTAssert([mString isKindOfClass:[NSMutableString class]]);
     XCTAssertEqualObjects(expected, mString);
 }
 
-- (void)testStringConcatReducerCompleteDoesntChangeTheValues
-{
-    MOGReducer *reducer = MOGStringConcatReducer(nil);
-
-    NSMutableString *mString = [[NSMutableString alloc] initWithString:@"a string"];
-
-    NSString *expected = @"a string";
-    NSString *result = reducer.complete(mString);
-
-    XCTAssert([result isKindOfClass:[NSString class]]);
-    XCTAssertEqualObjects(expected, result);
-}
-
 - (void)testStringConcatReducerReduceConcats
 {
-    MOGReducer *reducer = MOGStringConcatReducer(nil);
+    MOGReducer reducer = MOGStringConcatReducer(nil);
 
-    NSMutableString *acc = reducer.initial();
-    acc = reducer.reduce(acc, @"abc");
-    acc = reducer.reduce(acc, @"def");
+    NSMutableString *acc = [NSMutableString new];
+    acc = reducer(acc, @"abc");
+    acc = reducer(acc, @"def");
 
     NSString *expected = @"abcdef";
 
@@ -99,11 +69,11 @@
 
 - (void)testStringConcatReducerSupportsSeparator
 {
-    MOGReducer *reducer = MOGStringConcatReducer(@", ");
+    MOGReducer reducer = MOGStringConcatReducer(@", ");
 
-    NSMutableString *acc = reducer.initial();
-    acc = reducer.reduce(acc, @"part 1");
-    acc = reducer.reduce(acc, @"part 2");
+    NSMutableString *acc = [NSMutableString new];
+    acc = reducer(acc, @"part 1");
+    acc = reducer(acc, @"part 2");
 
     NSString *expected = @"part 1, part 2";
 

@@ -15,7 +15,7 @@
  * @discussion a transformation can be stateful but the state is bound in the reducer created when the transformation
  * is applied to the output reducer. This means it's safe to use the same transformation to create new reducers.
  */
-typedef MOGReducer *(^MOGTransformation) (MOGReducer *);
+typedef MOGReducer (^MOGTransformation) (MOGReducer);
 
 /**
  * A `MOGMapBlock` is a function you typically use with `MOGMap` which is a transformation of a single value
@@ -211,26 +211,6 @@ MOGTransformation MOGFlatten(void);
 MOGTransformation MOGFlatMap(MOGMapBlock mapBlock);
 
 /**
- * Creates a transformation that splits the the values into separate `NSArray`s every time the `partitioningBlock`
- * returns a new value. The final partition will be sent on complete.
- *
- * @param partitioningBlock the return value of calling the block decides on whether a new partition should be created.
- *
- * @return a stateful transformation that splits incoming values into separate partitions.
- */
-MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock);
-
-/**
- * Creates a transformation that splits the values into separate `NSArray`s every `size` elements. A smaller array may be
- * sent at the end if there are less values than `size` accumulated in the transformation at complete.
- *
- * @param size the partition size, must be greater than 0
- *
- * @return a stateful transformation that splits incoming values into separate partitions of size `size`.
- */
-MOGTransformation MOGPartition(NSUInteger size);
-
-/**
  * Creates a transformation that creates a window of size `length` by examining the values passed through.
  * The window will always contain the last `length` values passed through. Until `length` values have passed through
  * the window will contain the first value in all slots. Each value passed through is replaced by an array with the
@@ -274,21 +254,9 @@ MOGTransformation MOGComposeArray(NSArray *transformations);
  *
  * @param source any class conforming to the `NSFastEnumeration` protocol.
  * @param reducer the reducer to collect the transformed values into the result of this function.
- * @param transformation the transformation to apply.
- *
- * @return the final value collected by `reducer`.
- */
-id MOGTransform(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransformation transformation);
-
-/**
- * Applied the transformation to `source`. This is the step when input, transformation and output are combined
- * to transform the source values into output values based on the `reducer` and the `initial` value.
- *
- * @param source any class conforming to the `NSFastEnumeration` protocol.
- * @param reducer the reducer to collect the transformed values into the result of this function.
  * @param initial the initial value to pass as the accumulator to `reducer`.
  * @param transformation the transformation to apply.
  *
  * @return the final value collected by `reducer`.
  */
-id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transformation);
+id MOGTransform(id<NSFastEnumeration> source, MOGReducer reducer, id initial, MOGTransformation transformation);

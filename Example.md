@@ -19,7 +19,7 @@ MOGMapBlock SortArrayOfNumbers(BOOL ascending)
 MOGMapBlock TrimArray(NSUInteger trimN)
 {
     return ^id(NSArray *values) {
-        return [values mog_transduce:TrimTransducer(trimN, values.count - 2 * trimN)];
+        return [values mog_transform:TrimTransducer(trimN, values.count - 2 * trimN)];
     };
 }
 
@@ -54,12 +54,12 @@ NSNumber *number = MOGTransform(array, MOGLastValueReducer(), @0, filter);
 // number == 7.5
 
 // Or we can simulate the numbers coming in from a stream and manually feed numbers to the filter.
-MOGReducer *manualFilter = filter(MOGLastValueReducer());
+MOGReducer manualFilter = filter(MOGLastValueReducer());
 
 // Can compare the values of number with the result array above.
-number = manualFilter.reduce(nil, @14); // number == 14
-number = manualFilter.reduce(nil, @13); // number == 14
-number = manualFilter.reduce(nil, @12); // number == 14
-number = manualFilter.reduce(nil, @1);  // number == 14
-number = manualFilter.reduce(nil, @2);  // number == 13.83
+number = manualFilter(nil, @14); // number == 14
+number = manualFilter(nil, @13); // number == 14
+number = manualFilter(nil, @12); // number == 14
+number = manualFilter(nil, @1);  // number == 14
+number = manualFilter(nil, @2);  // number == 13.83
 ```

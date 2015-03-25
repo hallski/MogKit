@@ -9,10 +9,10 @@
 
 @implementation NSObject (MogKit)
 
-- (id)mog_transform:(MOGTransformation)transformation reducer:(MOGReducer *)reducer
+- (id)mog_transform:(MOGTransformation)transformation reducer:(MOGReducer)reducer initial:(id)initial
 {
-    MOGReducer *xformReducer = transformation(reducer);
-    return xformReducer.complete(xformReducer.reduce(xformReducer.initial(), self));
+    MOGReducer xformReducer = transformation(reducer);
+    return xformReducer(initial, self);
 }
 
 @end

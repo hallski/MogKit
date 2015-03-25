@@ -12,13 +12,13 @@
 
 - (NSArray *)mog_transform:(MOGTransformation)transformation
 {
-    return MOGTransform(self, MOGArrayReducer(), transformation);
+    return [MOGTransform(self, MOGArrayReducer(), [NSMutableArray new], transformation) copy];
 }
 
 + (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration
                                   transformation:(MOGTransformation)transformation
 {
-    return MOGTransform(enumeration, MOGArrayReducer(), transformation);
+    return [MOGTransform(enumeration, MOGArrayReducer(), [NSMutableArray new], transformation) copy];
 }
 
 @end

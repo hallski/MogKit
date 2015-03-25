@@ -32,7 +32,7 @@
     id object = @[@1, @2, @3];
     NSArray *expected = @[@34, @35, @36];
 
-    NSArray *result = [object mog_transform:[self filterFastEnumFlattenAndAdd33] reducer:MOGArrayReducer()];
+    NSArray *result = [object mog_transform:[self filterFastEnumFlattenAndAdd33] reducer:MOGArrayReducer() initial:[NSMutableArray new]];
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -42,7 +42,7 @@
     id object = @1;
     NSArray *expected = @[];
 
-    NSArray *result = [object mog_transform:[self filterFastEnumFlattenAndAdd33] reducer:MOGArrayReducer()];
+    NSArray *result = [object mog_transform:[self filterFastEnumFlattenAndAdd33] reducer:MOGArrayReducer() initial:[NSMutableArray new]];
 
     XCTAssertEqualObjects(expected, result);
 }
@@ -54,7 +54,7 @@
 
     NSArray *result = [object mog_transform:MOGFlatMap(^id(NSNumber *number) {
         return @[@(-number.intValue), @0, number];
-    }) reducer:MOGArrayReducer()];
+    }) reducer:MOGArrayReducer() initial:[NSMutableArray new]];
 
     XCTAssertEqualObjects(expected, result);
 }

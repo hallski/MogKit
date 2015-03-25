@@ -80,7 +80,7 @@
 
         MOGTransformation xform = MOGComposeArray(transducers);
 
-        NSArray *result = MOGTransform(array, MOGArrayReducer(), xform);
+        NSArray *result = MOGTransform(array, MOGArrayReducer(), [NSMutableArray new], xform);
 
         XCTAssertEqualObjects(array, result);
     }];
@@ -91,13 +91,13 @@
     NSArray *array = [self arrayWithInts:100000];
 
     [self measureBlock:^{
-        NSMutableArray *array1 = MOGTransform(array, MOGArrayReducer(), MOGMap(^id(NSNumber *number) {
+        NSMutableArray *array1 = MOGTransform(array, MOGArrayReducer(), [NSMutableArray new], MOGMap(^id(NSNumber *number) {
             return @(number.intValue + 100);
         }));
-        NSMutableArray *array2 = MOGTransform(array1, MOGArrayReducer(), MOGFilter(^BOOL(NSNumber *number) {
+        NSMutableArray *array2 = MOGTransform(array1, MOGArrayReducer(), [NSMutableArray new], MOGFilter(^BOOL(NSNumber *number) {
             return YES;
         }));
-        NSMutableArray *result = MOGTransform(array2, MOGArrayReducer(), MOGMap(^id(NSNumber *number) {
+        NSMutableArray *result = MOGTransform(array2, MOGArrayReducer(), [NSMutableArray new], MOGMap(^id(NSNumber *number) {
             return @(number.intValue - 100);
         }));
 

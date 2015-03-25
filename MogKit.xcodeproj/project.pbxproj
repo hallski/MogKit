@@ -35,7 +35,6 @@
 		6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
 		6313DC63CF8753FDC0CE84BC /* MogReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DF459141FACBF1F00FC8 /* MogReduceTests.m */; };
 		6313DCFFB7CADF1F2858B732 /* NSObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D3D5672BFEF6BC26FB82 /* NSObjectExtensionTests.m */; };
-		6313DE581DD560CBDABC45FD /* MogKitPerfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */; };
 		6313DEBBA7BE3BE52606A406 /* NSArrayExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */; };
 		6313DFFFE3764F1D4FF48757 /* NSObject+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DBB24D124431EF1616C5 /* NSObject+MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99497FBE1AAEF01700EC4E21 /* MogTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313D18DDF2E3A5ED92D8280 /* MogTransformation.m */; };
@@ -481,7 +480,6 @@
 				6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */,
 				6313D83BF4DB5BED70D4B629 /* MogReduceTests.m in Sources */,
 				6313D54580BD3636890D5E9D /* NSObjectExtensionTests.m in Sources */,
-				6313DE581DD560CBDABC45FD /* MogKitPerfTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

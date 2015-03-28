@@ -22,6 +22,8 @@ typedef id (^MOGReducerCompleteBlock) (id);
  * A reduce block is passed to `MOGReduce` and is used to collect the accumulated value of the
  * reduction. The block is passed the accumulated value and the next value in order to calculate
  * the next accumulated value.
+ *
+ * Set stop to YES to terminate the reduction.
  */
 typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
 

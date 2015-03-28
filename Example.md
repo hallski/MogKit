@@ -54,14 +54,11 @@ NSNumber *number = MOGTransform(array, MOGLastValueReducer(), @0, filter);
 // number == 7.5
 
 // Or we can simulate the numbers coming in from a stream and manually feed numbers to the filter.
-MOGReducer *manualFilter = filter(MOGLastValueReducer());
+MOGMapBlock manualFilter = MOGValueTransformer(filter);
 
-// Can compare the values of number with the result array above.
-BOOL stop = NO;
-
-number = manualFilter.reduce(nil, @14, &stop); // number == 14
-number = manualFilter.reduce(nil, @13, &stop); // number == 14
-number = manualFilter.reduce(nil, @12, &stop); // number == 14
-number = manualFilter.reduce(nil, @1, &stop);  // number == 14
-number = manualFilter.reduce(nil, @2, &stop);  // number == 13.83
+number = manualFilter(@14); // number == 14
+number = manualFilter(@13); // number == 14
+number = manualFilter(@12); // number == 14
+number = manualFilter(@1);  // number == 14
+number = manualFilter(@2);  // number == 13.83
 ```

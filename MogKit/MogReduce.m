@@ -7,7 +7,7 @@
 
 #import "MogReduce.h"
 
-MOGReducer *MOGSimpleReducer(MOGReduceBlock reduceBlock)
+MOGReducer *MOGSimpleReducer(MOGReduceFunc reduceBlock)
 {
     return [[MOGReducer alloc] initWithInitBlock:^id { return nil; }
                                    completeBlock:^id(id accumulated) { return accumulated; }
@@ -54,7 +54,7 @@ MOGReducer *MOGStringConcatReducer(NSString *separator)
     }];
 }
 
-id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial)
+id MOGReduce(id<NSFastEnumeration> source, MOGReduceFunc reduceBlock, id initial)
 {
     id acc = initial;
 
@@ -71,9 +71,9 @@ id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initia
 
 @implementation MOGReducer
 
-- (instancetype)initWithInitBlock:(MOGReducerInititialBlock)initBlock
-                    completeBlock:(MOGReducerCompleteBlock)completeBlock
-                      reduceBlock:(MOGReduceBlock)reduceBlock
+- (instancetype)initWithInitBlock:(MOGReducerInititialFunc)initBlock
+                    completeBlock:(MOGReducerCompleteFunc)completeBlock
+                      reduceBlock:(MOGReduceFunc)reduceBlock
 {
     if (self = [super init]) {
         self.initial = initBlock;
@@ -84,7 +84,7 @@ id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initia
     return self;
 }
 
-+ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceBlock)reduceBlock
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceFunc)reduceBlock
 {
     return [self stepReducerWithNextReducer:nextReducer
                                 reduceBlock:reduceBlock
@@ -94,8 +94,8 @@ id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initia
 }
 
 + (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer
-                               reduceBlock:(MOGReduceBlock)reduceBlock
-                             completeBlock:(MOGReducerCompleteBlock)completeBlock
+                               reduceBlock:(MOGReduceFunc)reduceBlock
+                             completeBlock:(MOGReducerCompleteFunc)completeBlock
 {
     return [[self alloc] initWithInitBlock:^id { return nextReducer.initial(); }
                              completeBlock:completeBlock

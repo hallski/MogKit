@@ -10,13 +10,13 @@
 /**
  * Block that generates the initial value of a reduction.
  */
-typedef id (^MOGReducerInititialBlock) (void);
+typedef id (^MOGReducerInititialFunc) (void);
 
 /**
  * Block that is called by `MOGTransform` after a reduction is done, this to allow step functions or the
  * collection `MOGReducer` to do some final manipulation of the data.
  */
-typedef id (^MOGReducerCompleteBlock) (id);
+typedef id (^MOGReducerCompleteFunc) (id);
 
 /**
  * A reduce block is passed to `MOGReduce` and is used to collect the accumulated value of the
@@ -25,16 +25,16 @@ typedef id (^MOGReducerCompleteBlock) (id);
  *
  * Set stop to YES to terminate the reduction.
  */
-typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
+typedef id (^MOGReduceFunc) (id acc, id val, BOOL *stop);
 
 /**
 * A reducer takes an accumulated value and the next value and combines them into a new accumulated value.
 * The return accumulated value is typically passed in as `acc` on successive calls.
 */
 @interface MOGReducer : NSObject
-@property (nonatomic, copy) MOGReduceBlock reduce;
-@property (nonatomic, copy) MOGReducerInititialBlock initial;
-@property (nonatomic, copy) MOGReducerCompleteBlock complete;
+@property (nonatomic, copy) MOGReduceFunc reduce;
+@property (nonatomic, copy) MOGReducerInititialFunc initial;
+@property (nonatomic, copy) MOGReducerCompleteFunc complete;
 
 /**
 * Initialize a `MOGReducer` with blocks to create initial value, completion handler and reduce block.
@@ -48,9 +48,9 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
 *
 * @return the reducer
 * */
-- (instancetype)initWithInitBlock:(MOGReducerInititialBlock)initBlock
-                    completeBlock:(MOGReducerCompleteBlock)completeBlock
-                      reduceBlock:(MOGReduceBlock)reduceBlock;
+- (instancetype)initWithInitBlock:(MOGReducerInititialFunc)initBlock
+                    completeBlock:(MOGReducerCompleteFunc)completeBlock
+                      reduceBlock:(MOGReduceFunc)reduceBlock;
 
 /**
  * Class method to create a step reducer (used when implementing transformations).
@@ -59,7 +59,7 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
  *
  * @return a newly created step reducer.
  */
-+ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceBlock)reduceBlock;
++ (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer reduceBlock:(MOGReduceFunc)reduceBlock;
 
 /**
  * Class method to create a step reducer (used when implementing transformations). Use this when the transformation
@@ -73,8 +73,8 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
  * @return a newly created step reducer.
  */
 + (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer
-                               reduceBlock:(MOGReduceBlock)reduceBlock
-                             completeBlock:(MOGReducerCompleteBlock)completeBlock;
+                               reduceBlock:(MOGReduceFunc)reduceBlock
+                             completeBlock:(MOGReducerCompleteFunc)completeBlock;
 
 @end
 
@@ -86,7 +86,7 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
  * @param reduceBlock called for each value in the reduction.
  *
  */
-MOGReducer *MOGSimpleReducer(MOGReduceBlock reduceBlock);
+MOGReducer *MOGSimpleReducer(MOGReduceFunc reduceBlock);
 
 /**
  * A reducer that accumulates values in an array. If the reducer initial block isn't used to produce the
@@ -124,4 +124,4 @@ MOGReducer *MOGStringConcatReducer(NSString *separator);
  *
  * @return returns the final return value of `reduceBlock`.
  */
-id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initial);
+id MOGReduce(id<NSFastEnumeration> source, MOGReduceFunc reduceBlock, id initial);

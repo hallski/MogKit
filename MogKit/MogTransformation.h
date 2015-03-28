@@ -18,10 +18,10 @@
 typedef MOGReducer *(^MOGTransformation) (MOGReducer *);
 
 /**
- * A `MOGMapBlock` is a function you typically use with `MOGMap` which is a transformation of a single value
+ * A `MOGMapFunc` is a function you typically use with `MOGMap` which is a transformation of a single value
  * into a new value.
  */
-typedef id (^MOGMapBlock) (id val);
+typedef id (^MOGMapFunc) (id val);
 
 /**
  * `MOGPredicate` is a function that by examining the value returns YES or NO. It's typically used in `MOGFilter` or
@@ -44,7 +44,7 @@ MOGTransformation MOGIdentity(void);
  *
  * @return a transformation that applies the map transformation.
  */
-MOGTransformation MOGMap(MOGMapBlock mapBlock);
+MOGTransformation MOGMap(MOGMapFunc mapBlock);
 
 /**
  * Creates a transformation that filters all values based on the `predicate` function. Values where `predicate` returns
@@ -169,7 +169,7 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
  *
  * @see `MOGFilter`, `MOGRemove`.
  */
-MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock);
+MOGTransformation MOGMapDropNil(MOGMapFunc mapBlock);
 
 /**
  * Creates a transformation that drops all duplicates. Whether it's a duplicate is determined by `isEqual:`
@@ -208,7 +208,7 @@ MOGTransformation MOGFlatten(void);
  *
  * @return a transformation that applies `mapBlock` on all values and then concatenates the result.
  */
-MOGTransformation MOGFlatMap(MOGMapBlock mapBlock);
+MOGTransformation MOGFlatMap(MOGMapFunc mapBlock);
 
 /**
  * Creates a transformation that splits the the values into separate `NSArray`s every time the `partitioningBlock`
@@ -218,7 +218,7 @@ MOGTransformation MOGFlatMap(MOGMapBlock mapBlock);
  *
  * @return a stateful transformation that splits incoming values into separate partitions.
  */
-MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock);
+MOGTransformation MOGPartitionBy(MOGMapFunc partitioningBlock);
 
 /**
  * Creates a transformation that splits the values into separate `NSArray`s every `size` elements. A smaller array may be
@@ -303,4 +303,4 @@ id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id
  *
  * @return a function for transforming input values.
  */
-MOGMapBlock MOGValueTransformer(MOGTransformation transformation);
+MOGMapFunc MOGValueTransformer(MOGTransformation transformation);

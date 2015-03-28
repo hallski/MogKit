@@ -42,7 +42,7 @@
  *
  * @return a newly created array with the transformed values.
  */
-- (NSArray *)mog_map:(MOGMapBlock)mapBlock;
+- (NSArray *)mog_map:(MOGMapFunc)mapBlock;
 
 /**
  * Convenience method for calling `-mog_transform:` with `MOGFilter`.

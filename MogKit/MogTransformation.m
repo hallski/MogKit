@@ -141,7 +141,7 @@ MOGTransformation MOGReplaceWithDefault(NSDictionary *replacements, id defaultVa
     });
 }
 
-MOGTransformation MOGMapDropNil(MOGMapBlock mapBlock) {
+MOGTransformation MOGMapDropNil(MOGMapFunc mapBlock) {
     return MOGCompose(MOGMap(mapBlock), MOGDropNil());
 }
 
@@ -197,12 +197,12 @@ MOGTransformation MOGFlatten(void)
     };
 }
 
-MOGTransformation MOGFlatMap(MOGMapBlock mapBlock)
+MOGTransformation MOGFlatMap(MOGMapFunc mapBlock)
 {
     return MOGCompose(MOGMap(mapBlock), MOGFlatten());
 }
 
-MOGTransformation MOGPartitionBy(MOGMapBlock partitioningBlock) {
+MOGTransformation MOGPartitionBy(MOGMapFunc partitioningBlock) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block id lastPartitionKey = nil;
         __block NSMutableArray *currentPartition = [NSMutableArray new];
@@ -313,7 +313,7 @@ id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id
     return tr.complete(MOGReduce(source, tr.reduce, initial));
 }
 
-MOGMapBlock MOGValueTransformer(MOGTransformation transformation) {
+MOGMapFunc MOGValueTransformer(MOGTransformation transformation) {
     MOGReducer *reducer = transformation(MOGLastValueReducer());
 
     return ^id(id val) {

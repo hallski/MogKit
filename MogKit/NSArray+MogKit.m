@@ -21,7 +21,7 @@
     return MOGTransform(enumeration, MOGArrayReducer(), transformation);
 }
 
-- (NSArray *)mog_map:(MOGMapBlock)mapBlock
+- (NSArray *)mog_map:(MOGMapFunc)mapBlock
 {
     return [self mog_transform:MOGMap(mapBlock)];
 }

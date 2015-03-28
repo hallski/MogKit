@@ -502,7 +502,7 @@
 
 - (void)testTransformer
 {
-    MOGMapBlock add10 = MOGValueTransformer(MOGMap(^id(NSNumber *number) {
+    MOGMapFunc add10 = MOGValueTransformer(MOGMap(^id(NSNumber *number) {
         return @(number.intValue + 10);
     }));
 
@@ -512,7 +512,7 @@
 
 - (void)testTransformerWithTerminatedTransformation
 {
-    MOGMapBlock add10TerminateAfter2 = MOGValueTransformer(MOGCompose(MOGTake(2), MOGMap(^id(NSNumber *number) {
+    MOGMapFunc add10TerminateAfter2 = MOGValueTransformer(MOGCompose(MOGTake(2), MOGMap(^id(NSNumber *number) {
         return @(number.intValue + 10);
     })));
 

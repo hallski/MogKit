@@ -7,7 +7,7 @@ MOGTransformation Trim(NSUInteger drop, NSUInteger finalSize)
     return MOGCompose(MOGDrop(drop), MOGTake(finalSize));
 }
 
-MOGMapBlock SortArrayOfNumbers(BOOL ascending)
+MOGMapFunc SortArrayOfNumbers(BOOL ascending)
 {
     NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:ascending];
 
@@ -16,14 +16,14 @@ MOGMapBlock SortArrayOfNumbers(BOOL ascending)
     };
 }
 
-MOGMapBlock TrimArray(NSUInteger trimN)
+MOGMapFunc TrimArray(NSUInteger trimN)
 {
     return ^id(NSArray *values) {
         return [values mog_transduce:TrimTransducer(trimN, values.count - 2 * trimN)];
     };
 }
 
-MOGMapBlock MeanOfArrayOfNumbers()
+MOGMapFunc MeanOfArrayOfNumbers()
 {
     return ^id(NSArray *numbers) {
         return [numbers valueForKeyPath:@"@avg.self"];
@@ -54,7 +54,7 @@ NSNumber *number = MOGTransform(array, MOGLastValueReducer(), @0, filter);
 // number == 7.5
 
 // Or we can simulate the numbers coming in from a stream and manually feed numbers to the filter.
-MOGMapBlock manualFilter = MOGValueTransformer(filter);
+MOGMapFunc manualFilter = MOGValueTransformer(filter);
 
 number = manualFilter(@14); // number == 14
 number = manualFilter(@13); // number == 14

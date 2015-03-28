@@ -34,9 +34,10 @@
     MOGReducer *reducer = MOGArrayReducer();
 
     NSMutableArray *mArray = reducer.initial();
+    BOOL stop = NO;
 
-    mArray = reducer.reduce(mArray, @1);
-    mArray = reducer.reduce(mArray, @2);
+    mArray = reducer.reduce(mArray, @1, &stop);
+    mArray = reducer.reduce(mArray, @2, &stop);
 
     NSArray *expected = @[@1, @2];
 
@@ -48,9 +49,10 @@
     MOGReducer *reducer = MOGLastValueReducer();
 
     id aString = @"aString";
+    BOOL stop = NO;
 
-    XCTAssertEqualObjects(@1, reducer.reduce(nil, @1));
-    XCTAssertEqualObjects(aString, reducer.reduce(@123, aString));
+    XCTAssertEqualObjects(@1, reducer.reduce(nil, @1, &stop));
+    XCTAssertEqualObjects(aString, reducer.reduce(@123, aString, &stop));
 }
 
 - (void)testLastValueResolverDoesntChangeResultValue
@@ -89,8 +91,10 @@
     MOGReducer *reducer = MOGStringConcatReducer(nil);
 
     NSMutableString *acc = reducer.initial();
-    acc = reducer.reduce(acc, @"abc");
-    acc = reducer.reduce(acc, @"def");
+    BOOL stop = NO;
+
+    acc = reducer.reduce(acc, @"abc", &stop);
+    acc = reducer.reduce(acc, @"def", &stop);
 
     NSString *expected = @"abcdef";
 
@@ -102,8 +106,10 @@
     MOGReducer *reducer = MOGStringConcatReducer(@", ");
 
     NSMutableString *acc = reducer.initial();
-    acc = reducer.reduce(acc, @"part 1");
-    acc = reducer.reduce(acc, @"part 2");
+    BOOL stop = NO;
+
+    acc = reducer.reduce(acc, @"part 1", &stop);
+    acc = reducer.reduce(acc, @"part 2", &stop);
 
     NSString *expected = @"part 1, part 2";
 

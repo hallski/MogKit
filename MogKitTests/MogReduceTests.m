@@ -7,6 +7,28 @@
 
 @implementation MogReduceTests
 
+- (void)testSimpleReducer
+{
+    MOGReducer *reducer = MOGSimpleReducer(^id(NSString *str1, NSString *str2) {
+        return [str1 stringByAppendingString:str2];
+    });
+
+    XCTAssertEqual([NSNull null], reducer.initial());
+    XCTAssertEqualObjects(@"d3e4", reducer.reduce(@"d3", @"e4"));
+    XCTAssertEqualObjects(@"a2123", reducer.complete(@"a2123"));
+}
+
+- (void)testSimpleReducerObjectInitializer
+{
+    MOGReducer *reducer = [[MOGReducer alloc] initWithReduceBlock:^id(NSString *str1, NSString *str2) {
+        return [str1 stringByAppendingString:str2];
+    }];
+
+    XCTAssertEqual([NSNull null], reducer.initial());
+    XCTAssertEqualObjects(@"ab", reducer.reduce(@"a", @"b"));
+    XCTAssertEqualObjects(@"123", reducer.complete(@"123"));
+}
+
 - (void)testArrayReducerInitializeWithEmptyMutableArray
 {
     MOGReducer *reducer = MOGArrayReducer();

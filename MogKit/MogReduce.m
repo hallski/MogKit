@@ -12,6 +12,10 @@
 - (instancetype)initWithValue:(id)value;
 @end
 
+MOGReducer *MOGSimpleReducer(MOGReduceBlock reduceBlock)
+{
+    return [[MOGReducer alloc] initWithReduceBlock:reduceBlock];
+}
 
 MOGReducer *MOGArrayReducer(void)
 {
@@ -106,6 +110,13 @@ id MOGUnreduced(id val)
 
 
 @implementation MOGReducer
+
+- (instancetype)initWithReduceBlock:(MOGReduceBlock)reduceBlock
+{
+    return [self initWithInitBlock:^id() { return [NSNull null]; }
+                     completeBlock:^id(id result) { return result;}
+                       reduceBlock:reduceBlock];
+}
 
 - (instancetype)initWithInitBlock:(id(^)(void))initBlock
                     completeBlock:(id(^)(id))completeBlock

@@ -312,3 +312,11 @@ id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id
     initial = initial ?: tr.initial();
     return tr.complete(MOGReduce(source, tr.reduce, initial));
 }
+
+MOGMapBlock MOGValueTransformer(MOGTransformation transformation) {
+    MOGReducer *reducer = transformation(MOGLastValueReducer());
+
+    return ^id(id val) {
+        return reducer.reduce(nil, val, NULL);
+    };
+}

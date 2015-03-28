@@ -292,3 +292,15 @@ id MOGTransform(id<NSFastEnumeration> source, MOGReducer *reducer, MOGTransforma
  * @return the final value collected by `reducer`.
  */
 id MOGTransformWithInitial(id<NSFastEnumeration> source, MOGReducer *reducer, id initial, MOGTransformation transformation);
+
+/**
+ * Creates a function that takes a value and returns the value after applying the transformation.
+ * This is useful for creating processes that is fed values one at a time and the result should be returned immediately.
+ *
+ * @warning This process ignores the stop values from the transformation so build the transformation accordingly.
+ *
+ * @param transformation the transformation to apply.
+ *
+ * @return a function for transforming input values.
+ */
+MOGMapBlock MOGValueTransformer(MOGTransformation transformation);

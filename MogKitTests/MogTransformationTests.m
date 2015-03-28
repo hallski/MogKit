@@ -493,10 +493,33 @@
                 return @(str.intValue);
             })
     ];
+
     MOGTransformation xform = MOGComposeArray(transformations);
     NSArray *result = MOGTransform(array, MOGArrayReducer(), xform);
 
     XCTAssertEqualObjects(expected, result);
+}
+
+- (void)testTransformer
+{
+    MOGMapBlock add10 = MOGValueTransformer(MOGMap(^id(NSNumber *number) {
+        return @(number.intValue + 10);
+    }));
+
+    XCTAssertEqualObjects(@10, add10(@0));
+    XCTAssertEqualObjects(@11, add10(@1));
+}
+
+- (void)testTransformerWithTerminatedTransformation
+{
+    MOGMapBlock add10TerminateAfter2 = MOGValueTransformer(MOGCompose(MOGTake(2), MOGMap(^id(NSNumber *number) {
+        return @(number.intValue + 10);
+    })));
+
+    XCTAssertEqualObjects(@10, add10TerminateAfter2(@0));
+    XCTAssertEqualObjects(@11, add10TerminateAfter2(@1));
+    XCTAssertNil(add10TerminateAfter2(@2));
+    XCTAssertNil(add10TerminateAfter2(@3));
 }
 
 @end

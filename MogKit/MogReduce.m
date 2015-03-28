@@ -7,19 +7,13 @@
 
 #import "MogReduce.h"
 
-@interface MOGReducedWrapper : NSObject
-@property (nonatomic, strong) id value;
-- (instancetype)initWithValue:(id)value;
-@end
-
-
 MOGReducer *MOGArrayReducer(void)
 {
     return [[MOGReducer alloc] initWithInitBlock:^id {
         return [NSMutableArray new];
     } completeBlock:^id(NSMutableArray *result) {
         return [result copy];
-    } reduceBlock:^id(NSMutableArray *acc, id val) {
+    } reduceBlock:^id(NSMutableArray *acc, id val, BOOL *stop) {
         [acc addObject:val];
         return acc;
     }];
@@ -32,7 +26,7 @@ MOGReducer *MOGLastValueReducer(void)
         return nil;
     } completeBlock:^id(id o) {
         return o;
-    } reduceBlock:^id(id acc, id val) {
+    } reduceBlock:^id(id acc, id val, BOOL *stop) {
         return val;
     }];
 }
@@ -43,7 +37,7 @@ MOGReducer *MOGStringConcatReducer(NSString *separator)
         return [NSMutableString new];
     } completeBlock:^id(NSMutableString *result) {
         return [result copy];
-    } reduceBlock:^id(NSMutableString *acc, NSString *val) {
+    } reduceBlock:^id(NSMutableString *acc, NSString *val, BOOL *stop) {
         if (!separator || [acc isEqualToString:@""]) {
             [acc appendString:val];
         } else {
@@ -58,52 +52,15 @@ id MOGReduce(id<NSFastEnumeration> source, MOGReduceBlock reduceBlock, id initia
     id acc = initial;
 
     for (id val in source) {
-        acc = reduceBlock(acc, val);
-        if (MOGIsReduced(acc)) {
-            acc = MOGReducedGetValue(acc);
+        BOOL stop = NO;
+        acc = reduceBlock(acc, val, &stop);
+        if (stop) {
             break;
         }
     }
 
     return acc;
 }
-
-@implementation MOGReducedWrapper
-- (instancetype)initWithValue:(id)value
-{
-    if (self = [super init]) {
-        self.value = value;
-    }
-    return self;
-}
-@end
-
-
-id MOGReduced(id value)
-{
-    return [[MOGReducedWrapper alloc] initWithValue:value];
-}
-
-BOOL MOGIsReduced(id value)
-{
-    return [value isKindOfClass:[MOGReducedWrapper class]];
-}
-
-id MOGReducedGetValue(id reducedValue)
-{
-    return ((MOGReducedWrapper *)reducedValue).value;
-}
-
-id MOGEnsureReduced(id val)
-{
-    return MOGIsReduced(val) ? val : MOGReduced(val);
-}
-
-id MOGUnreduced(id val)
-{
-    return MOGIsReduced(val) ? MOGReducedGetValue(val) : val;
-}
-
 
 @implementation MOGReducer
 

@@ -35,4 +35,22 @@
  */
 + (NSArray *)mog_transformedArrayFromEnumeration:(id<NSFastEnumeration>)enumeration transformation:(MOGTransformation)transformation;
 
+/**
+ * Convenience method for calling `-mog_transform:` with `MOGMap`.
+ *
+ * @param the mapBlock to pass to `MOGMap`.
+ *
+ * @return a newly created array with the transformed values.
+ */
+- (NSArray *)mog_map:(MOGMapBlock)mapBlock;
+
+/**
+ * Convenience method for calling `-mog_transform:` with `MOGFilter`.
+ *
+ * @param predicate the predicate passed to `MOGFilter`.
+ *
+ * @return a newly created array with the values passing the predicate.
+ */
+- (NSArray *)mog_filter:(MOGPredicate)predicate;
+
 @end

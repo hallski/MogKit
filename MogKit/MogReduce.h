@@ -79,6 +79,16 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
 @end
 
 /**
+ * Creates a reducer that returns `nil` for initial value and defines complete to simply return the given value.
+ *
+ * @discussion A convenience when for example calling `MOGTransformWithInitial`.
+ *
+ * @param reduceBlock called for each value in the reduction.
+ *
+ */
+MOGReducer *MOGSimpleReducer(MOGReduceBlock reduceBlock);
+
+/**
  * A reducer that accumulates values in an array. If the reducer initial block isn't used to produce the
  * initial value an `NSMutableArray` must be supplied to `MOGReduce` or `MOGTransformWithInitial`.
  *

@@ -7,6 +7,17 @@
 
 @implementation MogReduceTests
 
+- (void)testSimpleReducer
+{
+    MOGReducer *reducer = MOGSimpleReducer(^id(id acc, id val, BOOL *stop) {
+        return val;
+    });
+
+    XCTAssertNil(reducer.initial());
+    XCTAssertEqualObjects(@1, reducer.reduce(nil, @1, NULL));
+    XCTAssertEqualObjects(@"a", reducer.complete(@"a"));
+}
+
 - (void)testArrayReducerInitializeWithEmptyMutableArray
 {
     MOGReducer *reducer = MOGArrayReducer();

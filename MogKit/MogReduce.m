@@ -7,6 +7,13 @@
 
 #import "MogReduce.h"
 
+MOGReducer *MOGSimpleReducer(MOGReduceBlock reduceBlock)
+{
+    return [[MOGReducer alloc] initWithInitBlock:^id { return nil; }
+                                   completeBlock:^id(id accumulated) { return accumulated; }
+                                     reduceBlock:reduceBlock];
+}
+
 MOGReducer *MOGArrayReducer(void)
 {
     return [[MOGReducer alloc] initWithInitBlock:^id {

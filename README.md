@@ -88,11 +88,9 @@ Using MogKit isn't limited to containers implementing `NSFastEnumeration`. You c
 
     return [[self bind:^{
         return ^(id value, BOOL *stop) {
-            id acc = reducer.reduce(reducer.initial(), value);
-
-            if (MOGIsReduced(acc)) {
-                *stop = YES;
-                acc = reducer.complete(MOGReducedGetValue(acc));
+            id acc = reducer.reduce(reducer.initial(), value, stop);
+            if (*stop) {
+                acc = reducer.complete(acc);
             }
             return [class concat:acc];
         };

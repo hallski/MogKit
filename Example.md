@@ -57,9 +57,11 @@ NSNumber *number = MOGTransform(array, MOGLastValueReducer(), @0, filter);
 MOGReducer *manualFilter = filter(MOGLastValueReducer());
 
 // Can compare the values of number with the result array above.
-number = manualFilter.reduce(nil, @14); // number == 14
-number = manualFilter.reduce(nil, @13); // number == 14
-number = manualFilter.reduce(nil, @12); // number == 14
-number = manualFilter.reduce(nil, @1);  // number == 14
-number = manualFilter.reduce(nil, @2);  // number == 13.83
+BOOL stop = NO;
+
+number = manualFilter.reduce(nil, @14, &stop); // number == 14
+number = manualFilter.reduce(nil, @13, &stop); // number == 14
+number = manualFilter.reduce(nil, @12, &stop); // number == 14
+number = manualFilter.reduce(nil, @1, &stop);  // number == 14
+number = manualFilter.reduce(nil, @2, &stop);  // number == 13.83
 ```

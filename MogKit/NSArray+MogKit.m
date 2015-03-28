@@ -21,4 +21,14 @@
     return MOGTransform(enumeration, MOGArrayReducer(), transformation);
 }
 
+- (NSArray *)mog_map:(MOGMapBlock)mapBlock
+{
+    return [self mog_transform:MOGMap(mapBlock)];
+}
+
+- (NSArray *)mog_filter:(MOGPredicate)predicate
+{
+    return [self mog_transform:MOGFilter(predicate)];
+}
+
 @end

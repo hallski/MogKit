@@ -74,7 +74,7 @@ typedef id (^MOGReduceBlock) (id acc, id val, BOOL *stop);
  */
 + (instancetype)stepReducerWithNextReducer:(MOGReducer *)nextReducer
                                reduceBlock:(MOGReduceBlock)reduceBlock
-                             completeBlock:(id(^)(id))completeBlock;
+                             completeBlock:(MOGReducerCompleteBlock)completeBlock;
 
 @end
 

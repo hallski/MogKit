@@ -46,8 +46,8 @@ typedef id (^MOGReduceBlock) (id acc, id val);
 *
 * @return the reducer
 * */
-- (instancetype)initWithInitBlock:(id(^)(void))initBlock
-                    completeBlock:(id(^)(id))completeBlock
+- (instancetype)initWithInitBlock:(MOGReducerInititialBlock)initBlock
+                    completeBlock:(MOGReducerCompleteBlock)completeBlock
                       reduceBlock:(MOGReduceBlock)reduceBlock;
 
 /**

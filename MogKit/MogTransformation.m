@@ -8,9 +8,16 @@
 #import <MogKit/MogKit.h>
 #import "MogTransformation.h"
 
+#if 1
+#define MOG_RETAINED_BY_CALLER __unsafe_unretained
+#else
+#define MOG_RETAINED_BY_CALLER
+#endif
+
 MOGTransformation MOGIdentity(void) {
     return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             return reducer.reduce(acc, val, stop);
         }];
     };
@@ -19,7 +26,8 @@ MOGTransformation MOGIdentity(void) {
 MOGTransformation MOGMap(id (^mapFunc)(id))
 {
     return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             return reducer.reduce(acc, mapFunc(val), stop);
         }];
     };
@@ -28,7 +36,8 @@ MOGTransformation MOGMap(id (^mapFunc)(id))
 MOGTransformation MOGFilter(MOGPredicate predicate)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             return predicate(val) ? reducer.reduce(acc, val, stop) : acc;
         }];
     };
@@ -45,7 +54,8 @@ MOGTransformation MOGTake(NSUInteger n)
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger taken = 0;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (taken++ < n) {
                 id newAcc = reducer.reduce(acc, val, stop);
                 if (taken == n) {
@@ -66,7 +76,8 @@ MOGTransformation MOGTakeWhile(MOGPredicate predicate)
     return ^MOGReducer *(MOGReducer *reducer) {
         __block BOOL keepTaking = YES;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (keepTaking) {
                 keepTaking = predicate(val);
             }
@@ -87,7 +98,8 @@ MOGTransformation MOGTakeNth(NSUInteger n) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger i = 0;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             return (i++ % n == 0) ? reducer.reduce(acc, val, stop) : acc;
         }];
     };
@@ -97,7 +109,8 @@ MOGTransformation MOGDrop(NSUInteger n) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSUInteger dropped = 0;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (dropped < n) {
                 dropped++;
                 return acc;
@@ -112,7 +125,8 @@ MOGTransformation MOGDropWhile(MOGPredicate predicate) {
     return ^MOGReducer *(MOGReducer *reducer) {
         __block BOOL keepDropping = YES;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (keepDropping) {
                 keepDropping = predicate(val);
             }
@@ -123,7 +137,8 @@ MOGTransformation MOGDropWhile(MOGPredicate predicate) {
 
 MOGTransformation MOGDropNil(void) {
     return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(MOG_RETAINED_BY_CALLER id acc,
+                                                                              MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             return val != nil ? reducer.reduce(acc, val, stop) : acc;
         }];
     };
@@ -149,7 +164,8 @@ MOGTransformation MOGUnique(void) {
     return ^MOGReducer *(MOGReducer *reducer) {
         NSMutableSet *seenValues = [NSMutableSet new];
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if ([seenValues containsObject:val]) {
                 return acc;
             }
@@ -165,7 +181,8 @@ MOGTransformation MOGDedupe(void)
     return ^MOGReducer *(MOGReducer *reducer) {
         __block id previous = nil;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(MOG_RETAINED_BY_CALLER id acc,
+                                                                              MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if ([val isEqual:previous]) {
                 return acc;
             } else {
@@ -179,7 +196,8 @@ MOGTransformation MOGDedupe(void)
 MOGTransformation MOGFlatten(void)
 {
     return ^MOGReducer *(MOGReducer *reducer) {
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (![val conformsToProtocol:@protocol(NSFastEnumeration)]) {
                 // Leave untouched if it's not a fast enumeration
                 return reducer.reduce(acc, val, stop);
@@ -207,7 +225,8 @@ MOGTransformation MOGPartitionBy(MOGMapFunc partitioningBlock) {
         __block id lastPartitionKey = nil;
         __block NSMutableArray *currentPartition = [NSMutableArray new];
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(MOG_RETAINED_BY_CALLER id acc,
+                                                                              MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             id partitionKey = partitioningBlock(val);
             lastPartitionKey = lastPartitionKey ?: partitionKey;
 
@@ -243,7 +262,8 @@ MOGTransformation MOGPartition(NSUInteger size)
     return ^MOGReducer *(MOGReducer *reducer) {
         __block NSMutableArray *currentPartition;
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^id(MOG_RETAINED_BY_CALLER id acc,
+                                                                              MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (!currentPartition) {
                 currentPartition = [NSMutableArray new];
             }
@@ -272,7 +292,8 @@ MOGTransformation MOGWindow(NSUInteger length)
         __block BOOL firstValue = YES;
         NSMutableArray *windowedValues = [NSMutableArray arrayWithCapacity:length];
 
-        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(id acc, id val, BOOL *stop) {
+        return [MOGReducer stepReducerWithNextReducer:reducer reduceBlock:^(MOG_RETAINED_BY_CALLER id acc,
+                                                                            MOG_RETAINED_BY_CALLER id val, BOOL *stop) {
             if (firstValue) {
                 for (NSUInteger i = 0; i < length; ++i) {
                     [windowedValues addObject:val];

@@ -163,15 +163,8 @@
 		40B9A61B1A9524070062C693 /* MogKit */ = {
 			isa = PBXGroup;
 			children = (
+				99E89C381AEEB4CD0093D0DC /* Objective-C */,
 				40B9A61C1A9524070062C693 /* MogKit.h */,
-				6313DCDA3FCA4C65D52CD514 /* MogTransformation.h */,
-				6313D18DDF2E3A5ED92D8280 /* MogTransformation.m */,
-				6313D6FC822B6EB4294F42B4 /* MogReduce.h */,
-				6313D4F60D39DC6032BEF249 /* MogReduce.m */,
-				6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */,
-				6313DA19720500FEB4094902 /* NSArray+MogKit.h */,
-				6313D2953BE9BA10D740E788 /* NSObject+MogKit.m */,
-				6313DBB24D124431EF1616C5 /* NSObject+MogKit.h */,
 			);
 			path = MogKit;
 			sourceTree = "<group>";
@@ -179,12 +172,8 @@
 		40B9A6281A9524070062C693 /* MogKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				99E89C391AEEB5230093D0DC /* Objective-C */,
 				40B9A6291A9524070062C693 /* Supporting Files */,
-				40B9A6331A95241C0062C693 /* MogTransformationTests.m */,
-				6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */,
-				6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */,
-				6313DF459141FACBF1F00FC8 /* MogReduceTests.m */,
-				6313D3D5672BFEF6BC26FB82 /* NSObjectExtensionTests.m */,
 			);
 			path = MogKitTests;
 			sourceTree = "<group>";
@@ -195,6 +184,33 @@
 				40B9A62A1A9524070062C693 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		99E89C381AEEB4CD0093D0DC /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				6313DCDA3FCA4C65D52CD514 /* MogTransformation.h */,
+				6313D18DDF2E3A5ED92D8280 /* MogTransformation.m */,
+				6313D6FC822B6EB4294F42B4 /* MogReduce.h */,
+				6313D4F60D39DC6032BEF249 /* MogReduce.m */,
+				6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */,
+				6313DA19720500FEB4094902 /* NSArray+MogKit.h */,
+				6313D2953BE9BA10D740E788 /* NSObject+MogKit.m */,
+				6313DBB24D124431EF1616C5 /* NSObject+MogKit.h */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		99E89C391AEEB5230093D0DC /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				40B9A6331A95241C0062C693 /* MogTransformationTests.m */,
+				6313DAE43FF93B90D20954BC /* MogKitPerfTests.m */,
+				6313DEEF661B2573A4D9037F /* NSArrayExtensionTests.m */,
+				6313DF459141FACBF1F00FC8 /* MogReduceTests.m */,
+				6313D3D5672BFEF6BC26FB82 /* NSObjectExtensionTests.m */,
+			);
+			path = "Objective-C";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

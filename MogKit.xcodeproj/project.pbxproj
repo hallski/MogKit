@@ -44,6 +44,10 @@
 		99497FC31AAEF38D00EC4E21 /* MogTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DCDA3FCA4C65D52CD514 /* MogTransformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99497FC41AAEF38D00EC4E21 /* MogReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313D6FC822B6EB4294F42B4 /* MogReduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99497FC51AAEF38D00EC4E21 /* NSArray+MogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313DA19720500FEB4094902 /* NSArray+MogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99E89C3D1AEED4C50093D0DC /* TransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E89C3C1AEED4C50093D0DC /* TransformationTests.swift */; };
+		99E89C3E1AEED4C50093D0DC /* TransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E89C3C1AEED4C50093D0DC /* TransformationTests.swift */; };
+		99E89C401AEED5190093D0DC /* Transformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E89C3F1AEED5190093D0DC /* Transformation.swift */; };
+		99E89C411AEED5190093D0DC /* Transformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E89C3F1AEED5190093D0DC /* Transformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +100,8 @@
 		6313DF459141FACBF1F00FC8 /* MogReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MogReduceTests.m; sourceTree = "<group>"; };
 		6313DF5692783E843CF7DE05 /* NSArray+MogKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MogKit.m"; sourceTree = "<group>"; };
 		99497FA71AAEEF2B00EC4E21 /* libMogKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMogKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		99E89C3C1AEED4C50093D0DC /* TransformationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformationTests.swift; sourceTree = "<group>"; };
+		99E89C3F1AEED5190093D0DC /* Transformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,7 @@
 		40B9A61B1A9524070062C693 /* MogKit */ = {
 			isa = PBXGroup;
 			children = (
+				99E89C3A1AEED4690093D0DC /* Swift */,
 				99E89C381AEEB4CD0093D0DC /* Objective-C */,
 				40B9A61C1A9524070062C693 /* MogKit.h */,
 			);
@@ -172,6 +179,7 @@
 		40B9A6281A9524070062C693 /* MogKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				99E89C3B1AEED4790093D0DC /* Swift */,
 				99E89C391AEEB5230093D0DC /* Objective-C */,
 				40B9A6291A9524070062C693 /* Supporting Files */,
 			);
@@ -211,6 +219,22 @@
 				6313D3D5672BFEF6BC26FB82 /* NSObjectExtensionTests.m */,
 			);
 			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		99E89C3A1AEED4690093D0DC /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				99E89C3F1AEED5190093D0DC /* Transformation.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		99E89C3B1AEED4790093D0DC /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				99E89C3C1AEED4C50093D0DC /* TransformationTests.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +487,7 @@
 				40B9A6DF1A97EC680062C693 /* MogReduce.m in Sources */,
 				6313D179315A28E5022DB34E /* NSArray+MogKit.m in Sources */,
 				6313D176238333DF7738860B /* NSObject+MogKit.m in Sources */,
+				99E89C411AEED5190093D0DC /* Transformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +499,7 @@
 				6313DEBBA7BE3BE52606A406 /* NSArrayExtensionTests.m in Sources */,
 				6313DC63CF8753FDC0CE84BC /* MogReduceTests.m in Sources */,
 				6313DCFFB7CADF1F2858B732 /* NSObjectExtensionTests.m in Sources */,
+				99E89C3E1AEED4C50093D0DC /* TransformationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +511,7 @@
 				40B9A6E11A97EC690062C693 /* MogReduce.m in Sources */,
 				6313D23FFFC5D8AD35EB349E /* NSArray+MogKit.m in Sources */,
 				6313D0F1FF5E40AB36947A7F /* NSObject+MogKit.m in Sources */,
+				99E89C401AEED5190093D0DC /* Transformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +523,7 @@
 				6313DA33E32E29B8A43571CC /* NSArrayExtensionTests.m in Sources */,
 				6313D83BF4DB5BED70D4B629 /* MogReduceTests.m in Sources */,
 				6313D54580BD3636890D5E9D /* NSObjectExtensionTests.m in Sources */,
+				99E89C3D1AEED4C50093D0DC /* TransformationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +590,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -598,7 +626,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -607,6 +635,7 @@
 		40B9A6BB1A97EAE90062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -628,6 +657,7 @@
 				PRODUCT_NAME = MogKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -637,6 +667,7 @@
 		40B9A6BC1A97EAE90062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -664,6 +695,7 @@
 		40B9A6BE1A97EAE90062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -677,12 +709,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		40B9A6BF1A97EAE90062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -699,6 +733,7 @@
 		40B9A6D91A97EAFD0062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -719,6 +754,7 @@
 				);
 				PRODUCT_NAME = MogKit;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -727,6 +763,7 @@
 		40B9A6DA1A97EAFD0062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -751,6 +788,7 @@
 		40B9A6DC1A97EAFD0062C693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -763,12 +801,14 @@
 				INFOPLIST_FILE = MogKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		40B9A6DD1A97EAFD0062C693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -869,6 +909,7 @@
 				99497FB91AAEEF2B00EC4E21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

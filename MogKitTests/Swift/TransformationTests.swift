@@ -78,6 +78,27 @@ class TransformationTests : XCTestCase {
         XCTAssertEqual(result, expected)
     }
 
+    func testTakeReuse() {
+        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let expected = [1, 2, 3, 4, 5]
+        
+        let takeFive = Take<Int>(5)
+        
+        var result = reduce(array, [], takeFive.transduce { $0 + [$1] })
+        XCTAssertEqual(result, expected)
+        
+        result = reduce(array, [], takeFive.transduce { $0 + [$1] })
+        XCTAssertEqual(result, expected)
+    }
+    
+    func testTakeWhile() {
+        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let expected = [1, 2, 3, 4]
+        
+        let result = reduce(array, [], TakeWhile({ $0 % 5 != 0 }).transduce { $0 + [$1] })
+        XCTAssertEqual(result, expected)
+    }
+
     func testDropNil() {
         let array = [1, 2, 3, 4, 5]
         let expected = [1, 3, 5]

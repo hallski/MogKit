@@ -75,6 +75,25 @@ public struct Take<T>: Transformation {
     private let take: Int
 }
 
+public struct TakeWhile<T>: Transformation {
+    public init(_ predciate: T -> Bool) {
+        self.predicate = predciate
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        var done = false
+        return {
+            // This should use STOP
+            if self.predicate($1) == false {
+                done = true
+            }
+            
+            return done ? $0 : reducer($0, $1)
+        }
+    }
+    
+    private let predicate: T -> Bool
+}
 
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {

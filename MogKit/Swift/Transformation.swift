@@ -110,6 +110,20 @@ public struct TakeNth<T>: Transformation {
     private let n: Int
 }
 
+public struct Drop<T>: Transformation {
+    public init(_ n: Int) {
+        self.n = n
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        var dropped = 0
+        return {
+            return dropped++ < self.n ? $0 : reducer($0, $1)
+        }
+    }
+    
+    private let n: Int
+}
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {
     public init() {}

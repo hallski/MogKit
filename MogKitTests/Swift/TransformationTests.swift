@@ -107,6 +107,14 @@ class TransformationTests : XCTestCase {
         XCTAssertEqual(result, expected)
     }
 
+    func testDrop() {
+        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let expected = [4, 5, 6, 7, 8, 9, 10]
+        
+        let result = reduce(array, [], Drop(3).transduce { $0 + [$1] })
+        XCTAssertEqual(result, expected)
+    }
+    
     func testDropNil() {
         let array = [1, 2, 3, 4, 5]
         let expected = [1, 3, 5]

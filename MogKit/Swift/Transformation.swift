@@ -60,6 +60,22 @@ public struct Remove<T>: Transformation {
     private let predicate: T -> Bool
 }
 
+public struct Take<T>: Transformation {
+    public init(_ take: Int) {
+        self.take = take
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        var taken = 0
+        return {
+            return taken++ < self.take ? reducer($0, $1) : $0
+        }
+    }
+    
+    private let take: Int
+}
+
+
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {
     public init() {}

@@ -46,7 +46,20 @@ public struct Filter<T>: Transformation {
     private let predicate: T -> Bool
 }
 
-// Map<Int -> String> |> Filter<String> ==> something that takes ints and outputs strings
+// Should probably have a different name (UnwrapOptional) or something
+public struct DropNil<T>: Transformation {
+    public init() {}
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, Optional<T>) -> AccumType {
+        return {
+            if let val = $1 {
+                return reducer($0, val)
+            } else {
+                return $0
+            }
+        }
+    }
+}
 
 public struct Compose<F: Transformation, G: Transformation where F.Element == G.BaseElement>: Transformation {
     typealias Element = G.Element
@@ -66,8 +79,8 @@ public struct Compose<F: Transformation, G: Transformation where F.Element == G.
 }
 
 
-infix operator >>> { associativity right }
-public func >>> <F: Transformation, G: Transformation where F.Element == G.BaseElement> (f: F, g: G) -> Compose<F,G> {
+infix operator |> { associativity right }
+public func |> <F: Transformation, G: Transformation where F.Element == G.BaseElement> (f: F, g: G) -> Compose<F,G> {
     return Compose(f, g)
 }
 

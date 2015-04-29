@@ -95,6 +95,21 @@ public struct TakeWhile<T>: Transformation {
     private let predicate: T -> Bool
 }
 
+public struct TakeNth<T>: Transformation {
+    public init(_ n: Int) {
+        self.n = n
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        var i = 0
+        return {
+            return i++ % self.n == 0 ? reducer($0, $1) : $0
+        }
+    }
+    
+    private let n: Int
+}
+
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {
     public init() {}

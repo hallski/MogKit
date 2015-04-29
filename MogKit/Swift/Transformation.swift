@@ -46,6 +46,20 @@ public struct Filter<T>: Transformation {
     private let predicate: T -> Bool
 }
 
+public struct Remove<T>: Transformation {
+    public init(_ predicate: T -> Bool) {
+        self.predicate = predicate
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        return {
+            self.predicate($1) ? $0 : reducer($0, $1)
+        }
+    }
+    
+    private let predicate: T -> Bool
+}
+
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {
     public init() {}

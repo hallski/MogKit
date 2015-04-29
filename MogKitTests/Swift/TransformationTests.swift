@@ -41,7 +41,6 @@ class TransformationTests : XCTestCase {
         
         XCTAssertEqual(result, expected)
     }
-    
 
     func testFilter() {
         let array = [1, 10, 15, 20]
@@ -53,6 +52,15 @@ class TransformationTests : XCTestCase {
         XCTAssertEqual(result, expected)
     }
     
+    func testRemove() {
+        let array = [1, 10, 15, 20]
+        let expected = [1, 20]
+        
+        let result = reduce(array, [], Remove({ $0 >= 10 && $0 <= 15}).transduce { $0 + [$1] })
+        
+        XCTAssertEqual(result, expected)
+    }
+
     func testDropNil() {
         let array = [1, 2, 3, 4, 5]
         let expected = [1, 3, 5]

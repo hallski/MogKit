@@ -1,11 +1,8 @@
 //
-//  Transformation.swift
-//  MogKit
+// MogKit
 //
-//  Created by Mikael Hallendal on 27/04/15.
-//  Copyright (c) 2015 Mikael Hallendal. All rights reserved.
+// Copyright (c) 2015 Mikael Hallendal. All rights reserved.
 //
-
 import Foundation
 
 
@@ -124,6 +121,26 @@ public struct Drop<T>: Transformation {
     
     private let n: Int
 }
+
+public struct DropWhile<T>: Transformation {
+    public init(_ predicate: T -> Bool) {
+        self.predicate = predicate
+    }
+    
+    public func transduce<AccumType>(reducer: (AccumType, T) -> AccumType) -> (AccumType, T) -> AccumType {
+        var doneDropping = false
+        return {
+            if self.predicate($1) == false {
+                doneDropping = true
+            }
+            
+            return doneDropping ? reducer($0, $1) : $0
+        }
+    }
+    
+    private let predicate: T -> Bool
+}
+
 // Should probably have a different name (UnwrapOptional) or something
 public struct DropNil<T>: Transformation {
     public init() {}
@@ -137,6 +154,26 @@ public struct DropNil<T>: Transformation {
             }
         }
     }
+}
+
+public struct Replace<T: Hashable, U>: Transformation {
+    public init(_ replacements: [T: U], fallBack: U) {
+        self.replacements = replacements
+        self.fallBack = fallBack
+    }
+
+    public func transduce<AccumType>(reducer: (AccumType, U) -> AccumType) -> (AccumType, T) -> AccumType {
+        return {
+            if let replacement = self.replacements[$1] {
+                return reducer($0, replacement)
+            } else {
+                return reducer($0, self.fallBack)
+            }
+        }
+    }
+
+    private let replacements: [T: U]
+    private let fallBack: U
 }
 
 public struct Compose<F: Transformation, G: Transformation where F.Element == G.BaseElement>: Transformation {

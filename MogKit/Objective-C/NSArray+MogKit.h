@@ -38,7 +38,7 @@
 /**
  * Convenience method for calling `-mog_transform:` with `MOGMap`.
  *
- * @param the mapBlock to pass to `MOGMap`.
+ * @param mapBlock the mapBlock to pass to `MOGMap`.
  *
  * @return a newly created array with the transformed values.
  */

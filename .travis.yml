@@ -1,9 +1,0 @@
-language: objective-c
-
-before_install:
-  - brew update
-  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
-
-script:
-  - xctool test -project MogKit.xcodeproj -scheme MogKit-Mac -sdk macosx10.10
-  - sh ./create-static-framework.sh
